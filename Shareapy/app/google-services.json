@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "970906688150",
+    "firebase_url": "https://shareapy-a9543.firebaseio.com",
+    "project_id": "shareapy-a9543",
+    "storage_bucket": "shareapy-a9543.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:970906688150:android:17cc9a551e0dcb9af0c0b7",
+        "android_client_info": {
+          "package_name": "com.example.shareapy"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "970906688150-jvu8pk415pmv5b96lfuvsh27gqhrmb78.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBv-oaNYWzwxoswefT0czlOU1JFs5aq6J4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "970906688150-jvu8pk415pmv5b96lfuvsh27gqhrmb78.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
