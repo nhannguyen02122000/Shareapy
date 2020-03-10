@@ -1,3 +1,24 @@
 <resources>
     <string name="app_name">Shareapy</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="repassword">Confirm Password</string>
+    <string name="welcome">Welcome to Shareapy!</string>
+    <string name="login_guide">Sign in to continue</string>
+    <string name="login_forgetPassword">Forgot your password?</string>
+    <string name="login_buttonLogIn">Log in</string>
+    <string name="login_buttonSignUp">Sign up</string>
+    <string name="login_errorEmail">Email is required</string>
+    <string name="signup_guide">Sign up</string>
+    <string name="signup_login">Log in now</string>
+    <string name="signup_ask_gender">What is your gender?</string>
+    <string name="signup_ask_age">What is your age?</string>
+    <string name="signup_ask_religious">Do you consider yourself to be religious?</string>
+    <string name="signup_ask_spiritual">Do you consider yourself to be spiritual?</string>
+    <string name="signup_ask_therapy_counseling">Have you ever been in therapy or counseling before?</string>
+    <string name="signup_gender_male">Male</string>
+    <string name="signup_gender_female">Female</string>
+    <string name="signup_gender_other">Other</string>
+    <string name="signup_button_next">Next</string>
+    <string name="signup_before_start">Before you start ...</string>
 </resources>
