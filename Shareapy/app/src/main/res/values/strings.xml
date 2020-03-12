@@ -17,9 +17,12 @@
     <string name="signup_ask_religious">Do you consider yourself to be religious?</string>
     <string name="signup_ask_spiritual">Do you consider yourself to be spiritual?</string>
     <string name="signup_ask_therapy_counseling">Have you ever been in therapy or counseling before?</string>
+    <string name="signup_before_start">Before you start...</string>
     <string name="signup_gender_male">Male</string>
     <string name="signup_gender_female">Female</string>
     <string name="signup_gender_other">Other</string>
     <string name="signup_button_next">Next</string>
-    <string name="signup_before_start">Before you start ...</string>
+    <string name="age">Age</string>
+    <string name="yes">YES</string>
+    <string name="no">NO</string>
 </resources>

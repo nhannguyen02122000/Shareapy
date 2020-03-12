@@ -9,9 +9,10 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 
 import com.example.shareapy.R;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class SplashScreen extends AppCompatActivity {
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,6 +24,5 @@ public class SplashScreen extends AppCompatActivity {
                 startActivity(toLogin);
             }
         },2000);
-
     }
 }

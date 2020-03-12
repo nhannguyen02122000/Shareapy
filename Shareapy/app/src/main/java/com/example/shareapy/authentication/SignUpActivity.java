@@ -88,20 +88,10 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         }
         else if (equalStr)
         {
-            mFirebaseAuth.createUserWithEmailAndPassword(email,pass).addOnCompleteListener(SignUpActivity.this, new OnCompleteListener<AuthResult>() {
-                @Override
-                public void onComplete(@NonNull Task<AuthResult> task) {
-                    if (!task.isSuccessful())
-                    {
-                        Toast.makeText(SignUpActivity.this,"Sign up unsuccessful!",Toast.LENGTH_SHORT).show();
-                    }
-                    else{
-                        Toast.makeText(SignUpActivity.this,"Sign up successful!",Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(SignUpActivity.this,MainActivity.class);
-                        startActivity(intent);
-                    }
-                }
-            });
+            user.setUserID(email);
+            user.setPassword(pass);
+            startActivity(new Intent(SignUpActivity.this,SignUpSlides.class));
+            finish();
         }
         else {
             Toast.makeText(SignUpActivity.this,"Error occured!",Toast.LENGTH_SHORT).show();}

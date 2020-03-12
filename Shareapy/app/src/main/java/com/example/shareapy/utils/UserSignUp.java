@@ -1,17 +1,24 @@
 package com.example.shareapy.utils;
 
+import android.util.Log;
+
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class UserSignUp {
     private static UserSignUp instance = null;
     private String userID,password,gender;
     private int age;
-    private boolean isReligious,isSpiritual, wasTherapy;
+    private String isReligious,isSpiritual, wasTherapy;
     FirebaseAuth mFireBaseAuth;
     private UserSignUp()
     {
         //Constructor goes here
         mFireBaseAuth = FirebaseAuth.getInstance();
+        userID=password=gender="";
+        age=-1;
+        isReligious = isSpiritual = wasTherapy = "";
     }
     public static UserSignUp getInstance()
     {
@@ -38,12 +45,12 @@ public class UserSignUp {
     public int getAge(){return this.age;}
     public void setAge(int age){this.age=age;}
 
-    public boolean getReligious(){return this.isReligious;}
-    public void setReligious(boolean religious) {this.isReligious = religious;}
+    public String getReligious(){return this.isReligious;}
+    public void setReligious(String religious) {this.isReligious = religious;}
 
-    public boolean getSpiritual(){return  this.isSpiritual;}
-    public void setSpiritual(boolean spiritual) {this.isSpiritual = spiritual;}
+    public String getSpiritual(){return  this.isSpiritual;}
+    public void setSpiritual(String spiritual) {this.isSpiritual = spiritual;}
 
-    public boolean getTherapy() {return wasTherapy;}
-    public void setTherapy(boolean wasTherapy) {this.wasTherapy = wasTherapy;}
+    public String getTherapy() {return wasTherapy;}
+    public void setTherapy(String wasTherapy) {this.wasTherapy = wasTherapy;}
 }

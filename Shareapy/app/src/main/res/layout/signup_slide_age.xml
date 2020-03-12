@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     android:layout_height="match_parent">
     <Button
-        android:id="@+id/btnPre_gender"
+        android:id="@+id/btnPre_age"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:text="pre"
@@ -26,7 +26,7 @@
         android:layout_centerHorizontal="true"
         android:layout_width="match_parent"
         android:layout_above="@+id/lyAnswer"
-        android:text="@string/signup_ask_gender"
+        android:text="@string/signup_ask_age"
         android:textSize="20sp"
         android:textStyle="bold"
         android:paddingStart="30dp"
@@ -38,52 +38,26 @@
         android:layout_centerInParent="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <RadioGroup
-            android:paddingStart="10dp"
-            android:paddingEnd="10dp"
-            android:id="@+id/rdgGender"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilAge_slideAge"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
             android:layout_width="match_parent"
-            android:orientation="horizontal"
+            android:background="@drawable/custom_edittext_shadow"
             android:layout_height="wrap_content">
 
-            <RadioButton
-                android:id="@+id/genderSlide_male"
-                android:layout_width="wrap_content"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/tiedtAge_slideAge"
+                android:layout_margin="5dp"
+                android:inputType="number"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@drawable/custom_radiobutton_signup"
-                android:button="@android:color/transparent"
-                android:gravity="center"
-                android:padding="10dp"
-                android:text="@string/signup_gender_male"
-                android:textSize="20sp" />
-            <RadioButton
-                android:id="@+id/genderSlide_female"
-                android:text="@string/signup_gender_female"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:textSize="20sp"
-                android:padding="10dp"
-                android:background="@drawable/custom_radiobutton_signup"
-                android:button="@android:color/transparent"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-            <RadioButton
-                android:id="@+id/genderSlide_other"
-                android:text="@string/signup_gender_other"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:textSize="20sp"
-                android:padding="10dp"
-                android:background="@drawable/custom_radiobutton_signup"
-                android:button="@android:color/transparent"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-        </RadioGroup>
+                android:hint="@string/age"/>
+        </com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>
 
     <Button
-        android:id="@+id/btnNext_gender"
+        android:id="@+id/btnNext_age"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/lyAnswer"

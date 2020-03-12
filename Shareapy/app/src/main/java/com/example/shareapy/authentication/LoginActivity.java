@@ -27,7 +27,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     TextInputEditText tiedtEmail, tiedtPassword; //IMPORTANT: PASSWORD must have at least 6 chars
     Button btnSignUp,btnLogIn;
     FirebaseAuth mFireBaseAuth;
-    static boolean hasLogIn = false;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,12 +48,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             @Override
         public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
             FirebaseUser mFirebaseUser = mFireBaseAuth.getCurrentUser();
-            if (mFirebaseUser != null && !hasLogIn)
+            if (mFirebaseUser != null )
             {
                 Toast.makeText(LoginActivity.this,"You have already logged in!",Toast.LENGTH_SHORT).show();
-                hasLogIn=true;
                 Intent i = new Intent(LoginActivity.this, MainActivity.class);
                 startActivity(i);
+                finish();
             }
             else
             {
@@ -112,6 +111,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         Toast.makeText(LoginActivity.this,"Login successful!",Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(LoginActivity.this,MainActivity.class);
                         startActivity(intent);
+                        finish();
                     }
                 }
             });
@@ -125,6 +125,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             case R.id.btnSignUp_logIn:
                 Intent toSignUp = new Intent(LoginActivity.this,SignUpActivity.class);
                 startActivity(toSignUp);
+                finish();
                 break;
             case R.id.btnLogIn_logIn:
                 logIn(v);

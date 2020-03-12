@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.example.shareapy.authentication.LoginActivity;
+import com.example.shareapy.utils.UserSignUp;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity {
@@ -26,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
                 FirebaseAuth.getInstance().signOut();
                 Intent toLogin = new Intent(MainActivity.this, LoginActivity.class);
                 startActivity(toLogin);
+                finish();
             }
         });
     }
