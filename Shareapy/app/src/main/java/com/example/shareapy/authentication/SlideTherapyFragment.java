@@ -19,19 +19,26 @@ import com.example.shareapy.MainActivity;
 import com.example.shareapy.R;
 import com.example.shareapy.utils.UserSignUp;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class SlideTherapyFragment extends Fragment {
     Button btnPre,btnSignUp;
-    UserSignUp user;
+    UserSignUp userSignUp;
     RadioGroup radioThe;
     RadioButton radioButThe;
     FirebaseAuth mFirebaseAuth;
     DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
+    private String TAG = this.getClass().getName();
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -48,7 +55,7 @@ public class SlideTherapyFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 //Check for validation
-                    user = UserSignUp.getInstance();
+                    userSignUp= UserSignUp.getInstance();
                     int checkedID = radioThe.getCheckedRadioButtonId();
                     if (checkedID == -1 )
                     {
@@ -56,33 +63,58 @@ public class SlideTherapyFragment extends Fragment {
                         return;
                     }
                     radioButThe = view.findViewById(checkedID);
-                    user.setTherapy(radioButThe.getText().toString().trim());
-                //Add Data
-                    DatabaseReference mUser = mRootRef.child(user.getUserID());
-                    mUser.child("Gender").setValue(user.getGender());
-                    mUser.child("Therapy").setValue(user.getTherapy());
+                    userSignUp.setTherapy(radioButThe.getText().toString().trim());
+
                 //SignUp
-                    String email = user.getUserID();
-                    String pass = user.getPassword();
-//                    mFirebaseAuth = user.getmFireBaseAuth();
-//                    mFirebaseAuth.createUserWithEmailAndPassword(email,pass).addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
-//                        @Override
-//                        public void onComplete(@NonNull Task<AuthResult> task) {
-//                                if (!task.isSuccessful())
-//                                {
-//                                    Toast.makeText(getContext(),"Sign up unsuccessful!",Toast.LENGTH_SHORT).show();
-//                                }
-//                                else{
-//                                    Toast.makeText(getContext(),"Sign up successful!",Toast.LENGTH_SHORT).show();
-//                                }
-//                            }
-//                        });
-                //Change to main activity
-                    getActivity().startActivity(new Intent(getActivity(), MainActivity.class));
-                    getActivity().finish();
+                    String email = userSignUp.getUserID();
+                    String pass = userSignUp.getPassword();
+                    mFirebaseAuth = userSignUp.getmFireBaseAuth();
+                    mFirebaseAuth.createUserWithEmailAndPassword(email, pass).addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                                if (!task.isSuccessful())
+                                {
+                                    Toast.makeText(getContext(),"Sign up unsuccessful!",Toast.LENGTH_SHORT).show();
+                                    Log.e(TAG,"Error");
+                                }
+                                else{
+                                    Toast.makeText(getContext(),"Sign up successful!",Toast.LENGTH_SHORT).show();
+                                    //Add data
+                                    FirebaseUser user = mFirebaseAuth.getCurrentUser();
+                                    createDBUser(user);
+                                    startActivity(new Intent(getActivity(),MainActivity.class));
+                                }
+                            }
+                        });
             }
         });
         return view;
+    }
+
+    private void createDBUser(FirebaseUser fbUser) {
+        String uid = fbUser.getUid();
+        DatabaseReference userRef = mRootRef.child("users").child(uid);
+        HashMap<String, Object> user = new HashMap<>();
+        user.put("email", fbUser.getEmail());
+        user.put("gender",userSignUp.getGender());
+        user.put("age",userSignUp.getAge());
+        user.put("religious",userSignUp.getReligious());
+        user.put("spiritual",userSignUp.getSpiritual());
+        user.put("therapy",userSignUp.getTherapy());
+        //user.put("name", fbUser.getDisplayName());
+
+        userRef.setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                Log.d(TAG, "Succeeded");
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.e(TAG, e.getMessage());
+            }
+        });
+
     }
     private void createView(View view) {
         btnPre = view.findViewById(R.id.btnPre_therapy);
@@ -90,9 +122,4 @@ public class SlideTherapyFragment extends Fragment {
         radioThe= view.findViewById(R.id.rdgTherapy);
     }
 
-
-//    private void addUserData()
-//    {
-//
-//    }
 }
