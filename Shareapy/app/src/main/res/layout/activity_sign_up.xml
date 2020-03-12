@@ -49,6 +49,7 @@
                 android:layout_margin="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:inputType="textPassword"
                 android:hint="@string/password"/>
         </com.google.android.material.textfield.TextInputLayout>
         <com.google.android.material.textfield.TextInputLayout
@@ -64,10 +65,12 @@
                 android:layout_margin="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:inputType="textPassword"
                 android:hint="@string/repassword"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
+            android:id="@+id/tv_logIn_signUp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
@@ -77,10 +80,11 @@
             android:textSize="20sp" />
 
         <Button
+            android:id="@+id/btnNext_signUp"
             android:textSize="20sp"
             android:textColor="#ffffff"
             android:background="@drawable/custom_button_login"
-            android:text="@string/login_buttonSignUp"
+            android:text="@string/signup_button_next"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
     </LinearLayout>

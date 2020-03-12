@@ -8,7 +8,8 @@
     <string name="login_forgetPassword">Forgot your password?</string>
     <string name="login_buttonLogIn">Log in</string>
     <string name="login_buttonSignUp">Sign up</string>
-    <string name="login_errorEmail">Email is required</string>
+    <string name="error_emptyFiled">This field can not be empty</string>
+    <string name="error_differentString">Confirm password must be the same as Password</string>
     <string name="signup_guide">Sign up</string>
     <string name="signup_login">Log in now</string>
     <string name="signup_ask_gender">What is your gender?</string>
