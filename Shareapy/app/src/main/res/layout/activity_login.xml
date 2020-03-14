@@ -31,7 +31,7 @@
             android:textSize="30sp"
             android:text="@string/login_guide"/>
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/tilEmail"
+            android:id="@+id/tilEmail_logIn"
             android:paddingTop="5dp"
             android:paddingBottom="5dp"
             android:layout_width="match_parent"
@@ -39,7 +39,7 @@
             android:layout_height="wrap_content">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/tiedtEmail"
+                android:id="@+id/tiedtEmail_logIn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
@@ -48,7 +48,7 @@
                 android:textSize="20sp" />
         </com.google.android.material.textfield.TextInputLayout>
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/tilPassword"
+            android:id="@+id/tilPassword_logIn"
             android:paddingTop="5dp"
             android:paddingBottom="5dp"
             android:layout_width="match_parent"
@@ -56,8 +56,9 @@
             android:layout_height="wrap_content">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/tiedtPassword"
+                android:id="@+id/tiedtPassword_logIn"
                 android:layout_margin="5dp"
+                android:inputType="textPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/password"/>
@@ -71,6 +72,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
         <Button
+            android:id="@+id/btnLogIn_logIn"
             android:textSize="20sp"
             android:textColor="#ffffff"
             android:layout_marginTop="15dp"
@@ -81,6 +83,7 @@
             android:layout_height="wrap_content"
             android:onClick="logIn"/>
         <Button
+            android:id="@+id/btnSignUp_logIn"
             android:textSize="20sp"
             android:textColor="#ffffff"
             android:background="@drawable/custom_button_login"
