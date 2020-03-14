@@ -1,4 +1,4 @@
-package com.example.shareapy;
+package com.example.shareapy.home;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,8 +7,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.example.shareapy.R;
 import com.example.shareapy.authentication.LoginActivity;
-import com.example.shareapy.utils.UserSignUp;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity {

@@ -15,7 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.example.shareapy.MainActivity;
+import com.example.shareapy.home.Home;
 import com.example.shareapy.R;
 import com.example.shareapy.utils.UserSignUp;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -28,7 +28,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.HashMap;
-import java.util.Map;
 
 public class SlideTherapyFragment extends Fragment {
     Button btnPre,btnSignUp;
@@ -82,7 +81,7 @@ public class SlideTherapyFragment extends Fragment {
                                     //Add data
                                     FirebaseUser user = mFirebaseAuth.getCurrentUser();
                                     createDBUser(user);
-                                    startActivity(new Intent(getActivity(),MainActivity.class));
+                                    startActivity(new Intent(getActivity(), Home.class));
                                 }
                             }
                         });

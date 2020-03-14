@@ -2,7 +2,6 @@ package com.example.shareapy.authentication;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -11,7 +10,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.shareapy.MainActivity;
+import com.example.shareapy.home.Home;
 import com.example.shareapy.R;
 import com.example.shareapy.utils.UserSignUp;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -51,7 +50,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             if (mFirebaseUser != null )
             {
                 Toast.makeText(LoginActivity.this,"You have already logged in!",Toast.LENGTH_SHORT).show();
-                Intent i = new Intent(LoginActivity.this, MainActivity.class);
+                Intent i = new Intent(LoginActivity.this, Home.class);
                 startActivity(i);
                 finish();
             }
@@ -109,7 +108,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     else
                     {
                         Toast.makeText(LoginActivity.this,"Login successful!",Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(LoginActivity.this,MainActivity.class);
+                        Intent intent = new Intent(LoginActivity.this,Home.class);
                         startActivity(intent);
                         finish();
                     }
