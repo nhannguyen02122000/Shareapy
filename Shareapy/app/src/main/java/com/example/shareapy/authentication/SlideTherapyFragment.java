@@ -65,7 +65,7 @@ public class SlideTherapyFragment extends Fragment {
                     userSignUp.setTherapy(radioButThe.getText().toString().trim());
 
                 //SignUp
-                    String email = userSignUp.getUserID();
+                    String email = userSignUp.getUserMail();
                     String pass = userSignUp.getPassword();
                     mFirebaseAuth = userSignUp.getmFireBaseAuth();
                     mFirebaseAuth.createUserWithEmailAndPassword(email, pass).addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
@@ -92,9 +92,11 @@ public class SlideTherapyFragment extends Fragment {
 
     private void createDBUser(FirebaseUser fbUser) {
         String uid = fbUser.getUid();
+        userSignUp.setUserID(uid);
         DatabaseReference userRef = mRootRef.child("users").child(uid);
         HashMap<String, Object> user = new HashMap<>();
-        user.put("email", fbUser.getEmail());
+        user.put("name",userSignUp.getUserName());
+        user.put("email", userSignUp.getUserMail());
         user.put("gender",userSignUp.getGender());
         user.put("age",userSignUp.getAge());
         user.put("religious",userSignUp.getReligious());

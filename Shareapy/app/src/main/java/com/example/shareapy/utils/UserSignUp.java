@@ -8,7 +8,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class UserSignUp {
     private static UserSignUp instance = null;
-    private String userID,password,gender;
+    private String userID,password,gender,userName,userMail;
     private int age;
     private String isReligious,isSpiritual, wasTherapy;
     FirebaseAuth mFireBaseAuth;
@@ -16,7 +16,7 @@ public class UserSignUp {
     {
         //Constructor goes here
         mFireBaseAuth = FirebaseAuth.getInstance();
-        userID=password=gender="";
+        userID=password=gender=userMail="";
         age=-1;
         isReligious = isSpiritual = wasTherapy = "";
     }
@@ -53,4 +53,10 @@ public class UserSignUp {
 
     public String getTherapy() {return wasTherapy;}
     public void setTherapy(String wasTherapy) {this.wasTherapy = wasTherapy;}
+
+    public String getUserName() {return userName;}
+    public void setUserName(String userName) {this.userName = userName;}
+
+    public String getUserMail() {return userMail;}
+    public void setUserMail(String userMail) {this.userMail = userMail;}
 }

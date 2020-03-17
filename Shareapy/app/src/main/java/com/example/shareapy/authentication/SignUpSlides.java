@@ -18,7 +18,7 @@ public class SignUpSlides extends AppCompatActivity {
     @Override
     protected void onStart(){
         super.onStart();
-        Fragment frag = new SlideGenderFragment();
+        Fragment frag = new SlideUsernameFragment();
         //getSupportFragmentManager().beginTransaction().add(R.id.slide_container,frag).addToBackStack(frag.getClass().getSimpleName()).commit();
         getSupportFragmentManager().beginTransaction().replace(R.id.slide_container,frag).commit();
     }

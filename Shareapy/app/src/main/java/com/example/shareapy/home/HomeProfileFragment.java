@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -17,6 +18,7 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class HomeProfileFragment extends Fragment {
     Button btn_signOut;
+    TextView tv_logOut;
     FirebaseAuth mFirebaseAuth;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
     @Nullable
@@ -24,8 +26,8 @@ public class HomeProfileFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.home_profile_fragment,container,false);
 
-        btn_signOut = view.findViewById(R.id.btnLogOut_home_profile_frag);
-        btn_signOut.setOnClickListener(new View.OnClickListener() {
+        tv_logOut = view.findViewById(R.id.tv_logOut_home_profile);
+        tv_logOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 FirebaseAuth.getInstance().signOut();
@@ -34,6 +36,7 @@ public class HomeProfileFragment extends Fragment {
                 getActivity().finish();
             }
         });
+
         return view;
     }
 
