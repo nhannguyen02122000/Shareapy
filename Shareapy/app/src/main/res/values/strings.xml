@@ -24,6 +24,7 @@
     <string name="signup_gender_female">Female</string>
     <string name="signup_gender_other">Other</string>
     <string name="signup_button_next">Next</string>
+    <string name="login_ask_feeling">How are you feeling?</string>
     <string name="age">Age</string>
     <string name="yes">YES</string>
     <string name="no">NO</string>

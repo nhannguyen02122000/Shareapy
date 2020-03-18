@@ -72,7 +72,6 @@
                     android:elevation="44dp"
                     android:src="@drawable/home_header" />
             </RelativeLayout>
-
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -367,6 +366,9 @@
                     android:textColor="#B23D3333"/>
 
             </RelativeLayout>
+            <com.applandeo.materialcalendarview.CalendarView
+                android:layout_width="match_parent"
+                android:layout_height="500dp"/>
             <CalendarView
                 android:id="@+id/clv_home"
                 android:layout_width="wrap_content"
