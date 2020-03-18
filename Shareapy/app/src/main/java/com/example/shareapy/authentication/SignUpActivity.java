@@ -83,7 +83,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         }
         else if (equalStr)
         {
-            user.setUserID(email);
+            user.setUserMail(email);
             user.setPassword(pass);
             startActivity(new Intent(SignUpActivity.this,SignUpSlides.class));
             finish();

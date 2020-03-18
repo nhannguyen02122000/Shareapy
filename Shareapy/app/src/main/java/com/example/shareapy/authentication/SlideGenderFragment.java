@@ -33,8 +33,8 @@ public class SlideGenderFragment extends Fragment {
         btnPre.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getActivity() , SignUpActivity.class));
-                getActivity().finish();
+                Fragment toUserName = new SlideUsernameFragment();
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.slide_container,toUserName).commit();
             }
         });
 
