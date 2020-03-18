@@ -28,4 +28,13 @@
     <string name="age">Age</string>
     <string name="yes">YES</string>
     <string name="no">NO</string>
+    <string name="card_view_img_content">mark</string>
+    <string name="card_view_btn_register">Register</string>
+    <string name="card_view_btn_join">Join</string>
+    <string name="card_view_demo_txt_title">New Mum\'s &amp; Mum\'s-to-be Support Group</string>
+    <string name="card_view_demo_txt_time">12 March 2020, 8:00PM</string>
+    <string name="card_view_demo_counselor">Magie</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
