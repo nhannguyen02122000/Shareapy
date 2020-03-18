@@ -26,6 +26,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
 
@@ -35,7 +36,8 @@ public class SlideTherapyFragment extends Fragment {
     RadioGroup radioThe;
     RadioButton radioButThe;
     FirebaseAuth mFirebaseAuth;
-    DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
+    //DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
     private String TAG = this.getClass().getName();
 
     @Nullable
@@ -65,7 +67,7 @@ public class SlideTherapyFragment extends Fragment {
                     userSignUp.setTherapy(radioButThe.getText().toString().trim());
 
                 //SignUp
-                    String email = userSignUp.getUserID();
+                    String email = userSignUp.getUserMail();
                     String pass = userSignUp.getPassword();
                     mFirebaseAuth = userSignUp.getmFireBaseAuth();
                     mFirebaseAuth.createUserWithEmailAndPassword(email, pass).addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
@@ -92,17 +94,17 @@ public class SlideTherapyFragment extends Fragment {
 
     private void createDBUser(FirebaseUser fbUser) {
         String uid = fbUser.getUid();
-        DatabaseReference userRef = mRootRef.child("users").child(uid);
+        userSignUp.setUserID(uid);
+        //DatabaseReference userRef = mRootRef.child("users").child(uid);
         HashMap<String, Object> user = new HashMap<>();
-        user.put("email", fbUser.getEmail());
+        user.put("name",userSignUp.getUserName());
+        user.put("email", userSignUp.getUserMail());
         user.put("gender",userSignUp.getGender());
         user.put("age",userSignUp.getAge());
         user.put("religious",userSignUp.getReligious());
         user.put("spiritual",userSignUp.getSpiritual());
         user.put("therapy",userSignUp.getTherapy());
-        //user.put("name", fbUser.getDisplayName());
-
-        userRef.setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
+        db.collection("Users").document(uid).set(user).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 Log.d(TAG, "Succeeded");
@@ -113,6 +115,19 @@ public class SlideTherapyFragment extends Fragment {
                 Log.e(TAG, e.getMessage());
             }
         });
+        //user.put("name", fbUser.getDisplayName());
+
+//        userRef.setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
+//            @Override
+//            public void onComplete(@NonNull Task<Void> task) {
+//                Log.d(TAG, "Succeeded");
+//            }
+//        }).addOnFailureListener(new OnFailureListener() {
+//            @Override
+//            public void onFailure(@NonNull Exception e) {
+//                Log.e(TAG, e.getMessage());
+//            }
+//        });
 
     }
     private void createView(View view) {
