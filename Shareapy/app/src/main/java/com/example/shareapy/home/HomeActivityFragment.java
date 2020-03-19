@@ -32,6 +32,8 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
@@ -47,7 +49,7 @@ public class HomeActivityFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.home_activity_fragment,container,false);
+        View view = inflater.inflate(R.layout.home_activity_fragment, container, false);
         tlActivity = view.findViewById(R.id.tlActivity);
         vpActivity = view.findViewById(R.id.vpActivity);
         SavedInstance.homeActivity = getActivity();
@@ -59,16 +61,20 @@ public class HomeActivityFragment extends Fragment {
 
     private void fakeData() {
         CollectionReference activityRef = db.collection("ActivityInfos");
-        for (ActivityInfo info: ActivityInfo.makeSample()){
-            activityRef.add(info).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                @Override
-                public void onSuccess(DocumentReference documentReference) {
-                    Log.e("HomeAct ", "Success" );
-                }
-            }).addOnFailureListener(new OnFailureListener() {
+        for (ActivityInfo info : ActivityInfo.makeSample()) {
+            info.setId(activityRef.document().getId());
+            activityRef.document(info.getId()).set(info).addOnSuccessListener(
+                    new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            Log.e("HomeAct ", "Success");
+
+                        }
+                    }
+            ).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
-                    Log.e("HomeAct ", "Failure" );
+                    Log.e("HomeAct ", "Failure");
                 }
             });
         }
@@ -84,14 +90,34 @@ public class HomeActivityFragment extends Fragment {
                             Date currentTime = Calendar.getInstance().getTime();
                             for (DocumentSnapshot document : task.getResult()) {
                                 ActivityInfo info = document.toObject(ActivityInfo.class);
-                                if (info.getTime().getTime() - currentTime.getTime() > 0){
+                                if (info.getTime().getTime() - currentTime.getTime() > 0) {
                                     activitiesUpcoming.add(info);
-                                } else if (currentTime.getTime() - info.getTime().getTime() > TimeUnit.MINUTES.toMillis(90)){
+                                } else if (currentTime.getTime() - info.getTime().getTime() > TimeUnit.MINUTES.toMillis(90)) {
                                     activitiesHistory.add(info);
                                 } else {
                                     activitiesCurrent.add(info);
                                 }
                             }
+                            Collections.sort(activitiesHistory, new Comparator<ActivityInfo>() {
+                                @Override
+                                public int compare(ActivityInfo activityInfo, ActivityInfo t1) {
+                                    return (int)(t1.getTime().getTime()-activityInfo.getTime().getTime());
+
+                                }
+                            });
+                            Collections.sort(activitiesCurrent, new Comparator<ActivityInfo>() {
+                                @Override
+                                public int compare(ActivityInfo activityInfo, ActivityInfo t1) {
+                                    return (int)(t1.getTime().getTime()-activityInfo.getTime().getTime());
+                                }
+                            });
+                            Collections.sort(activitiesUpcoming, new Comparator<ActivityInfo>() {
+                                @Override
+                                public int compare(ActivityInfo activityInfo, ActivityInfo t1) {
+                                    return (int)(activityInfo.getTime().getTime()-t1.getTime().getTime());
+
+                                }
+                            });
                             FragmentActivityHistory.historyAdapter.setItem(activitiesHistory);
                             FragmentActivityHistory.historyAdapter.notifyDataSetChanged();
                             FragmentActivityUpcoming.upcomingAdapter.setItem(activitiesUpcoming);

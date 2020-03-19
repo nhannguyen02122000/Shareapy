@@ -31,9 +31,12 @@
     <string name="card_view_img_content">mark</string>
     <string name="card_view_btn_register">Register</string>
     <string name="card_view_btn_join">Join</string>
+    <string name="card_view_content">Image</string>
     <string name="card_view_demo_txt_title">New Mum\'s &amp; Mum\'s-to-be Support Group</string>
     <string name="card_view_demo_txt_time">12 March 2020, 8:00PM</string>
     <string name="card_view_demo_counselor">Magie</string>
+    <string name="dialog_how_support_group">How helpful was this Support Group?</string>
+    <string name="button_submit">Submit</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
