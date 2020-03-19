@@ -13,23 +13,39 @@ import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.shareapy.R;
+import com.example.shareapy.utils.Category;
+import com.example.shareapy.utils.CategoryRecyclerAdapter;
+import com.example.shareapy.utils.RecyclerAdapter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class HomeHomeFragment extends Fragment {
-    CardView cvHome;
     CalendarView clvHome;
+    RecyclerView rvCategory;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.home_home_fragment,container,false);
-        cvHome = view.findViewById(R.id.cv_home_lifeStyle);
-        cvHome.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getActivity().startActivity(new Intent(getActivity(),MainActivity.class));
-            }
-        });
+
+        ArrayList<Category> categories = new ArrayList<Category>() {};
+        categories.add(new Category("Life Style",R.drawable.home_android_developer));
+        categories.add(new Category("Physical",R.drawable.home_android_developer));
+        categories.add(new Category("Work",R.drawable.home_android_developer));
+        categories.add(new Category("Relax",R.drawable.home_android_developer));
+        categories.add(new Category("School",R.drawable.home_android_developer));
+        categories.add(new Category("Family",R.drawable.home_android_developer));
+
+        rvCategory = (RecyclerView) view.findViewById(R.id.rv_categories);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+        rvCategory.setLayoutManager(layoutManager);
+        rvCategory.setHasFixedSize(true);
+        rvCategory.setAdapter(new CategoryRecyclerAdapter(getContext(),categories));
+
         clvHome = view.findViewById(R.id.clv_home);
         clvHome.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
