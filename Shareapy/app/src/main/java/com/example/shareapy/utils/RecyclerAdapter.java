@@ -1,11 +1,14 @@
 package com.example.shareapy.utils;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
@@ -13,8 +16,21 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.shareapy.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.SetOptions;
 
+import java.sql.Array;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 // EventRecyclerAdapter
 
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyViewHolder> {
@@ -22,6 +38,8 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
     private List<Events> events;
     private Context context;
     private Fragment frag;
+    FirebaseAuth mFirebaseAuth = UserSignUp.getInstance().getmFireBaseAuth();
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     public RecyclerAdapter(Context context, List<Events> events, Fragment frag) {
         this.context = context;
@@ -33,7 +51,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
         return events == null ? 0 : events.size();
     }
     public static class MyViewHolder extends RecyclerView.ViewHolder {
-        private TextView tvEventHeader,tvEventSlots,tvEventDate,tvEventDuration,tvExit;
+        private TextView tvEventHeader,tvEventSlots,tvEventDate,tvEventDuration,tvExit,tvRegister;
 
         public MyViewHolder(View itemView) {
             super(itemView);
@@ -43,6 +61,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
             tvEventDate = itemView.findViewById(R.id.tv_event_date);
             tvEventSlots=itemView.findViewById(R.id.tv_event_slot);
             tvExit = itemView.findViewById(R.id.tv_event_exit);
+            tvRegister = itemView.findViewById(R.id.tv_event_register);
         }
     }
     @Override
@@ -54,11 +73,15 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
 
 
     @Override
-    public void onBindViewHolder(MyViewHolder holder, int position) {
-        String header = events.get(position).getHeader();
+    public void onBindViewHolder(final MyViewHolder holder, int position) {
+        final String header = events.get(position).getHeader();
+        final String eid =events.get(position).getID();
         String date = events.get(position).getDate();
         String duration = events.get(position).getDuration();
-        String slots = events.get(position).getSlot();
+        final ArrayList<String> participator = events.get(position).getParticipator();
+        final int curPer = participator.size();
+        final int maxPer = events.get(position).getMaxPerson();
+        String slots = Integer.toString(curPer) + "/" + Integer.toString(maxPer);
 
         holder.tvEventDuration.setText(duration);
         holder.tvEventHeader.setText(header);
@@ -70,6 +93,32 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
             public void onClick(View v) {
                 ((FragmentActivity)context).getSupportFragmentManager().beginTransaction().remove(frag).commit();
                 ((FragmentActivity)context).getSupportFragmentManager().popBackStack();
+            }
+        });
+        holder.tvRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (curPer==maxPer)
+                {
+                    Toast.makeText(context,"The event was full",Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    FirebaseUser fbUser = mFirebaseAuth.getCurrentUser();
+                    final String uid = fbUser.getUid();
+                    if (!participator.contains(uid))
+                    {
+                        participator.add(uid);
+                        Map<String,Object> data = new HashMap<>();
+                        data.put("participator",participator);
+                        db.collection("Events").document(eid).set(data,SetOptions.merge());
+                        holder.tvEventSlots.setText(Integer.toString(participator.size()) + "/" + Integer.toString(maxPer));
+                        Toast.makeText(context,"Register Successful",Toast.LENGTH_SHORT).show();
+                    }
+                    else
+                    {
+                        Toast.makeText(context,"You have registered",Toast.LENGTH_SHORT).show();
+                    }
+                }
             }
         });
     }

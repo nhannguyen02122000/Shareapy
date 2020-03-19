@@ -366,9 +366,6 @@
                     android:textColor="#B23D3333"/>
 
             </RelativeLayout>
-            <com.applandeo.materialcalendarview.CalendarView
-                android:layout_width="match_parent"
-                android:layout_height="500dp"/>
             <CalendarView
                 android:id="@+id/clv_home"
                 android:layout_width="wrap_content"
@@ -376,6 +373,7 @@
                 android:background="#FFFFFF"
                 android:focusedMonthDateColor="#FFFFFF"
                 android:minDate="01/01/2000" />
+
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

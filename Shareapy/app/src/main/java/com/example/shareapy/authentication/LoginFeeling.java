@@ -1,18 +1,24 @@
 package com.example.shareapy.authentication;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.shareapy.R;
 import com.example.shareapy.home.Home;
 import com.example.shareapy.utils.UserSignUp;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.SetOptions;
 import com.hsalf.smilerating.BaseRating;
@@ -24,6 +30,7 @@ import java.util.HashMap;
 
 public class LoginFeeling extends AppCompatActivity {
     Button btnNext;
+    TextView tvHello;
     SmileRating smileRating;
     UserSignUp userSignUp;
     String rate ;
@@ -35,6 +42,26 @@ public class LoginFeeling extends AppCompatActivity {
         setContentView(R.layout.activity_login_feeling);
         setupView();
 
+
+        FirebaseUser fbUser = mFirebaseAuth.getCurrentUser();
+        String uid = fbUser.getUid();
+        db.collection("Users").document(uid).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        Log.d("TAG", "DocumentSnapshot data: " + document.getData());
+                        String name = document.getData().get("name").toString().trim();
+                        tvHello.setText("Hello, "+name);
+                    } else {
+                        Log.d("TAG", "No such document");
+                    }
+                } else {
+                    Log.d("TAG", "get failed with ", task.getException());
+                }
+            }
+        });
 
         smileRating.setOnSmileySelectionListener(new SmileRating.OnSmileySelectionListener() {
             @Override
@@ -74,7 +101,7 @@ public class LoginFeeling extends AppCompatActivity {
                     HashMap<String, Object> userFeeling = new HashMap<>();
                     userFeeling.put(currentDateandTime,rate);
 
-                    db.collection("Users").document(uid).collection("Feelings").document().set(userFeeling, SetOptions.merge());
+                    db.collection("Users").document(uid).collection("Feelings").document("DateFeeling").set(userFeeling, SetOptions.merge());
                     startActivity(new Intent(LoginFeeling.this, Home.class));
                 }
             }
@@ -87,5 +114,6 @@ public class LoginFeeling extends AppCompatActivity {
         mFirebaseAuth = UserSignUp.getInstance().getmFireBaseAuth();
         btnNext = findViewById(R.id.btnNext_logIn_ask);
         smileRating = findViewById(R.id.smile_rating);
+        tvHello = findViewById(R.id.tv_login_hello);
     }
 }

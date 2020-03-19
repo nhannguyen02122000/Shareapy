@@ -19,7 +19,6 @@ import com.example.shareapy.R;
 public class HomeHomeFragment extends Fragment {
     CardView cvHome;
     CalendarView clvHome;
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -38,7 +37,6 @@ public class HomeHomeFragment extends Fragment {
                 Fragment toEvents = new HomeCalendarEventsFragment();
                 getActivity().getSupportFragmentManager().beginTransaction().add(R.id.clv_home,toEvents)
                         .addToBackStack(toEvents.getClass().getSimpleName()).commit();
-
             }
         });
         return view;

@@ -33,7 +33,7 @@
                 android:layout_marginRight="10dp"/>
 
             <TextView
-                android:id="@+id/usernameTextView"
+                android:id="@+id/tvUserName"
                 style="@style/viewParent.headerText"
                 android:text="Linh Vo"
                 android:textSize="28dp"
@@ -45,7 +45,7 @@
                 android:text="Personal details"
                 android:textSize="20sp"
                 android:textColor="#5D5C5C"
-                android:layout_below="@id/usernameTextView"
+                android:layout_below="@id/tvUserName"
                 android:layout_toRightOf="@id/profileCircleImageView"/>
 
             <ImageView
