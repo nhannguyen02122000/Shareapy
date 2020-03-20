@@ -15,7 +15,6 @@ import com.example.shareapy.R;
 import com.example.shareapy.utils.CategoryActivity;
 import com.example.shareapy.utils.CategoryActivityRecyclerAdapter;
 import com.example.shareapy.utils.CategoryRecyclerAdapter;
-import com.example.shareapy.utils.Events;
 import com.example.shareapy.utils.RecyclerAdapter;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -49,8 +48,10 @@ public class HomeCategoryFamilyFragment extends Fragment {
                                 Timestamp time = (Timestamp) document.getData().get("time");
                                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("h:mm a dd-MM-yyyy");
                                 String date = simpleDateFormat.format(time.toDate());
+                                ArrayList<String> registerList = (ArrayList<String>)document.getData().get("registerList");
+                                String actiID = document.getId().toString().trim();
 
-                                categoryActivities.add (new CategoryActivity(name,date));
+                                categoryActivities.add (new CategoryActivity(name,date,registerList,actiID));
 
                                 rvItems = (RecyclerView) view.findViewById(R.id.rv_category_activity);
                                 LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);

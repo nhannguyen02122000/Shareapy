@@ -35,20 +35,20 @@ import java.util.Map;
 
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyViewHolder> {
 
-    private List<Events> events;
+    private ArrayList<CategoryActivity> categoryActivities;
     private Context context;
     private Fragment frag;
     FirebaseAuth mFirebaseAuth = UserSignUp.getInstance().getmFireBaseAuth();
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-    public RecyclerAdapter(Context context, List<Events> events, Fragment frag) {
+    public RecyclerAdapter(Context context, ArrayList<CategoryActivity> categoryActivities, Fragment frag) {
         this.context = context;
-        this.events = events;
+        this.categoryActivities = categoryActivities;
         this.frag = frag;
     }
     @Override
     public int getItemCount() {
-        return events == null ? 0 : events.size();
+        return categoryActivities == null ? 0 : categoryActivities.size();
     }
     public static class MyViewHolder extends RecyclerView.ViewHolder {
         private TextView tvEventHeader,tvEventSlots,tvEventDate,tvEventDuration,tvExit,tvRegister;
@@ -74,13 +74,13 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
 
     @Override
     public void onBindViewHolder(final MyViewHolder holder, int position) {
-        final String header = events.get(position).getHeader();
-        final String eid =events.get(position).getID();
-        String date = events.get(position).getDate();
-        String duration = events.get(position).getDuration();
-        final ArrayList<String> participator = events.get(position).getParticipator();
-        final int curPer = participator.size();
-        final int maxPer = events.get(position).getMaxPerson();
+        final String header = categoryActivities.get(position).getName();
+        final String actiID =categoryActivities.get(position).getActiID();
+        String date = categoryActivities.get(position).getDate();
+        String duration = "90 minutes";
+        final ArrayList<String> registerList = categoryActivities.get(position).getRegisteredList();
+        final int curPer = registerList.size();
+        final int maxPer = 7;
         String slots = Integer.toString(curPer) + "/" + Integer.toString(maxPer);
 
         holder.tvEventDuration.setText(duration);
@@ -105,13 +105,13 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
                 else{
                     FirebaseUser fbUser = mFirebaseAuth.getCurrentUser();
                     final String uid = fbUser.getUid();
-                    if (!participator.contains(uid))
+                    if (!registerList.contains(uid))
                     {
-                        participator.add(uid);
+                        registerList.add(uid);
                         Map<String,Object> data = new HashMap<>();
-                        data.put("participator",participator);
-                        db.collection("Events").document(eid).set(data,SetOptions.merge());
-                        holder.tvEventSlots.setText(Integer.toString(participator.size()) + "/" + Integer.toString(maxPer));
+                        data.put("registerList",registerList);
+                        db.collection("ActivityInfos").document(actiID).set(data,SetOptions.merge());
+                        holder.tvEventSlots.setText(Integer.toString(registerList.size()) + "/" + Integer.toString(maxPer));
                         Toast.makeText(context,"Register Successful",Toast.LENGTH_SHORT).show();
                     }
                     else

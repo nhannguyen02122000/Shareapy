@@ -33,6 +33,13 @@
                 android:textSize="13dp"
                 android:textStyle="bold"
                 android:textColor="#FFFFFF"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_cate_slot"
+                android:text="3/7 slot"
+                android:textColor="#FFFFFF"
+                android:layout_below="@+id/tv_date_cate"/>
             <Button
                 android:id="@+id/btn_register_category"
                 android:layout_marginRight="5dp"

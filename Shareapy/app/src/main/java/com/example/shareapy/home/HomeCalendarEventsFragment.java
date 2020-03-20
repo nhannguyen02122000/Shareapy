@@ -13,11 +13,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.shareapy.R;
-import com.example.shareapy.utils.Events;
+import com.example.shareapy.utils.CategoryActivity;
 import com.example.shareapy.utils.RecyclerAdapter;
 import com.example.shareapy.utils.UserSignUp;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -31,7 +32,7 @@ import java.util.List;
 public class HomeCalendarEventsFragment extends Fragment{
     private RecyclerView rvItems;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
-    List<Events> events = new ArrayList<>();
+    ArrayList<CategoryActivity> categoryActivities = new ArrayList<>();
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -39,26 +40,26 @@ public class HomeCalendarEventsFragment extends Fragment{
 
 
 
-        db.collection("Events")
+        db.collection("ActivityInfos")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                String duration = document.getData().get("duration").toString().trim();
-                                String header = document.getData().get("header").toString().trim();
-                                int maxPerson = Integer.parseInt(document.getData().get("maxPerson").toString());
-                                ArrayList<String> userIDEnrolled = (ArrayList<String>)document.getData().get("participator");
-                                String date = document.getData().get("date").toString();
-                                String id = document.getId();
-                                events.add(new Events(header,date,duration,maxPerson,id,userIDEnrolled));
+                                String name = document.getData().get("title").toString().trim();
+                                Timestamp time = (Timestamp) document.getData().get("time");
+                                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("h:mm a dd-MM-yyyy");
+                                String date = simpleDateFormat.format(time.toDate());
+                                ArrayList<String> registerList = (ArrayList<String>)document.getData().get("registerList");
+                                String actiID = document.getId().toString().trim();
+                                categoryActivities.add(new CategoryActivity(name,date,registerList,actiID));
 
                                 rvItems = (RecyclerView) view.findViewById(R.id.rv_calendar_event);
                                 LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
                                 rvItems.setLayoutManager(layoutManager);
                                 rvItems.setHasFixedSize(true);
-                                rvItems.setAdapter(new RecyclerAdapter(getContext(),events,HomeCalendarEventsFragment.this));
+                                rvItems.setAdapter(new RecyclerAdapter(getContext(),categoryActivities,HomeCalendarEventsFragment.this));
                             }
                         }
                     }
