@@ -4,19 +4,26 @@ import androidx.annotation.NonNull;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ActivityInfo {
+    private String id;
     private String title;
     private Date time;
-    private float rate;
     private String url;
     private String counselor;
+    private int type;
     private ArrayList<String> registerList;
     private ArrayList<String> bookmarkedList;
-    public ActivityInfo(String title, Date time, float rate, String counselor) {
+    private Map<String, Float> ratingList;
+    private Map<String, String> feedbackList;
+    public ActivityInfo(String title, Date time, String counselor) {
         ArrayList<String> fakeList = new ArrayList<>();
         ArrayList<String> fakeList2 = new ArrayList<>();
+        Map<String, Float> ratingList = new HashMap<>();
+        Map<String, String> feedbacList = new HashMap<>();
         fakeList.add("12356");
         fakeList.add("1231rdasdf6");
         fakeList.add("12asdfasdf356");
@@ -24,14 +31,23 @@ public class ActivityInfo {
         fakeList2.add("12adsasdfasdf");
         this.title = title;
         this.time = time;
-        this.rate = rate;
         this.registerList = fakeList;
         this.counselor = counselor;
         this.url = "meet.google.com/guc-cnck-gfu";
         this.bookmarkedList = fakeList2;
+        this.ratingList = ratingList;
+        this.feedbackList = feedbacList;
     }
 
     public ActivityInfo() {
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getTitle() {
@@ -50,14 +66,6 @@ public class ActivityInfo {
         this.time = time;
     }
 
-    public float getRate() {
-        return rate;
-    }
-
-    public void setRate(float rate) {
-        this.rate = rate;
-    }
-
     public String getUrl() {
         return url;
     }
@@ -74,6 +82,14 @@ public class ActivityInfo {
         this.counselor = counselor;
     }
 
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
+    }
+
     public ArrayList<String> getRegisterList() {
         return registerList;
     }
@@ -81,6 +97,7 @@ public class ActivityInfo {
     public void setRegisterList(ArrayList<String> registerList) {
         this.registerList = registerList;
     }
+
 
     public ArrayList<String> getBookmarkedList() {
         return bookmarkedList;
@@ -90,21 +107,37 @@ public class ActivityInfo {
         this.bookmarkedList = bookmarkedList;
     }
 
+    public Map<String, Float> getRatingList() {
+        return ratingList;
+    }
+
+    public void setRatingList(Map<String, Float> ratingList) {
+        this.ratingList = ratingList;
+    }
+
+    public Map<String, String> getFeedbackList() {
+        return feedbackList;
+    }
+
+    public void setFeedbackList(Map<String, String> feedbackList) {
+        this.feedbackList = feedbackList;
+    }
+
     public static ActivityInfo makeOneSample(){
-        return new ActivityInfo("Understanding and Strengthening Family Communication", new Date(), 4.5f, "hello");
+        return new ActivityInfo("Understanding and Strengthening Family Communication", new Date(), "hello");
     }
 
     public static ArrayList<ActivityInfo> makeSample(){
         ArrayList<ActivityInfo> listActivity = new ArrayList<>();
-        listActivity.add(new ActivityInfo("New Mum's & Mum's-to-be Support Group", new Date(), 3.5f, "Java"));
-        listActivity.add(new ActivityInfo("The Art of Grandparenting", new Date(), 2f, "Math"));
-        listActivity.add(new ActivityInfo("The eyes never lie", new Date(), 4.5f, "Natri"));
+        listActivity.add(new ActivityInfo("New Mum's & Mum's-to-be Support Group", new Date(), "Java"));
+        listActivity.add(new ActivityInfo("The Art of Grandparenting", new Date(), "Math"));
+        listActivity.add(new ActivityInfo("The eyes never lie", new Date(), "Natri"));
         return listActivity;
     }
 
     @NonNull
     @Override
     public String toString() {
-        return title+time.toString()+rate;
+        return id+title+time.toString();
     }
 }

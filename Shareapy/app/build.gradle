@@ -38,6 +38,7 @@ dependencies {
     implementation 'com.applandeo:material-calendar-view:1.7.0'
     implementation 'com.github.prolificinteractive:material-calendarview:2.0.0'
     implementation 'com.github.sujithkanna:smileyrating:1.6.8'
+    implementation 'com.makeramen:roundedimageview:2.3.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
