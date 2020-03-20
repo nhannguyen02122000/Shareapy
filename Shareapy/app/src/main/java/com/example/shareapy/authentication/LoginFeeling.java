@@ -54,11 +54,7 @@ public class LoginFeeling extends AppCompatActivity {
                         Log.d("TAG", "DocumentSnapshot data: " + document.getData());
                         String name = document.getData().get("name").toString().trim();
                         tvHello.setText("Hello, "+name);
-                    } else {
-                        Log.d("TAG", "No such document");
                     }
-                } else {
-                    Log.d("TAG", "get failed with ", task.getException());
                 }
             }
         });
@@ -92,7 +88,7 @@ public class LoginFeeling extends AppCompatActivity {
                     Toast.makeText(LoginFeeling.this,"Please make your choice",Toast.LENGTH_SHORT).show();
                 else
                 {
-                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd G 'at' HH:mm:ss z");
+                    SimpleDateFormat sdf = new SimpleDateFormat("h:mm a dd-MM-yyyy");
                     String currentDateandTime = sdf.format(new Date());
 
                     FirebaseUser fbUser = mFirebaseAuth.getCurrentUser();
