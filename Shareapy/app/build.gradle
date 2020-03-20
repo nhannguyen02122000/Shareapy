@@ -35,7 +35,8 @@ dependencies {
     implementation 'com.google.android.material:material:1.1.0'
     implementation 'de.hdodenhof:circleimageview:3.0.0'
     implementation "androidx.cardview:cardview:1.0.0"
-    implementation 'com.applandeo:material-calendar-view:1.0.1'
+    implementation 'com.applandeo:material-calendar-view:1.7.0'
+    implementation 'com.github.prolificinteractive:material-calendarview:2.0.0'
     implementation 'com.github.sujithkanna:smileyrating:1.6.8'
     implementation 'com.makeramen:roundedimageview:2.3.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'

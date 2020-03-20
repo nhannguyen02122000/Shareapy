@@ -11,17 +11,15 @@
         android:theme="@style/AppTheme">
         <activity android:name=".authentication.SignUpActivity"></activity>
         <activity android:name=".authentication.SignUpSlides" />
+        <activity android:name=".authentication.LoginFeeling" />
+        <activity android:name=".home.Home" />
         <activity android:name=".authentication.LoginActivity" />
-        <activity android:name=".home.Home" >
+        <activity android:name=".authentication.SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <activity android:name=".authentication.SplashScreen" />
-        <activity android:name=".authentication.LoginFeeling">
-
         </activity>
         <activity android:name=".home.MainActivity" />
     </application>
