@@ -33,12 +33,12 @@ public class HomeHomeFragment extends Fragment {
         View view = inflater.inflate(R.layout.home_home_fragment,container,false);
 
         ArrayList<Category> categories = new ArrayList<Category>() {};
-        categories.add(new Category("Life Style",R.drawable.home_android_developer));
-        categories.add(new Category("Physical",R.drawable.home_android_developer));
-        categories.add(new Category("Work",R.drawable.home_android_developer));
-        categories.add(new Category("Relax",R.drawable.home_android_developer));
-        categories.add(new Category("School",R.drawable.home_android_developer));
-        categories.add(new Category("Family",R.drawable.home_android_developer));
+        categories.add(new Category("Lifestyle",R.drawable.home_category_lifestyle));
+        categories.add(new Category("Work",R.drawable.home_category_work));
+        categories.add(new Category("Relationship",R.drawable.home_category_relationship));
+        categories.add(new Category("School",R.drawable.home_category_school));
+        categories.add(new Category("Family",R.drawable.home_category_family));
+        categories.add(new Category("Other",R.drawable.home_category_other));
 
         rvCategory = (RecyclerView) view.findViewById(R.id.rv_categories);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
@@ -51,7 +51,7 @@ public class HomeHomeFragment extends Fragment {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
                 Fragment toEvents = new HomeCalendarEventsFragment();
-                getActivity().getSupportFragmentManager().beginTransaction().add(R.id.clv_home,toEvents)
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.clv_home,toEvents)
                         .addToBackStack(toEvents.getClass().getSimpleName()).commit();
             }
         });

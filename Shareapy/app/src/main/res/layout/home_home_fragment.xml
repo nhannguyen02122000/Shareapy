@@ -54,7 +54,7 @@
                             android:layout_height="wrap_content"
                             android:text="Welcome,\nLinh!"
                             android:textColor="#FCFCFC"
-                            android:textSize="30sp"
+                            android:textSize="25sp"
                             android:textStyle="bold" />
 
                     </LinearLayout>
@@ -95,11 +95,17 @@
                     android:text="Which topic are you looking for\?"
                     android:textColor="#B23D3333"/>
             </RelativeLayout>
+
             <androidx.recyclerview.widget.RecyclerView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:id="@+id/rv_categories"/>
+
+            <FrameLayout
+                android:id="@+id/fl_category_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
 
             <RelativeLayout
                 android:layout_width="match_parent"
