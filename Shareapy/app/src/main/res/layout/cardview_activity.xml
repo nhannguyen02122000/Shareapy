@@ -44,7 +44,7 @@
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="10dp"
         android:progressTint="#FFEB3B"
-        android:rating="3.5"
+        android:rating="0"
         android:text="@string/card_view_btn_register"
         android:textColor="#fff" />
 

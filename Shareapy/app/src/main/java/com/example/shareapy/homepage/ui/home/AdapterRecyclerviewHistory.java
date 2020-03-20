@@ -24,6 +24,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.text.SimpleDateFormat;
@@ -36,6 +38,7 @@ public class AdapterRecyclerviewHistory extends RecyclerView.Adapter<AdapterRecy
     String pattern = "h:mm a dd-MM-yyyy";
     SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
     Dialog feedbackDialog = new Dialog(SavedInstance.homeActivity);;
+    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     AdapterRecyclerviewHistory(boolean isHistory) {
         this.isHistory = isHistory;
     }
@@ -58,10 +61,13 @@ public class AdapterRecyclerviewHistory extends RecyclerView.Adapter<AdapterRecy
     @Override
     public void onBindViewHolder(@NonNull ActivityViewHolder holder, final int position) {
         final ActivityInfo info = listActivity.get(position);
-        final String id = "123456";
+        final String id = user.getUid();
         holder.txtActivityCardTitle.setText(info.getTitle());
         holder.txtActivityCardTime.setText(simpleDateFormat.format(info.getTime()));
-//        holder.rtbActivityCardRate.setRating(info.getRate());
+        if (info.getRatingList().containsKey(id)){
+            holder.rtbActivityCardRate.setRating(info.getRatingList().get(id));
+
+        }
         if (!isHistory) {
             holder.rtbActivityCardRate.setVisibility(View.GONE);
         }
@@ -83,12 +89,6 @@ public class AdapterRecyclerviewHistory extends RecyclerView.Adapter<AdapterRecy
                 if (info.getFeedbackList().containsKey(id)) {
                     feedback = info.getFeedbackList().get(id);
                 }
-//                feedbackDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
-//                    @Override
-//                    public void onCancel(DialogInterface dialogInterface) {
-//                        ratingBar.setRating(currentRate);
-//                    }
-//                });
                 feedbackDialog.setCanceledOnTouchOutside(true);
                 edtDialogFeedback.setText(feedback);
                 btnDialogSubmit.setOnClickListener(new View.OnClickListener() {
@@ -111,7 +111,6 @@ public class AdapterRecyclerviewHistory extends RecyclerView.Adapter<AdapterRecy
                                         info.getFeedbackList().put(id,feedbackText);
                                         listActivity.set(position,info);
                                         progressDialog.dismiss();
-                                        Log.e("hello","success");
                                         Toast.makeText(SavedInstance.homeActivity,"Thank for your feedback",Toast.LENGTH_SHORT).show();
                                     }
                                 })
@@ -121,7 +120,6 @@ public class AdapterRecyclerviewHistory extends RecyclerView.Adapter<AdapterRecy
                                         Toast.makeText(SavedInstance.homeActivity,"Set feedback failure",Toast.LENGTH_SHORT).show();
                                         progressDialog.dismiss();
                                         feedbackDialog.dismiss();
-                                        Log.e("hello","failure");
                                     }
                                 });
                     }
