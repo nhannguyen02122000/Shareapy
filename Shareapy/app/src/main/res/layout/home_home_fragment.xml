@@ -50,11 +50,12 @@
                         android:padding="10dp">
 
                         <TextView
+                            android:id="@+id/tv_home_home_welcome"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Welcome,\nLinh!"
+                            android:text=""
                             android:textColor="#FCFCFC"
-                            android:textSize="30sp"
+                            android:textSize="25sp"
                             android:textStyle="bold" />
 
                     </LinearLayout>
@@ -95,252 +96,17 @@
                     android:text="Which topic are you looking for\?"
                     android:textColor="#B23D3333"/>
             </RelativeLayout>
-            <HorizontalScrollView
+
+            <androidx.recyclerview.widget.RecyclerView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:scrollbars="none">
+                android:orientation="horizontal"
+                android:id="@+id/rv_categories"/>
 
-                <GridLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="0dp"
-                    android:padding="2dp"
-                    android:paddingBottom="2dp"
-                    android:rowCount="1"
-                    android:useDefaultMargins="true">
-
-                    <androidx.cardview.widget.CardView
-                        android:id="@+id/cv_home_lifeStyle"
-                        android:layout_width="150dp"
-                        android:layout_height="wrap_content"
-                        android:minHeight="150dp"
-                        app:cardElevation="10dp"
-                        android:background="@drawable/custom_edittext_shadow"
-                        app:cardCornerRadius="16dp"
-                        android:layout_marginRight="5dp"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginBottom="5dp"
-                        android:layout_marginLeft="5dp">
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:orientation="vertical"
-                            android:layout_gravity="center">
-
-                            <ImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:adjustViewBounds="true"
-                                android:cropToPadding="true"
-                                android:maxWidth="100dp"
-                                android:src="@drawable/home_android_developer" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:text="Life Style"
-                                android:textColor="#111111"
-                                android:textSize="20sp"
-                                android:textStyle="bold"
-                                android:layout_marginBottom="10dp"/>
-
-                        </LinearLayout>
-                    </androidx.cardview.widget.CardView>
-                    <androidx.cardview.widget.CardView
-                        android:layout_width="150dp"
-                        android:layout_height="wrap_content"
-                        android:minHeight="150dp"
-                        app:cardElevation="10dp"
-                        android:background="@drawable/custom_edittext_shadow"
-                        app:cardCornerRadius="16dp"
-                        android:layout_marginRight="5dp"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginBottom="5dp"
-                        android:layout_marginLeft="5dp">
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:layout_gravity="center">
-
-                            <ImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:adjustViewBounds="true"
-                                android:cropToPadding="true"
-                                android:maxWidth="100dp"
-                                android:src="@drawable/home_android_developer" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:text="Physical"
-                                android:textColor="#111111"
-                                android:textSize="20sp"
-                                android:textStyle="bold"
-                                android:layout_marginBottom="10dp"/>
-
-                        </LinearLayout>
-                    </androidx.cardview.widget.CardView>
-                    <androidx.cardview.widget.CardView
-                        android:layout_width="150dp"
-                        android:layout_height="wrap_content"
-                        android:minHeight="150dp"
-                        app:cardElevation="10dp"
-                        android:background="@drawable/custom_edittext_shadow"
-                        app:cardCornerRadius="16dp"
-                        android:layout_marginRight="5dp"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginBottom="5dp"
-                        android:layout_marginLeft="5dp">
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:layout_gravity="center">
-
-                            <ImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:adjustViewBounds="true"
-                                android:cropToPadding="true"
-                                android:maxWidth="100dp"
-                                android:src="@drawable/home_android_developer" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:text="Work"
-                                android:textColor="#111111"
-                                android:textSize="20sp"
-                                android:textStyle="bold"
-                                android:layout_marginBottom="10dp"/>
-
-                        </LinearLayout>
-                    </androidx.cardview.widget.CardView>
-                    <androidx.cardview.widget.CardView
-                        android:layout_width="150dp"
-                        android:layout_height="wrap_content"
-                        android:minHeight="150dp"
-                        app:cardElevation="10dp"
-                        android:background="@drawable/custom_edittext_shadow"
-                        app:cardCornerRadius="16dp"
-                        android:layout_marginRight="5dp"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginBottom="5dp"
-                        android:layout_marginLeft="5dp">
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:layout_gravity="center">
-
-                            <ImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:adjustViewBounds="true"
-                                android:cropToPadding="true"
-                                android:maxWidth="100dp"
-                                android:src="@drawable/home_android_developer" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:text="Relax"
-                                android:textColor="#111111"
-                                android:textSize="20sp"
-                                android:textStyle="bold"
-                                android:layout_marginBottom="10dp"/>
-
-                        </LinearLayout>
-                    </androidx.cardview.widget.CardView>
-                    <androidx.cardview.widget.CardView
-                        android:layout_width="150dp"
-                        android:layout_height="wrap_content"
-                        android:minHeight="150dp"
-                        app:cardElevation="10dp"
-                        android:background="@drawable/custom_edittext_shadow"
-                        app:cardCornerRadius="16dp"
-                        android:layout_marginRight="5dp"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginBottom="5dp"
-                        android:layout_marginLeft="5dp">
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:layout_gravity="center">
-
-                            <ImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:adjustViewBounds="true"
-                                android:cropToPadding="true"
-                                android:maxWidth="100dp"
-                                android:src="@drawable/home_android_developer" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:text="School"
-                                android:textColor="#111111"
-                                android:textSize="20sp"
-                                android:textStyle="bold"
-                                android:layout_marginBottom="10dp"/>
-
-                        </LinearLayout>
-                    </androidx.cardview.widget.CardView>
-                    <androidx.cardview.widget.CardView
-                        android:layout_width="150dp"
-                        android:layout_height="wrap_content"
-                        android:minHeight="150dp"
-                        app:cardElevation="10dp"
-                        android:background="@drawable/custom_edittext_shadow"
-                        app:cardCornerRadius="16dp"
-                        android:layout_marginRight="5dp"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginBottom="5dp"
-                        android:layout_marginLeft="5dp">
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:layout_gravity="center">
-
-                            <ImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:adjustViewBounds="true"
-                                android:cropToPadding="true"
-                                android:maxWidth="100dp"
-                                android:src="@drawable/home_android_developer" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:text="Family"
-                                android:textColor="#111111"
-                                android:textSize="20sp"
-                                android:textStyle="bold"
-                                android:layout_marginBottom="10dp"/>
-
-                        </LinearLayout>
-                    </androidx.cardview.widget.CardView>
-
-                </GridLayout>
-            </HorizontalScrollView>
+            <FrameLayout
+                android:id="@+id/fl_category_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -366,9 +132,6 @@
                     android:textColor="#B23D3333"/>
 
             </RelativeLayout>
-            <com.applandeo.materialcalendarview.CalendarView
-                android:layout_width="match_parent"
-                android:layout_height="500dp"/>
             <CalendarView
                 android:id="@+id/clv_home"
                 android:layout_width="wrap_content"
@@ -376,6 +139,7 @@
                 android:background="#FFFFFF"
                 android:focusedMonthDateColor="#FFFFFF"
                 android:minDate="01/01/2000" />
+
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

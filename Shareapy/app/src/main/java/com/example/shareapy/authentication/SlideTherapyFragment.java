@@ -15,7 +15,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.example.shareapy.home.Home;
 import com.example.shareapy.R;
 import com.example.shareapy.utils.UserSignUp;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -83,7 +82,7 @@ public class SlideTherapyFragment extends Fragment {
                                     //Add data
                                     FirebaseUser user = mFirebaseAuth.getCurrentUser();
                                     createDBUser(user);
-                                    startActivity(new Intent(getActivity(), Home.class));
+                                    startActivity(new Intent(getActivity(), LoginFeeling.class));
                                 }
                             }
                         });
@@ -104,6 +103,7 @@ public class SlideTherapyFragment extends Fragment {
         user.put("religious",userSignUp.getReligious());
         user.put("spiritual",userSignUp.getSpiritual());
         user.put("therapy",userSignUp.getTherapy());
+        user.put("feeling","null");
         db.collection("Users").document(uid).set(user).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
