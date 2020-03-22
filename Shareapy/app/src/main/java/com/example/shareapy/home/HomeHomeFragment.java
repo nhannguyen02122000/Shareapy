@@ -45,14 +45,10 @@ public class HomeHomeFragment extends Fragment {
     CalendarView clvHome;
     RecyclerView rvCategory;
 
-    com.applandeo.materialcalendarview.CalendarView clv;
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.home_home_fragment,container,false);
-
-        clv = view.findViewById(R.id.clv_new);
 
         tvWelcome = view.findViewById(R.id.tv_home_home_welcome);
         FirebaseUser fbUser = mFirebaseAuth.getCurrentUser();
@@ -84,32 +80,32 @@ public class HomeHomeFragment extends Fragment {
         rvCategory.setHasFixedSize(true);
         rvCategory.setAdapter(new CategoryRecyclerAdapter(getContext(),categories));
 
-//        clvHome = view.findViewById(R.id.clv_home);
-//        clvHome.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
-//            @Override
-//            public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
-//
-//                DateFormat dateFormat = new SimpleDateFormat("dd-M-yyyy hh:mm:ss");
-//                Date dateBegin = null;
-//                Date dateEnd = null;
-//                try {
-//                    dateBegin = dateFormat.parse(Integer.toString(dayOfMonth) + "-" + Integer.toString(month+1)+ "-" + Integer.toString(year)
-//                                                + " " + "00:00:00");
-//                    dateEnd = dateFormat.parse(Integer.toString(dayOfMonth) + "-" + Integer.toString(month+1)+ "-" + Integer.toString(year)
-//                            + " " + "23:59:59");
-//                } catch (ParseException e) {
-//                    e.printStackTrace();
-//                }
-//                long timeBegin = dateBegin.getTime();
-//                long timeEnd = dateEnd.getTime();
-//                Timestamp tsBegin = new Timestamp(timeBegin);
-//                Timestamp tsEnd = new Timestamp(timeEnd);
-//
-//                Fragment toEvents = new HomeCalendarEventsFragment(tsBegin,tsEnd);
-//                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.clv_home,toEvents)
-//                        .addToBackStack(toEvents.getClass().getSimpleName()).commit();
-//            }
-//        });
+        clvHome = view.findViewById(R.id.clv_home);
+        clvHome.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+            @Override
+            public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
+
+                DateFormat dateFormat = new SimpleDateFormat("dd-M-yyyy hh:mm:ss");
+                Date dateBegin = null;
+                Date dateEnd = null;
+                try {
+                    dateBegin = dateFormat.parse(Integer.toString(dayOfMonth) + "-" + Integer.toString(month+1)+ "-" + Integer.toString(year)
+                                                + " " + "00:00:00");
+                    dateEnd = dateFormat.parse(Integer.toString(dayOfMonth) + "-" + Integer.toString(month+1)+ "-" + Integer.toString(year)
+                            + " " + "23:59:59");
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                long timeBegin = dateBegin.getTime();
+                long timeEnd = dateEnd.getTime();
+                Timestamp tsBegin = new Timestamp(timeBegin);
+                Timestamp tsEnd = new Timestamp(timeEnd);
+
+                Fragment toEvents = new HomeCalendarEventsFragment(tsBegin,tsEnd);
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.clv_home,toEvents)
+                        .addToBackStack(toEvents.getClass().getSimpleName()).commit();
+            }
+        });
         return view;
     }
 }
