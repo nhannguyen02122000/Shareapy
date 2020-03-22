@@ -24,6 +24,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -40,7 +41,7 @@ import java.util.concurrent.TimeUnit;
 public class HomeActivityFragment extends Fragment {
     private TabLayout tlActivity;
     private ViewPager2 vpActivity;
-    final String userId = "12356";
+    final String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     private ArrayList<ActivityInfo> activitiesHistory = new ArrayList<>();
     private ArrayList<ActivityInfo> activitiesCurrent = new ArrayList<>();

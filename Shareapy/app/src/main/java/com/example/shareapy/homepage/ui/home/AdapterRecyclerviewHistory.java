@@ -27,6 +27,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.makeramen.roundedimageview.RoundedImageView;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -37,8 +38,10 @@ public class AdapterRecyclerviewHistory extends RecyclerView.Adapter<AdapterRecy
     private boolean isHistory;
     String pattern = "h:mm a dd-MM-yyyy";
     SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
-    Dialog feedbackDialog = new Dialog(SavedInstance.homeActivity);;
+    Dialog feedbackDialog = new Dialog(SavedInstance.homeActivity);
+    ;
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
     AdapterRecyclerviewHistory(boolean isHistory) {
         this.isHistory = isHistory;
     }
@@ -64,7 +67,7 @@ public class AdapterRecyclerviewHistory extends RecyclerView.Adapter<AdapterRecy
         final String id = user.getUid();
         holder.txtActivityCardTitle.setText(info.getTitle());
         holder.txtActivityCardTime.setText(simpleDateFormat.format(info.getTime()));
-        if (info.getRatingList().containsKey(id)){
+        if (info.getRatingList().containsKey(id)) {
             holder.rtbActivityCardRate.setRating(info.getRatingList().get(id));
 
         }
@@ -78,6 +81,8 @@ public class AdapterRecyclerviewHistory extends RecyclerView.Adapter<AdapterRecy
             }
 
         });
+        holder.imgCardType.setImageResource(getImageByType(info.getType()));
+
         holder.rtbActivityCardRate.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
             public void onRatingChanged(final RatingBar ratingBar, final float v, boolean b) {
@@ -102,22 +107,22 @@ public class AdapterRecyclerviewHistory extends RecyclerView.Adapter<AdapterRecy
                         db.collection("ActivityInfos")
                                 .document(info.getId())
                                 .update("ratingList." + id, v,
-                                        "feedbackList."+id,feedbackText)
+                                        "feedbackList." + id, feedbackText)
                                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void aVoid) {
                                         feedbackDialog.dismiss();
-                                        info.getRatingList().put(id,v);
-                                        info.getFeedbackList().put(id,feedbackText);
-                                        listActivity.set(position,info);
+                                        info.getRatingList().put(id, v);
+                                        info.getFeedbackList().put(id, feedbackText);
+                                        listActivity.set(position, info);
                                         progressDialog.dismiss();
-                                        Toast.makeText(SavedInstance.homeActivity,"Thank for your feedback",Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(SavedInstance.homeActivity, "Thank for your feedback", Toast.LENGTH_SHORT).show();
                                     }
                                 })
                                 .addOnFailureListener(new OnFailureListener() {
                                     @Override
                                     public void onFailure(@NonNull Exception e) {
-                                        Toast.makeText(SavedInstance.homeActivity,"Set feedback failure",Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(SavedInstance.homeActivity, "Set feedback failure", Toast.LENGTH_SHORT).show();
                                         progressDialog.dismiss();
                                         feedbackDialog.dismiss();
                                     }
@@ -128,6 +133,21 @@ public class AdapterRecyclerviewHistory extends RecyclerView.Adapter<AdapterRecy
 
             }
         });
+    }
+
+    private int getImageByType(String type) {
+        switch (type) {
+            case "Family":
+                return R.drawable.image_family;
+            case "School":
+                return R.drawable.image_school;
+            case "Work":
+                return R.drawable.image_work;
+            case "Relationship": return R.drawable.image_relationship;
+            case "Lifestyle": return R.drawable.image_lifestyle;
+            case "Other": return R.drawable.image_other;
+            default: return R.drawable.image_other;
+        }
     }
 
     public void setItem(List<ActivityInfo> listActivityNew) {
@@ -143,12 +163,14 @@ public class AdapterRecyclerviewHistory extends RecyclerView.Adapter<AdapterRecy
     public static class ActivityViewHolder extends RecyclerView.ViewHolder {
         TextView txtActivityCardTitle, txtActivityCardTime;
         RatingBar rtbActivityCardRate;
+        RoundedImageView imgCardType;
 
         ActivityViewHolder(View itemView) {
             super(itemView);
             txtActivityCardTitle = itemView.findViewById(R.id.txtActivityCardTitle);
             txtActivityCardTime = itemView.findViewById(R.id.txtActivityCardTime);
             rtbActivityCardRate = itemView.findViewById(R.id.rtbActivityCardRate);
+            imgCardType = itemView.findViewById(R.id.imgCardType);
         }
     }
 }

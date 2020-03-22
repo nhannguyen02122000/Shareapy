@@ -44,7 +44,10 @@ public class AdapterRecyclerviewCurrent extends RecyclerView.Adapter<AdapterRecy
             public void onClick(View view) {
                 String url = info.getUrl();
                 Intent i = new Intent(Intent.ACTION_VIEW);
-                i.setData(Uri.parse("https://"+url));
+                if (!url.contains("https")){
+                    url="https://"+url;
+                }
+                i.setData(Uri.parse(url));
                 SavedInstance.homeActivity.startActivity(i);
             }
         });
