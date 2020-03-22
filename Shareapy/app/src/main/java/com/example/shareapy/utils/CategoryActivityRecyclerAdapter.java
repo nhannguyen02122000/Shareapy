@@ -131,14 +131,16 @@ public class CategoryActivityRecyclerAdapter extends RecyclerView.Adapter<Catego
                     Map<String,Object> data = new HashMap<>();
                     data.put("bookmark",bookmark[0]);
                     db.collection("Users").document(uid).set(data, SetOptions.merge());
+                    Toast.makeText(context,"Added to your bookmark!",Toast.LENGTH_SHORT).show();
                 }
                 else
                 {
                     //Loai ra khoi fav
                     bookmark[0].remove(actiId);
                     Map<String,Object> data = new HashMap<>();
-                    data.put("bookmark",registerList);
+                    data.put("bookmark",bookmark[0]);
                     db.collection("Users").document(uid).set(data, SetOptions.merge());
+                    Toast.makeText(context,"Removed from your bookmark!",Toast.LENGTH_SHORT).show();
                 }
             }
         });

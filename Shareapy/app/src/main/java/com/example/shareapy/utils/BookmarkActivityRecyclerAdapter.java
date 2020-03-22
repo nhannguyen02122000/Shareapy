@@ -61,7 +61,7 @@ public class BookmarkActivityRecyclerAdapter extends RecyclerView.Adapter<Bookma
     }
 
     @Override
-    public void onBindViewHolder(final BookmarkActivityRecyclerAdapter.MyViewHolder holder, int position) {
+    public void onBindViewHolder(final BookmarkActivityRecyclerAdapter.MyViewHolder holder, final int position) {
         String name =categoryActivities.get(position).getName();
         String date = categoryActivities.get(position).getDate();
         final String actiId = categoryActivities.get(position).getActiID();
@@ -129,14 +129,19 @@ public class BookmarkActivityRecyclerAdapter extends RecyclerView.Adapter<Bookma
                     Map<String,Object> data = new HashMap<>();
                     data.put("bookmark",bookmark[0]);
                     db.collection("Users").document(uid).set(data, SetOptions.merge());
+                    Toast.makeText(context,"Added to your bookmark!",Toast.LENGTH_SHORT).show();
                 }
                 else
                 {
                     //Loai ra khoi fav
+                    categoryActivities.remove(categoryActivities.get(position));
+                    notifyItemRemoved(position);
+                    notifyItemRangeChanged(position, categoryActivities.size());
                     bookmark[0].remove(actiId);
                     Map<String,Object> data = new HashMap<>();
-                    data.put("bookmark",registerList);
+                    data.put("bookmark",bookmark[0]);
                     db.collection("Users").document(uid).set(data, SetOptions.merge());
+                    Toast.makeText(context,"Removed from your bookmark!",Toast.LENGTH_SHORT).show();
                 }
             }
         });
