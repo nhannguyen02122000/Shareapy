@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#6200EE</color>
-    <color name="colorPrimaryDark">#3700B3</color>
+    <color name="colorPrimary">#427A5B</color>
+    <color name="colorPrimaryDark">#3D654F</color>
     <color name="colorAccent">#03DAC5</color>
+
+<!--    Them vao-->
+    <color name="contentBodyColor">#FCFCFC</color>
+    <color name="contentTextColor">#020000</color>
+    <color name="imageBorderColor">#427A5B</color>
+    <color name="miniTitle">#2A2E43</color>
+    <color name="colorLightGrey">#D1D1D1</color>
 </resources>

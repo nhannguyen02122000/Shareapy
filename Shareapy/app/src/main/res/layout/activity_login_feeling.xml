@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/tv_login_hello"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/tv_logIn_ask"
+        android:layout_marginBottom="40dp"
+        android:paddingStart="30dp"
+        android:paddingEnd="30dp"
+        android:text="Hello name"
+        android:textColor="#111111"
+        android:textSize="40dp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tv_logIn_ask"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="20dp"
+        android:text="@string/login_ask_feeling"
+        android:paddingStart="30dp"
+        android:paddingEnd="30dp"
+        android:layout_above="@+id/smile_rating"/>
+    <com.hsalf.smilerating.SmileRating
+        android:id="@+id/smile_rating"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_centerInParent="true"/>
+
+    <Button
+        android:id="@+id/btnNext_logIn_ask"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/smile_rating"
+        android:layout_marginTop="22dp"
+        android:background="@drawable/custom_button_login"
+        android:text="@string/signup_button_next"
+        android:textColor="#ffffff"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:textSize="20sp" />
+
+</RelativeLayout>
