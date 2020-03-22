@@ -49,7 +49,7 @@ public class CategoryActivityRecyclerAdapter extends RecyclerView.Adapter<Catego
     }
     @Override
     public CategoryActivityRecyclerAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.home_category_family_fragment_items,parent,false);
+        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.home_category_activity_fragment_items,parent,false);
         MyViewHolder vh = new MyViewHolder(itemView);
         return vh;
     }

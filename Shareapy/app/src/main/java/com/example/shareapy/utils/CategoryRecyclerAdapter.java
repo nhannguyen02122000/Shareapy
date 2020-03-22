@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
@@ -14,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.shareapy.R;
 import com.example.shareapy.home.HomeCalendarEventsFragment;
+import com.example.shareapy.home.HomeCategoryActivityFragment;
 import com.example.shareapy.home.HomeCategoryFamilyFragment;
 
 import java.util.ArrayList;
@@ -52,7 +54,7 @@ public class CategoryRecyclerAdapter  extends RecyclerView.Adapter<CategoryRecyc
     }
     @Override
     public void onBindViewHolder(final MyViewHolder holder, int position) {
-        String name =categories.get(position).getName();
+        final String name =categories.get(position).getName();
         int imID = categories.get(position).getPictID();
 
         holder.tvName.setText(name);
@@ -61,9 +63,30 @@ public class CategoryRecyclerAdapter  extends RecyclerView.Adapter<CategoryRecyc
         holder.cvCate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Fragment openCateFam = new HomeCategoryFamilyFragment();
-                ((FragmentActivity)context).getSupportFragmentManager().beginTransaction().replace(R.id.fl_category_container,openCateFam)
-                        .addToBackStack(openCateFam.getClass().getSimpleName()).commit();
+                Fragment openCateActi = new HomeCategoryActivityFragment("Lifestyle");
+                switch(name)
+                {
+                    case "Lifestyle":
+                        openCateActi = new HomeCategoryActivityFragment("Lifestyle");
+                        break;
+                    case "Work":
+                        openCateActi = new HomeCategoryActivityFragment("Work");
+                        break;
+                    case "Relationship":
+                        openCateActi = new HomeCategoryActivityFragment("Relationship");
+                        break;
+                    case "School":
+                        openCateActi = new HomeCategoryActivityFragment("School");
+                        break;
+                    case "Family":
+                        openCateActi = new HomeCategoryActivityFragment("Family");
+                        break;
+                    case "Other":
+                        openCateActi = new HomeCategoryActivityFragment("Other");
+                        break;
+                }
+                ((FragmentActivity)context).getSupportFragmentManager().beginTransaction().add(R.id.fl_category_container, openCateActi)
+                        .addToBackStack(openCateActi.getClass().getSimpleName()).commit();
             }
         });
     }
