@@ -9,11 +9,22 @@
     android:layout_margin="5dp"
     app:cardCornerRadius="16dp"
     app:cardBackgroundColor="#FFFFFF">
-        <RelativeLayout
-            android:padding="10dp"
+
+    <RelativeLayout
+            android:padding="15dp"
             android:layout_width="match_parent"
             android:layout_height="160dp"
             android:background="@drawable/custom_cardview_category_gradient">
+        <ToggleButton
+            android:id="@+id/tgbtn_bookmark"
+            android:textOn=""
+            android:textOff=""
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="5dp"
+            android:background="@drawable/toggle_button_bookmark" />
             <TextView
                 android:layout_width="320dp"
                 android:layout_height="wrap_content"
@@ -53,5 +64,5 @@
                 android:textColor="#427A5B"
                 android:textStyle="bold"
                 android:background="@drawable/custom_button_cardview_for_category"/>
-        </RelativeLayout>
+    </RelativeLayout>
 </androidx.cardview.widget.CardView>
