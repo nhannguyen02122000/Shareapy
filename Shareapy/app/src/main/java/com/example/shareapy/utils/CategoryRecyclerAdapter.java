@@ -7,19 +7,16 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.annotation.Nullable;
+
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.shareapy.R;
-import com.example.shareapy.home.HomeCalendarEventsFragment;
 import com.example.shareapy.home.HomeCategoryActivityFragment;
-//import com.example.shareapy.home.HomeCategoryFamilyFragment;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class CategoryRecyclerAdapter  extends RecyclerView.Adapter<CategoryRecyclerAdapter.MyViewHolder> {
     private Context context;
