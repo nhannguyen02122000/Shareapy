@@ -30,7 +30,12 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class HomeHomeFragment extends Fragment {
@@ -78,7 +83,24 @@ public class HomeHomeFragment extends Fragment {
         clvHome.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
-                Fragment toEvents = new HomeCalendarEventsFragment();
+
+                DateFormat dateFormat = new SimpleDateFormat("dd-M-yyyy hh:mm:ss");
+                Date dateBegin = null;
+                Date dateEnd = null;
+                try {
+                    dateBegin = dateFormat.parse(Integer.toString(dayOfMonth) + "-" + Integer.toString(month+1)+ "-" + Integer.toString(year)
+                                                + " " + "00:00:00");
+                    dateEnd = dateFormat.parse(Integer.toString(dayOfMonth) + "-" + Integer.toString(month+1)+ "-" + Integer.toString(year)
+                            + " " + "23:59:59");
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                long timeBegin = dateBegin.getTime();
+                long timeEnd = dateEnd.getTime();
+                Timestamp tsBegin = new Timestamp(timeBegin);
+                Timestamp tsEnd = new Timestamp(timeEnd);
+
+                Fragment toEvents = new HomeCalendarEventsFragment(tsBegin,tsEnd);
                 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.clv_home,toEvents)
                         .addToBackStack(toEvents.getClass().getSimpleName()).commit();
             }

@@ -25,6 +25,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.sql.Time;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -33,14 +34,20 @@ public class HomeCalendarEventsFragment extends Fragment{
     private RecyclerView rvItems;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     ArrayList<CategoryActivity> categoryActivities = new ArrayList<>();
+
+    java.sql.Timestamp tsBegin,tsEnd;
+    public HomeCalendarEventsFragment(java.sql.Timestamp tsBegin, java.sql.Timestamp tsEnd)
+    {
+        this.tsBegin = tsBegin;
+        this.tsEnd = tsEnd;
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.home_calendar_events, container, false);
 
-
-
-        db.collection("ActivityInfos")
+        db.collection("ActivityInfos").whereGreaterThanOrEqualTo("time",tsBegin).whereLessThanOrEqualTo("time",tsEnd)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
