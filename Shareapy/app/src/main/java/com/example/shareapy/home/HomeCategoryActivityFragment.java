@@ -14,8 +14,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.shareapy.R;
 import com.example.shareapy.utils.CategoryActivity;
 import com.example.shareapy.utils.CategoryActivityRecyclerAdapter;
-import com.example.shareapy.utils.CategoryRecyclerAdapter;
-import com.example.shareapy.utils.RecyclerAdapter;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.Timestamp;
@@ -25,19 +23,24 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
-public class HomeCategoryFamilyFragment extends Fragment {
+public class HomeCategoryActivityFragment extends Fragment {
+    String activityType;
     private RecyclerView rvItems;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     ArrayList<CategoryActivity> categoryActivities = new ArrayList<>();
+
+    public HomeCategoryActivityFragment(String activityType)
+    {
+        this.activityType=activityType;
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        final View view = inflater.inflate(R.layout.home_category_family_fragment, container, false);
+        final View view = inflater.inflate(R.layout.home_category_activity_fragment, container, false);
 
-        db.collection("ActivityInfos")
+        db.collection("ActivityInfos").whereEqualTo("type",activityType)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
