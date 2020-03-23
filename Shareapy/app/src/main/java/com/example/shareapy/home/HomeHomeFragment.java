@@ -26,7 +26,6 @@ import com.example.shareapy.utils.Category;
 import com.example.shareapy.utils.CategoryActivity;
 import com.example.shareapy.utils.CategoryActivityRecyclerAdapter;
 import com.example.shareapy.utils.CategoryRecyclerAdapter;
-import com.example.shareapy.utils.RecyclerAdapter;
 import com.example.shareapy.utils.UserSignUp;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;

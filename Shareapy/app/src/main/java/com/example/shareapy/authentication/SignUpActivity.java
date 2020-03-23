@@ -28,6 +28,13 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
         setupView();
+        tvLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(SignUpActivity.this,LoginActivity.class));
+                finish();
+            }
+        });
 
         btnNext.setOnClickListener(this);
     }
