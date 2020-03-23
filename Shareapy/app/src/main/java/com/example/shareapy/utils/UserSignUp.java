@@ -6,11 +6,14 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.ArrayList;
+
 public class UserSignUp {
     private static UserSignUp instance = null;
     private String userID,password,gender,userName,userMail;
     private int age;
     private String isReligious,isSpiritual, wasTherapy;
+    private ArrayList<String> bookmark;
     FirebaseAuth mFireBaseAuth;
     private UserSignUp()
     {
@@ -19,6 +22,7 @@ public class UserSignUp {
         userID=password=gender=userMail="";
         age=-1;
         isReligious = isSpiritual = wasTherapy = "";
+        bookmark = new ArrayList<>();
     }
     public static UserSignUp getInstance()
     {
@@ -30,6 +34,14 @@ public class UserSignUp {
     }
 
     //get set method
+
+    public ArrayList<String> getBookmark() {
+        return bookmark;
+    }
+
+    public void setBookmark(ArrayList<String> bookmark) {
+        this.bookmark = bookmark;
+    }
 
     public FirebaseAuth getmFireBaseAuth(){return mFireBaseAuth;}
 

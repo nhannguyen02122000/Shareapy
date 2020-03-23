@@ -103,6 +103,7 @@ public class SlideTherapyFragment extends Fragment {
         user.put("religious",userSignUp.getReligious());
         user.put("spiritual",userSignUp.getSpiritual());
         user.put("therapy",userSignUp.getTherapy());
+        user.put("bookmark",userSignUp.getBookmark());
         user.put("feeling","null");
         db.collection("Users").document(uid).set(user).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
