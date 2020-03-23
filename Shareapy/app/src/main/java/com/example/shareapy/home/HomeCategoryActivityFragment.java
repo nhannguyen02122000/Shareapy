@@ -46,21 +46,31 @@ public class HomeCategoryActivityFragment extends Fragment {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                String name = document.getData().get("title").toString().trim();
-                                Timestamp time = (Timestamp) document.getData().get("time");
-                                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("h:mm a dd-MM-yyyy");
-                                String date = simpleDateFormat.format(time.toDate());
-                                ArrayList<String> registerList = (ArrayList<String>)document.getData().get("registerList");
-                                String actiID = document.getId().toString().trim();
+                            int size = task.getResult().size();
+                            if (size == 0)
+                            {
+                                Fragment noData = new NoDataFragment();
+                                getActivity().getSupportFragmentManager().beginTransaction().add(R.id.fl_category_container,noData)
+                                        .addToBackStack(noData.getClass().getSimpleName()).commit();
+                            }
+                            else
+                            {
+                                for (QueryDocumentSnapshot document : task.getResult()) {
+                                    String name = document.getData().get("title").toString().trim();
+                                    Timestamp time = (Timestamp) document.getData().get("time");
+                                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("h:mm a dd-MM-yyyy");
+                                    String date = simpleDateFormat.format(time.toDate());
+                                    ArrayList<String> registerList = (ArrayList<String>)document.getData().get("registerList");
+                                    String actiID = document.getId().toString().trim();
 
-                                categoryActivities.add (new CategoryActivity(name,date,registerList,actiID));
+                                    categoryActivities.add (new CategoryActivity(name,date,registerList,actiID));
 
-                                rvItems = (RecyclerView) view.findViewById(R.id.rv_category_activity);
-                                LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
-                                rvItems.setLayoutManager(layoutManager);
-                                rvItems.setHasFixedSize(true);
-                                rvItems.setAdapter(new CategoryActivityRecyclerAdapter(getContext(),categoryActivities));
+                                    rvItems = (RecyclerView) view.findViewById(R.id.rv_category_activity);
+                                    LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+                                    rvItems.setLayoutManager(layoutManager);
+                                    rvItems.setHasFixedSize(true);
+                                    rvItems.setAdapter(new CategoryActivityRecyclerAdapter(getContext(),categoryActivities));
+                                }
                             }
                         }
                     }

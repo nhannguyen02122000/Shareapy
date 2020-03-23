@@ -1,39 +1,33 @@
 package com.example.shareapy.utils;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.shareapy.R;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.SetOptions;
 
-import java.sql.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-// EventRecyclerAdapter
+// Calendar Recycler Adapter
 
-public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyViewHolder> {
+public class CalendarRecyclerAdapter extends RecyclerView.Adapter<CalendarRecyclerAdapter.MyViewHolder> {
 
     private ArrayList<CategoryActivity> categoryActivities;
     private Context context;
@@ -41,7 +35,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
     FirebaseAuth mFirebaseAuth = UserSignUp.getInstance().getmFireBaseAuth();
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-    public RecyclerAdapter(Context context, ArrayList<CategoryActivity> categoryActivities, Fragment frag) {
+    public CalendarRecyclerAdapter(Context context, ArrayList<CategoryActivity> categoryActivities, Fragment frag) {
         this.context = context;
         this.categoryActivities = categoryActivities;
         this.frag = frag;
@@ -52,6 +46,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
     }
     public static class MyViewHolder extends RecyclerView.ViewHolder {
         private TextView tvEventHeader,tvEventSlots,tvEventDate,tvEventDuration,tvExit,tvRegister;
+        private ToggleButton tgbtnBookmark;
 
         public MyViewHolder(View itemView) {
             super(itemView);
@@ -62,10 +57,11 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
             tvEventSlots=itemView.findViewById(R.id.tv_event_slot);
             tvExit = itemView.findViewById(R.id.tv_event_exit);
             tvRegister = itemView.findViewById(R.id.tv_event_register);
+            tgbtnBookmark = itemView.findViewById(R.id.tgbtn_event_bookmark);
         }
     }
     @Override
-    public RecyclerAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public CalendarRecyclerAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.home_calendar_event_items,parent,false);
         MyViewHolder vh = new MyViewHolder(itemView);
         return vh;
@@ -118,6 +114,49 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
                     {
                         Toast.makeText(context,"You have registered",Toast.LENGTH_SHORT).show();
                     }
+                }
+            }
+        });
+
+        FirebaseUser fbUser = mFirebaseAuth.getCurrentUser();
+        final String uid = fbUser.getUid();
+        final ArrayList<String>[] bookmark = new ArrayList[]{new ArrayList<>()};
+        db.collection("Users").document(uid).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        bookmark[0] = (ArrayList<String>) document.getData().get("bookmark");
+                        if (bookmark[0].contains(actiID))
+                            holder.tgbtnBookmark.setChecked(true);
+                        else
+                            holder.tgbtnBookmark.setChecked(false);
+                    }
+                }
+            }
+        });
+
+        holder.tgbtnBookmark.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (holder.tgbtnBookmark.isChecked())
+                {
+                    //them vao favorit
+                    bookmark[0].add(actiID);
+                    Map<String,Object> data = new HashMap<>();
+                    data.put("bookmark",bookmark[0]);
+                    db.collection("Users").document(uid).set(data, SetOptions.merge());
+                    Toast.makeText(context,"Added to your bookmark!",Toast.LENGTH_SHORT).show();
+                }
+                else
+                {
+                    //Loai ra khoi fav
+                    bookmark[0].remove(actiID);
+                    Map<String,Object> data = new HashMap<>();
+                    data.put("bookmark",bookmark[0]);
+                    db.collection("Users").document(uid).set(data, SetOptions.merge());
+                    Toast.makeText(context,"Removed from your bookmark!",Toast.LENGTH_SHORT).show();
                 }
             }
         });

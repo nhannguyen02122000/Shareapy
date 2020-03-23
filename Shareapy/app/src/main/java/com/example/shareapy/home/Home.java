@@ -49,6 +49,9 @@ public class Home extends AppCompatActivity implements BottomNavigationView.OnNa
             case R.id.home_nav_profile:
                 selectedFrag = new HomeProfileFragment();
                 break;
+            case R.id.home_nav_bookmark:
+                selectedFrag = new HomeBookmarkFragment();
+                break;
         }
         getSupportFragmentManager().beginTransaction().replace(R.id.home_fragment_container,selectedFrag).commit();
         return true;
