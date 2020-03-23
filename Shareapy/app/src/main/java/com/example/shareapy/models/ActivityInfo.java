@@ -14,7 +14,7 @@ public class ActivityInfo {
     private Date time;
     private String url;
     private String counselor;
-    private int type;
+    private String type;
     private ArrayList<String> registerList;
     private ArrayList<String> bookmarkedList;
     private Map<String, Float> ratingList;
@@ -82,11 +82,11 @@ public class ActivityInfo {
         this.counselor = counselor;
     }
 
-    public int getType() {
+    public String getType() {
         return type;
     }
 
-    public void setType(int type) {
+    public void setType(String type) {
         this.type = type;
     }
 

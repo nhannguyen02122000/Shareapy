@@ -44,12 +44,12 @@
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="10dp"
         android:progressTint="#FFEB3B"
-        android:rating="3.5"
+        android:rating="0"
         android:text="@string/card_view_btn_register"
         android:textColor="#fff" />
 
     <com.makeramen.roundedimageview.RoundedImageView xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/imageView1"
+        android:id="@+id/imgCardType"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:elevation="-1dp"
