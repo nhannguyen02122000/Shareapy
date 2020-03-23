@@ -130,15 +130,22 @@
                     android:layout_height="wrap_content"
                     android:text="Here are the dates that you can find your support group"
                     android:textColor="#B23D3333"/>
-
             </RelativeLayout>
-            <CalendarView
-                android:id="@+id/clv_home"
-                android:layout_width="wrap_content"
+            <RelativeLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#FFFFFF"
-                android:focusedMonthDateColor="#FFFFFF"
-                android:minDate="01/01/2000" />
+                android:id="@+id/rl_put_events"
+                android:padding="5dp">
+                <com.applandeo.materialcalendarview.CalendarView
+                    app:type="one_day_picker"
+                    app:eventsEnabled="true"
+                    app:headerColor="#427A5B"
+                    app:todayLabelColor="#427A5B"
+                    app:selectionColor="#427A5B"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/clv_home_material"/>
+            </RelativeLayout>
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
