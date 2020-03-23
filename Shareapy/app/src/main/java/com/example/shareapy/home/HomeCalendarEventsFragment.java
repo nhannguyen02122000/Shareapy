@@ -13,8 +13,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.shareapy.R;
+import com.example.shareapy.utils.CalendarRecyclerAdapter;
 import com.example.shareapy.utils.CategoryActivity;
-import com.example.shareapy.utils.RecyclerAdapter;
 import com.example.shareapy.utils.UserSignUp;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -66,7 +66,7 @@ public class HomeCalendarEventsFragment extends Fragment{
                                 LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
                                 rvItems.setLayoutManager(layoutManager);
                                 rvItems.setHasFixedSize(true);
-                                rvItems.setAdapter(new RecyclerAdapter(getContext(),categoryActivities,HomeCalendarEventsFragment.this));
+                                rvItems.setAdapter(new CalendarRecyclerAdapter(getContext(),categoryActivities,HomeCalendarEventsFragment.this));
                             }
                         }
                     }

@@ -18,8 +18,13 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.applandeo.materialcalendarview.EventDay;
+import com.applandeo.materialcalendarview.exceptions.OutOfDateRangeException;
+import com.applandeo.materialcalendarview.listeners.OnDayClickListener;
 import com.example.shareapy.R;
 import com.example.shareapy.utils.Category;
+import com.example.shareapy.utils.CategoryActivity;
+import com.example.shareapy.utils.CategoryActivityRecyclerAdapter;
 import com.example.shareapy.utils.CategoryRecyclerAdapter;
 import com.example.shareapy.utils.RecyclerAdapter;
 import com.example.shareapy.utils.UserSignUp;
@@ -29,12 +34,15 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -44,6 +52,7 @@ public class HomeHomeFragment extends Fragment {
     FirebaseAuth mFirebaseAuth=  UserSignUp.getInstance().getmFireBaseAuth();
     CalendarView clvHome;
     RecyclerView rvCategory;
+    com.applandeo.materialcalendarview.CalendarView clvHomeMaterial;
 
     @Nullable
     @Override
@@ -80,32 +89,43 @@ public class HomeHomeFragment extends Fragment {
         rvCategory.setHasFixedSize(true);
         rvCategory.setAdapter(new CategoryRecyclerAdapter(getContext(),categories));
 
-        clvHome = view.findViewById(R.id.clv_home);
-        clvHome.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
-            @Override
-            public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
 
-                DateFormat dateFormat = new SimpleDateFormat("dd-M-yyyy hh:mm:ss");
-                Date dateBegin = null;
-                Date dateEnd = null;
-                try {
-                    dateBegin = dateFormat.parse(Integer.toString(dayOfMonth) + "-" + Integer.toString(month+1)+ "-" + Integer.toString(year)
-                                                + " " + "00:00:00");
-                    dateEnd = dateFormat.parse(Integer.toString(dayOfMonth) + "-" + Integer.toString(month+1)+ "-" + Integer.toString(year)
-                            + " " + "23:59:59");
-                } catch (ParseException e) {
-                    e.printStackTrace();
+        clvHomeMaterial = view.findViewById(R.id.clv_home_material);
+        final ArrayList<EventDay> events = new ArrayList<>();
+        db.collection("ActivityInfos").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+
+                        com.google.firebase.Timestamp time = (com.google.firebase.Timestamp) document.getData().get("time");
+                        Calendar calendar = Calendar.getInstance();
+                        calendar.setTime(time.toDate());
+
+                        events.add(new EventDay(calendar,R.drawable.ic_circle_green_24dp));
+
+                    }
                 }
-                long timeBegin = dateBegin.getTime();
-                long timeEnd = dateEnd.getTime();
+                clvHomeMaterial.setEvents(events);
+            }
+        });
+
+
+        clvHomeMaterial.setOnDayClickListener(new OnDayClickListener() {
+            @Override
+            public void onDayClick(EventDay eventDay) {
+                Calendar calendar = eventDay.getCalendar();
+                long timeBegin = calendar.getTimeInMillis();
+                long timeEnd = calendar.getTimeInMillis()+24*60*60*1000-1000;
                 Timestamp tsBegin = new Timestamp(timeBegin);
                 Timestamp tsEnd = new Timestamp(timeEnd);
 
                 Fragment toEvents = new HomeCalendarEventsFragment(tsBegin,tsEnd);
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.clv_home,toEvents)
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.rl_put_events,toEvents)
                         .addToBackStack(toEvents.getClass().getSimpleName()).commit();
             }
         });
+
         return view;
     }
 }
