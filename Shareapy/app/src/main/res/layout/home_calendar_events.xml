@@ -4,11 +4,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="#a0000000"
     tools:context=".home.Home">
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/rv_calendar_event"/>
+        android:id="@+id/rv_calendar_event"
+        android:layout_gravity="center"/>
 </LinearLayout>

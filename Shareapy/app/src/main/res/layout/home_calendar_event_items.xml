@@ -4,13 +4,25 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:layout_centerInParent="true"
-    android:padding="16dp">
+    android:padding="16dp"
+    android:layout_gravity="center">
 
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="244dp"
-        android:background="@drawable/custom_edittext_shadow">
-
+        android:background="@drawable/custom_cardview_category_gradient">
+        <ToggleButton
+            android:id="@+id/tgbtn_event_bookmark"
+            android:textOn=""
+            android:textOff=""
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginBottom="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="5dp"
+            android:background="@drawable/toggle_button_bookmark" />
         <TextView
             android:id="@+id/tv_event_header"
             android:layout_width="285dp"
@@ -20,7 +32,7 @@
             android:layout_marginTop="4dp"
             android:padding="12dp"
             android:text="Event names"
-            android:textColor="#111111"
+            android:textColor="#FCFCFC"
             android:textSize="25dp"
             android:textStyle="bold" />
 
@@ -33,7 +45,7 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentRight="true"
             android:text="X"
-            android:textColor="#111111"
+            android:textColor="#FCFCFC"
             android:textSize="20dp"
             android:textStyle="bold" />
 
@@ -44,7 +56,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/tv_event_header"
             android:text="Event date"
-            android:textColor="#111111"
+            android:textColor="#FCFCFC"
             android:textSize="18dp" />
 
         <TextView
@@ -54,7 +66,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/tv_event_date"
             android:text="Event duration"
-            android:textColor="#111111"
+            android:textColor="#FCFCFC"
             android:textSize="18dp" />
 
         <TextView
@@ -64,12 +76,15 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/tv_event_duration"
             android:text="Slot available"
-            android:textColor="#111111"
+            android:textColor="#FCFCFC"
             android:textSize="18dp" />
 
         <TextView
+            android:background="@drawable/custom_button_cardview_for_category"
             android:id="@+id/tv_event_register"
-            android:padding="20dp"
+            android:padding="10dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="20dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"

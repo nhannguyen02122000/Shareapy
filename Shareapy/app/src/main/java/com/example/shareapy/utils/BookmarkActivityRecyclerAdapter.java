@@ -1,13 +1,10 @@
 package com.example.shareapy.utils;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.CompoundButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
@@ -28,12 +25,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class CategoryActivityRecyclerAdapter extends RecyclerView.Adapter<CategoryActivityRecyclerAdapter.MyViewHolder> {
+public class BookmarkActivityRecyclerAdapter extends RecyclerView.Adapter<BookmarkActivityRecyclerAdapter.MyViewHolder> {
     private Context context;
     private ArrayList<CategoryActivity> categoryActivities;
     FirebaseAuth mFirebaseAuth = UserSignUp.getInstance().getmFireBaseAuth();
     FirebaseFirestore db = FirebaseFirestore.getInstance();
-    public CategoryActivityRecyclerAdapter(Context context, ArrayList<CategoryActivity> categoryActivities) {
+    public BookmarkActivityRecyclerAdapter(Context context, ArrayList<CategoryActivity> categoryActivities) {
         this.context = context;
         this.categoryActivities = categoryActivities;
     };
@@ -49,21 +46,22 @@ public class CategoryActivityRecyclerAdapter extends RecyclerView.Adapter<Catego
         public MyViewHolder(View itemView) {
             super(itemView);
 
-            tvName =itemView.findViewById(R.id.tv_activeName);
-            tvDate = itemView.findViewById(R.id.tv_date_cate);
-            tvSlot = itemView.findViewById(R.id.tv_cate_slot);
-            btnRegister = itemView.findViewById(R.id.btn_register_category);
-            tgbtnBookmark = itemView.findViewById(R.id.tgbtn_bookmark);
+            tvName =itemView.findViewById(R.id.tv_activeName_bookmark);
+            tvDate = itemView.findViewById(R.id.tv_date_cate_bookmark);
+            tvSlot = itemView.findViewById(R.id.tv_cate_slot_bookmark);
+            btnRegister = itemView.findViewById(R.id.btn_register_category_bookmark);
+            tgbtnBookmark = itemView.findViewById(R.id.tgbtn_bookmark_bookmark);
         }
     }
     @Override
-    public CategoryActivityRecyclerAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.home_category_activity_fragment_items,parent,false);
-        MyViewHolder vh = new MyViewHolder(itemView);
+    public BookmarkActivityRecyclerAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.home_bookmark_fragment_items,parent,false);
+        BookmarkActivityRecyclerAdapter.MyViewHolder vh = new BookmarkActivityRecyclerAdapter.MyViewHolder(itemView);
         return vh;
     }
+
     @Override
-    public void onBindViewHolder(final MyViewHolder holder, int position) {
+    public void onBindViewHolder(final BookmarkActivityRecyclerAdapter.MyViewHolder holder, final int position) {
         String name =categoryActivities.get(position).getName();
         String date = categoryActivities.get(position).getDate();
         final String actiId = categoryActivities.get(position).getActiID();
@@ -136,6 +134,9 @@ public class CategoryActivityRecyclerAdapter extends RecyclerView.Adapter<Catego
                 else
                 {
                     //Loai ra khoi fav
+                    categoryActivities.remove(categoryActivities.get(position));
+                    notifyItemRemoved(position);
+                    notifyItemRangeChanged(position, categoryActivities.size());
                     bookmark[0].remove(actiId);
                     Map<String,Object> data = new HashMap<>();
                     data.put("bookmark",bookmark[0]);
