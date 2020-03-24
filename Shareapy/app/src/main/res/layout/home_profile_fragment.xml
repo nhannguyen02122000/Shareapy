@@ -34,7 +34,7 @@
             <TextView
                 android:id="@+id/tvUserName"
                 style="@style/viewParent.headerText"
-                android:text="Linh Vo"
+                android:text=""
                 android:textSize="28dp"
                 android:layout_toRightOf="@id/profileCircleImageView"
                 android:layout_marginTop="14dp"/>

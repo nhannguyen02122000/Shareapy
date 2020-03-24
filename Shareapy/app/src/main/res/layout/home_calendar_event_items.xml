@@ -4,8 +4,7 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:layout_centerInParent="true"
-    android:padding="16dp"
-    android:layout_gravity="center">
+    android:padding="7dp">
 
     <RelativeLayout
         android:layout_width="wrap_content"
@@ -38,12 +37,13 @@
 
         <TextView
             android:id="@+id/tv_event_exit"
-            android:padding="12dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignRight="@+id/tv_event_header"
             android:layout_alignParentTop="true"
             android:layout_alignParentRight="true"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="20dp"
             android:text="X"
             android:textColor="#FCFCFC"
             android:textSize="20dp"
