@@ -78,7 +78,7 @@ public class HomeBookmarkFragment extends Fragment {
                             LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
                             rvItems.setLayoutManager(layoutManager);
                             rvItems.setHasFixedSize(true);
-                            rvItems.setAdapter(new BookmarkActivityRecyclerAdapter(getContext(),categoryActivities));
+                            rvItems.setAdapter(new BookmarkActivityRecyclerAdapter(getContext(),categoryActivities,time));
                         }
                     }
                 }

@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -49,9 +50,10 @@ public class HomeCategoryActivityFragment extends Fragment {
                             int size = task.getResult().size();
                             if (size == 0)
                             {
-                                Fragment noData = new NoDataFragment();
-                                getActivity().getSupportFragmentManager().beginTransaction().add(R.id.fl_category_container,noData)
-                                        .addToBackStack(noData.getClass().getSimpleName()).commit();
+//                                Fragment noData = new NoDataFragment();
+//                                getActivity().getSupportFragmentManager().beginTransaction().add(R.id.fl_category_container,noData)
+//                                        .addToBackStack(noData.getClass().getSimpleName()).commit();
+                                Toast.makeText(getContext(),"Sorry, no data was found",Toast.LENGTH_SHORT).show();
                             }
                             else
                             {
@@ -69,7 +71,7 @@ public class HomeCategoryActivityFragment extends Fragment {
                                     LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
                                     rvItems.setLayoutManager(layoutManager);
                                     rvItems.setHasFixedSize(true);
-                                    rvItems.setAdapter(new CategoryActivityRecyclerAdapter(getContext(),categoryActivities));
+                                    rvItems.setAdapter(new CategoryActivityRecyclerAdapter(getContext(),categoryActivities,time));
                                 }
                             }
                         }

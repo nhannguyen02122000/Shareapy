@@ -66,7 +66,7 @@ public class HomeCalendarEventsFragment extends Fragment{
                                 LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
                                 rvItems.setLayoutManager(layoutManager);
                                 rvItems.setHasFixedSize(true);
-                                rvItems.setAdapter(new CalendarRecyclerAdapter(getContext(),categoryActivities,HomeCalendarEventsFragment.this));
+                                rvItems.setAdapter(new CalendarRecyclerAdapter(getContext(),categoryActivities,HomeCalendarEventsFragment.this,time));
                             }
                         }
                     }

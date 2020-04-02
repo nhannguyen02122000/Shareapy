@@ -11,20 +11,14 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.applandeo.materialcalendarview.EventDay;
-import com.applandeo.materialcalendarview.exceptions.OutOfDateRangeException;
 import com.applandeo.materialcalendarview.listeners.OnDayClickListener;
 import com.example.shareapy.R;
 import com.example.shareapy.utils.Category;
-import com.example.shareapy.utils.CategoryActivity;
-import com.example.shareapy.utils.CategoryActivityRecyclerAdapter;
 import com.example.shareapy.utils.CategoryRecyclerAdapter;
 import com.example.shareapy.utils.UserSignUp;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -37,13 +31,8 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.sql.Timestamp;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
 
 public class HomeHomeFragment extends Fragment {
     TextView tvWelcome;
