@@ -16,13 +16,16 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.shareapy.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.SetOptions;
 
+import java.sql.Time;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 // Calendar Recycler Adapter
@@ -32,13 +35,15 @@ public class CalendarRecyclerAdapter extends RecyclerView.Adapter<CalendarRecycl
     private ArrayList<CategoryActivity> categoryActivities;
     private Context context;
     private Fragment frag;
+    private Timestamp tsDateOfEvent;
     FirebaseAuth mFirebaseAuth = UserSignUp.getInstance().getmFireBaseAuth();
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-    public CalendarRecyclerAdapter(Context context, ArrayList<CategoryActivity> categoryActivities, Fragment frag) {
+    public CalendarRecyclerAdapter(Context context, ArrayList<CategoryActivity> categoryActivities, Fragment frag, Timestamp ts) {
         this.context = context;
         this.categoryActivities = categoryActivities;
         this.frag = frag;
+        this.tsDateOfEvent = ts;
     }
     @Override
     public int getItemCount() {
@@ -70,6 +75,8 @@ public class CalendarRecyclerAdapter extends RecyclerView.Adapter<CalendarRecycl
 
     @Override
     public void onBindViewHolder(final MyViewHolder holder, int position) {
+        FirebaseUser fbUser = mFirebaseAuth.getCurrentUser();
+        final String uid = fbUser.getUid();
         final String header = categoryActivities.get(position).getName();
         final String actiID =categoryActivities.get(position).getActiID();
         String date = categoryActivities.get(position).getDate();
@@ -91,6 +98,20 @@ public class CalendarRecyclerAdapter extends RecyclerView.Adapter<CalendarRecycl
                 ((FragmentActivity)context).getSupportFragmentManager().popBackStack();
             }
         });
+
+        //Check date of event and cur date
+        Date thisDate = new Date(System.currentTimeMillis());
+        Timestamp curTimeStamp = new Timestamp(thisDate);
+        if (tsDateOfEvent.getSeconds()<curTimeStamp.getSeconds())
+        {
+            holder.tvRegister.setVisibility(View.INVISIBLE);
+        }
+        //Check whether registered
+        if (registerList.contains(uid))
+        {
+            holder.tvRegister.setText("Registered");
+        }
+
         holder.tvRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -108,6 +129,7 @@ public class CalendarRecyclerAdapter extends RecyclerView.Adapter<CalendarRecycl
                         data.put("registerList",registerList);
                         db.collection("ActivityInfos").document(actiID).set(data,SetOptions.merge());
                         holder.tvEventSlots.setText(Integer.toString(registerList.size()) + "/" + Integer.toString(maxPer));
+                        holder.tvRegister.setText("Registered");
                         Toast.makeText(context,"Register Successful",Toast.LENGTH_SHORT).show();
                     }
                     else
@@ -118,8 +140,7 @@ public class CalendarRecyclerAdapter extends RecyclerView.Adapter<CalendarRecycl
             }
         });
 
-        FirebaseUser fbUser = mFirebaseAuth.getCurrentUser();
-        final String uid = fbUser.getUid();
+
         final ArrayList<String>[] bookmark = new ArrayList[]{new ArrayList<>()};
         db.collection("Users").document(uid).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override

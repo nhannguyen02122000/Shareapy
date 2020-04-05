@@ -10,4 +10,7 @@
     <color name="imageBorderColor">#427A5B</color>
     <color name="miniTitle">#2A2E43</color>
     <color name="colorLightGrey">#D1D1D1</color>
+    <color name="colorSupport">#427A5B</color>
+    <color name="colorAppreciate">#FBBC05</color>
+
 </resources>

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:background="@drawable/custom_layout_community_newpost"
+    android:layout_margin="10dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <TextView
+        android:text="@string/card_view_demo_txt_title"
+        android:id="@+id/txtCardTitle"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <TextView
+        android:id="@+id/txtCardTime"
+        android:text="@string/card_view_demo_txt_time"
+        android:layout_width="match_parent"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="20dp"
+        android:layout_height="wrap_content"/>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_margin="10dp"
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <ImageView
+            android:src="@drawable/ic_group_black"
+            android:contentDescription="@string/img_title_privacy"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginStart="5dp"
+            android:scaleType="fitXY" />
+        <ImageView
+            android:layout_gravity="center_vertical"
+            android:contentDescription="@string/img_title_support"
+            android:src="@drawable/ic_appreciate_chosen"
+            android:layout_width="24dp"
+            android:layout_marginStart="30dp"
+            android:layout_height="24dp"
+            android:scaleType="fitXY" />
+        <TextView
+            android:textSize="20sp"
+            android:text="0"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <ImageView
+            android:layout_gravity="center_vertical"
+            android:contentDescription="@string/img_title_appreciate"
+            android:src="@drawable/ic_support_chosen"
+            android:layout_marginStart="30dp"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:scaleType="fitXY" />
+        <TextView
+            android:textSize="20sp"
+            android:text="0"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+    <Button
+        android:id="@+id/btnCardRegister"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:textAllCaps="false"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/custom_button_cardview"
+        android:text="@string/button_edit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginBottom="20dp"/>
+</LinearLayout>

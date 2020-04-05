@@ -37,7 +37,17 @@
     <string name="card_view_demo_counselor">Magie</string>
     <string name="dialog_how_support_group">How helpful was this Support Group?</string>
     <string name="button_submit">Submit</string>
-
+    <string name="card_view_how_feel">How do you feel ?</string>
+    <string name="dialog_feedback">Please give us your feedback &lt;3</string>
+    <string name="card_view_feel_hint">I feel …</string>
+    <string name="switch_string_onlyme">Only me</string>
+    <string name="button_post">Post</string>
+    <string name="button_edit">Edit</string>
+    <string name="button_support">Support</string>
+    <string name="button_appreciate">Appreciate</string>
+    <string name="img_title_privacy">Privacy</string>
+    <string name="img_title_support">Support</string>
+    <string name="img_title_appreciate">Appreciate</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
