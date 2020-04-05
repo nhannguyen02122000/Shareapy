@@ -5,10 +5,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 
 import com.example.shareapy.R;
+import com.example.shareapy.home.bookmark.HomeBookmarkFragment;
+import com.example.shareapy.home.community.CommunityFragment;
+import com.example.shareapy.home.activity.HomeActivityFragment;
+import com.example.shareapy.home.homepage.HomeHomeFragment;
+import com.example.shareapy.home.profile.HomeProfileFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class Home extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener{
@@ -53,7 +57,7 @@ public class Home extends AppCompatActivity implements BottomNavigationView.OnNa
                 selectedFrag = new HomeBookmarkFragment();
                 break;
             case R.id.home_nav_community:
-                selectedFrag = new HomeCommunityFragment();
+                selectedFrag = new CommunityFragment();
                 break;
         }
         getSupportFragmentManager().beginTransaction().replace(R.id.home_fragment_container,selectedFrag).commit();

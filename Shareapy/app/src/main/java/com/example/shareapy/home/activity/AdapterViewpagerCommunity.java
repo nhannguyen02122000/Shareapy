@@ -1,4 +1,4 @@
-package com.example.shareapy.homepage.ui.home;
+package com.example.shareapy.home.activity;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;

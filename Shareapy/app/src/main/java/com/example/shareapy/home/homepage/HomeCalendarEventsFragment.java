@@ -1,7 +1,6 @@
-package com.example.shareapy.home;
+package com.example.shareapy.home.homepage;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,20 +14,15 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.shareapy.R;
 import com.example.shareapy.utils.CalendarRecyclerAdapter;
 import com.example.shareapy.utils.CategoryActivity;
-import com.example.shareapy.utils.UserSignUp;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.Timestamp;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
-import java.sql.Time;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.List;
 
 public class HomeCalendarEventsFragment extends Fragment{
     private RecyclerView rvItems;

@@ -1,4 +1,4 @@
-package com.example.shareapy.homepage.ui.home;
+package com.example.shareapy.home.community;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,13 +10,14 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.shareapy.R;
+import com.example.shareapy.models.Post;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class FragmentCommunityCommunity extends Fragment {
-//    public static AdapterRecyclerviewCurrent currentAdapter = new AdapterRecyclerviewCurrent();
-//    RecyclerView rcvCurrent;
+    private RecyclerView rcvCommunityPost;
+    private AdapterCommunityPost adapterCommunityPost = new AdapterCommunityPost(Post.generateFakePost());
     public FragmentCommunityCommunity() {
     }
 
@@ -25,10 +26,10 @@ public class FragmentCommunityCommunity extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_community_community, null);
-//        rcvCurrent = view.findViewById(R.id.rcvCurrent);
-//        LinearLayoutManager llm = new LinearLayoutManager(getContext());
-//        rcvCurrent.setLayoutManager(llm);
-//        rcvCurrent.setAdapter(currentAdapter);
+        rcvCommunityPost = view.findViewById(R.id.rcvCommunityPost);
+        LinearLayoutManager llm = new LinearLayoutManager(getContext());
+        rcvCommunityPost.setLayoutManager(llm);
+        rcvCommunityPost.setAdapter(adapterCommunityPost);
         return view;
     }
 }

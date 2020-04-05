@@ -14,7 +14,7 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.shareapy.R;
-import com.example.shareapy.home.HomeCategoryActivityFragment;
+import com.example.shareapy.home.homepage.HomeCategoryActivityFragment;
 
 import java.util.ArrayList;
 

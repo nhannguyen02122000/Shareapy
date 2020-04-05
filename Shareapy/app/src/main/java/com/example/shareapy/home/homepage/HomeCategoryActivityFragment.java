@@ -1,4 +1,4 @@
-package com.example.shareapy.home;
+package com.example.shareapy.home.homepage;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

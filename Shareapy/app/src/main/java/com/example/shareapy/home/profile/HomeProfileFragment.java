@@ -1,4 +1,4 @@
-package com.example.shareapy.home;
+package com.example.shareapy.home.profile;
 
 import android.content.Intent;
 import android.os.Bundle;

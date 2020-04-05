@@ -1,10 +1,7 @@
-package com.example.shareapy.homepage.ui.home;
+package com.example.shareapy.home.activity;
 
-import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,10 +17,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.shareapy.R;
 import com.example.shareapy.models.ActivityInfo;
 import com.example.shareapy.utils.SavedInstance;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;

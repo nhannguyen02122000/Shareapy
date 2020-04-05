@@ -1,4 +1,4 @@
-package com.example.shareapy.home;
+package com.example.shareapy.home.community;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,17 +11,11 @@ import androidx.fragment.app.Fragment;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.shareapy.R;
-import com.example.shareapy.homepage.ui.home.AdapterViewpagerActivity;
-import com.example.shareapy.homepage.ui.home.AdapterViewpagerCommunity;
-import com.example.shareapy.homepage.ui.home.FragmentActivityCurrent;
-import com.example.shareapy.homepage.ui.home.FragmentActivityHistory;
-import com.example.shareapy.homepage.ui.home.FragmentActivityUpcoming;
-import com.example.shareapy.homepage.ui.home.FragmentCommunityCommunity;
-import com.example.shareapy.homepage.ui.home.FragmentCommunityYourPosts;
+import com.example.shareapy.home.activity.AdapterViewpagerCommunity;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
-public class HomeCommunityFragment extends Fragment {
+public class CommunityFragment extends Fragment {
     private TabLayout tlCommunity;
     private ViewPager2 vpCommunity;
 

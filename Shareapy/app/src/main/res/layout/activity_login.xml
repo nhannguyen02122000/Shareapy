@@ -35,6 +35,8 @@
             android:paddingTop="5dp"
             android:paddingBottom="5dp"
             android:layout_width="match_parent"
+            android:hint="@string/email"
+            android:importantForAutofill="no"
             android:background="@drawable/custom_edittext_shadow"
             android:layout_height="wrap_content">
 
@@ -42,8 +44,8 @@
                 android:id="@+id/tiedtEmail_logIn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:importantForAutofill="no"
                 android:layout_margin="5dp"
-                android:hint="@string/email"
                 android:inputType="textEmailAddress"
                 android:textSize="20sp" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -52,6 +54,7 @@
             android:paddingTop="5dp"
             android:paddingBottom="5dp"
             android:layout_width="match_parent"
+            android:importantForAutofill="no"
             android:background="@drawable/custom_edittext_shadow"
             android:layout_height="wrap_content">
 
@@ -60,6 +63,7 @@
                 android:layout_margin="5dp"
                 android:inputType="textPassword"
                 android:layout_width="match_parent"
+                android:importantForAutofill="no"
                 android:layout_height="wrap_content"
                 android:hint="@string/password"/>
         </com.google.android.material.textfield.TextInputLayout>

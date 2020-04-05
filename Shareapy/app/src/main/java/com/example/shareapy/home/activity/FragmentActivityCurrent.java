@@ -1,8 +1,7 @@
-package com.example.shareapy.homepage.ui.home;
+package com.example.shareapy.home.activity;
 
 import android.os.Bundle;
 
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -12,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.shareapy.R;
-import com.example.shareapy.utils.SavedInstance;
 
 /**
  * A simple {@link Fragment} subclass.

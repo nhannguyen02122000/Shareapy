@@ -1,19 +1,15 @@
-package com.example.shareapy.homepage.ui.home;
+package com.example.shareapy.home.community;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.shareapy.R;
-import com.example.shareapy.home.HomeCommunityNewPostActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 /**
@@ -37,7 +33,7 @@ public class FragmentCommunityYourPosts extends Fragment {
         fabNewPost.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getActivity().startActivity(new Intent(getActivity(), HomeCommunityNewPostActivity.class));
+                getActivity().startActivity(new Intent(getActivity(), CommunityNewPostActivity.class));
             }
         });
 //        rcvCurrent = view.findViewById(R.id.rcvCurrent);

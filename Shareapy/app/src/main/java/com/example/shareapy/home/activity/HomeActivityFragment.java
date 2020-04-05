@@ -1,4 +1,4 @@
-package com.example.shareapy.home;
+package com.example.shareapy.home.activity;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -12,10 +12,6 @@ import androidx.fragment.app.Fragment;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.shareapy.R;
-import com.example.shareapy.homepage.ui.home.FragmentActivityCurrent;
-import com.example.shareapy.homepage.ui.home.FragmentActivityHistory;
-import com.example.shareapy.homepage.ui.home.FragmentActivityUpcoming;
-import com.example.shareapy.homepage.ui.home.AdapterViewpagerActivity;
 import com.example.shareapy.models.ActivityInfo;
 import com.example.shareapy.utils.SavedInstance;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -26,7 +22,6 @@ import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;

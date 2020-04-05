@@ -1,4 +1,4 @@
-package com.example.shareapy.homepage.ui.home;
+package com.example.shareapy.home.activity;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,9 +10,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.shareapy.R;
-import com.example.shareapy.models.ActivityInfo;
-
-import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
