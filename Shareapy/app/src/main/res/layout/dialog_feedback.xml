@@ -29,6 +29,9 @@
     <EditText
         android:id="@+id/edtDialogFeedback"
         android:padding="5dp"
+        android:importantForAutofill="no"
+        android:hint="@string/dialog_feedback"
+        android:inputType="textMultiLine"
         android:background="@drawable/custom_edittext_dialog"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

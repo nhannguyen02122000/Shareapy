@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.shareapy.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -22,17 +23,20 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.SetOptions;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
 public class BookmarkActivityRecyclerAdapter extends RecyclerView.Adapter<BookmarkActivityRecyclerAdapter.MyViewHolder> {
     private Context context;
+    private Timestamp tsDateOfEvent;
     private ArrayList<CategoryActivity> categoryActivities;
     FirebaseAuth mFirebaseAuth = UserSignUp.getInstance().getmFireBaseAuth();
     FirebaseFirestore db = FirebaseFirestore.getInstance();
-    public BookmarkActivityRecyclerAdapter(Context context, ArrayList<CategoryActivity> categoryActivities) {
+    public BookmarkActivityRecyclerAdapter(Context context, ArrayList<CategoryActivity> categoryActivities,  Timestamp tsDateOfEvent) {
         this.context = context;
         this.categoryActivities = categoryActivities;
+        this.tsDateOfEvent = tsDateOfEvent;
     };
     @Override
     public int getItemCount() {
@@ -77,6 +81,20 @@ public class BookmarkActivityRecyclerAdapter extends RecyclerView.Adapter<Bookma
         holder.tvDate.setText(date);
         holder.tvSlot.setText(slots);
 
+        //Check date of event and cur date
+        Date thisDate = new Date(System.currentTimeMillis());
+        Timestamp curTimeStamp = new Timestamp(thisDate);
+        if (tsDateOfEvent.getSeconds()<curTimeStamp.getSeconds())
+        {
+            holder.btnRegister.setVisibility(View.INVISIBLE);
+        }
+
+        //Check whether registered
+        if (registerList.contains(uid))
+        {
+            holder.btnRegister.setText("Registered");
+        }
+
         holder.btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -85,7 +103,6 @@ public class BookmarkActivityRecyclerAdapter extends RecyclerView.Adapter<Bookma
                     Toast.makeText(context,"The event was full",Toast.LENGTH_SHORT).show();
                 }
                 else{
-
                     if (!registerList.contains(uid))
                     {
                         registerList.add(uid);
@@ -93,6 +110,7 @@ public class BookmarkActivityRecyclerAdapter extends RecyclerView.Adapter<Bookma
                         data.put("registerList",registerList);
                         db.collection("ActivityInfos").document(actiId).set(data, SetOptions.merge());
                         holder.tvSlot.setText(Integer.toString(registerList.size()) + "/" + Integer.toString(maxPer));
+                        holder.btnRegister.setText("Registered");
                         Toast.makeText(context,"Register Successful",Toast.LENGTH_SHORT).show();
                     }
                     else
@@ -102,6 +120,7 @@ public class BookmarkActivityRecyclerAdapter extends RecyclerView.Adapter<Bookma
                 }
             }
         });
+        holder.tgbtnBookmark.setChecked(true);
         final ArrayList<String>[] bookmark = new ArrayList[]{new ArrayList<>()};
         db.collection("Users").document(uid).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
@@ -110,10 +129,10 @@ public class BookmarkActivityRecyclerAdapter extends RecyclerView.Adapter<Bookma
                     DocumentSnapshot document = task.getResult();
                     if (document.exists()) {
                         bookmark[0] = (ArrayList<String>) document.getData().get("bookmark");
-                        if (bookmark[0].contains(actiId))
-                            holder.tgbtnBookmark.setChecked(true);
-                        else
-                            holder.tgbtnBookmark.setChecked(false);
+//                        if (bookmark[0].contains(actiId))
+//                            holder.tgbtnBookmark.setChecked(true);
+//                        else
+//                            holder.tgbtnBookmark.setChecked(false);
                     }
                 }
             }

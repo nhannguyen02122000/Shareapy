@@ -14,7 +14,7 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.shareapy.R;
-import com.example.shareapy.home.HomeCategoryActivityFragment;
+import com.example.shareapy.home.homepage.HomeCategoryActivityFragment;
 
 import java.util.ArrayList;
 
@@ -82,8 +82,10 @@ public class CategoryRecyclerAdapter  extends RecyclerView.Adapter<CategoryRecyc
                         openCateActi = new HomeCategoryActivityFragment("Other");
                         break;
                 }
-                ((FragmentActivity)context).getSupportFragmentManager().beginTransaction().add(R.id.fl_category_container, openCateActi)
-                        .addToBackStack(openCateActi.getClass().getSimpleName()).commit();
+                ((FragmentActivity)context).getSupportFragmentManager().popBackStack();
+                ((FragmentActivity)context).getSupportFragmentManager().beginTransaction().replace(R.id.fl_category_container, openCateActi)
+                        .addToBackStack(openCateActi.getClass().getSimpleName())
+                        .commit();
             }
         });
     }
