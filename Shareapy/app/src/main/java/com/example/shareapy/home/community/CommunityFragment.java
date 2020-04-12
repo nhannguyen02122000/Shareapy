@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -14,6 +15,7 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.shareapy.R;
 import com.example.shareapy.models.ActivityInfo;
+import com.example.shareapy.models.CurrentUser;
 import com.example.shareapy.models.Post;
 import com.example.shareapy.utils.UserSignUp;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -34,6 +36,7 @@ import java.util.Comparator;
 public class CommunityFragment extends Fragment {
     private TabLayout tlCommunity;
     private ViewPager2 vpCommunity;
+    ProgressBar progressBar;
     final String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     ArrayList<Post> publicPost = new ArrayList<>();
@@ -46,6 +49,7 @@ public class CommunityFragment extends Fragment {
         View view = inflater.inflate(R.layout.home_community_fragment, container, false);
         tlCommunity = view.findViewById(R.id.tlCommunity);
         vpCommunity = view.findViewById(R.id.vpCommunity);
+        progressBar = view.findViewById(R.id.pgb_Community);
 
         setupViewPager();
         getData();
@@ -54,23 +58,15 @@ public class CommunityFragment extends Fragment {
     }
     private void getData() {
         //Get username
+
         mFirebaseAuth = UserSignUp.getInstance().getmFireBaseAuth();
         FirebaseUser fbUser = mFirebaseAuth.getCurrentUser();
         String uid = fbUser.getUid();
-        db.collection("Users").document(uid).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()) {
-                    DocumentSnapshot document = task.getResult();
-                    if (document.exists()) {
-                        String name = document.getData().get("name").toString().trim();
-                        CommunityNewPostActivity.userName=name;
-                        CommunityEditPostActivity.username=name;
-                    }
-                }
-            }
-        });
+        CommunityNewPostActivity.userName= CurrentUser.userName;
+        CommunityEditPostActivity.username=CurrentUser.userName;
+
         //Get userPost only
+        progressBar.setVisibility(View.VISIBLE);
         db.collection("Posts").whereEqualTo("userID",userId).get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
@@ -88,11 +84,13 @@ public class CommunityFragment extends Fragment {
                             return (int)(t1.getTime().getTime()-newPost.getTime().getTime());
                         }
                     });
+                    progressBar.setVisibility(View.INVISIBLE);
                     FragmentCommunityYourPosts.yourpostAdapter.setItem(userPost);
                     FragmentCommunityYourPosts.yourpostAdapter.notifyDataSetChanged();
                 }
                 else
                 {
+                    progressBar.setVisibility(View.INVISIBLE);
                     Log.e("hello", "Error getting documents: ", task.getException());
                 }
             }

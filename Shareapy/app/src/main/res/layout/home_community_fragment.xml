@@ -6,16 +6,26 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
+
     <com.google.android.material.tabs.TabLayout
         android:background="#fff"
         android:id="@+id/tlCommunity"
         android:layout_width="match_parent"
         android:layout_height="48dp"/>
 
-    <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/vpCommunity"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-    </androidx.viewpager2.widget.ViewPager2>
+        <ProgressBar
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:id="@+id/pgb_Community"
+            android:layout_centerInParent="true"/>
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/vpCommunity"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        </androidx.viewpager2.widget.ViewPager2>
+    </RelativeLayout>
 
 </LinearLayout>

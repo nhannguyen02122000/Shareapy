@@ -5,6 +5,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CalendarView;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -35,10 +37,12 @@ import java.util.Calendar;
 
 public class HomeHomeFragment extends Fragment {
     TextView tvWelcome;
+    RelativeLayout rlCalendar;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     FirebaseAuth mFirebaseAuth=  UserSignUp.getInstance().getmFireBaseAuth();
     CalendarView clvHome;
     RecyclerView rvCategory;
+    ProgressBar progressBar_cld,progressBar_category;
     com.applandeo.materialcalendarview.CalendarView clvHomeMaterial;
 
     @Nullable
@@ -46,20 +50,12 @@ public class HomeHomeFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.home_home_fragment,container,false);
 
+        rlCalendar = view.findViewById(R.id.rl_Calendar);
+        progressBar_cld = view.findViewById(R.id.pgb_Calendar);
+        progressBar_category = view.findViewById(R.id.pgb_category);
         tvWelcome = view.findViewById(R.id.tv_home_home_welcome);
         tvWelcome.setText("Welcome,\n"+ CurrentUser.userName );
-//        db.collection("Users").document(uid).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-//            @Override
-//            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-//                if (task.isSuccessful()) {
-//                    DocumentSnapshot document = task.getResult();
-//                    if (document.exists()) {
-//                        String name = document.getData().get("name").toString().trim();
-//                        tvWelcome.setText("Welcome,\n"+name+"!");
-//                    }
-//                }
-//            }
-//        });
+
 
         ArrayList<Category> categories = new ArrayList<Category>() {};
         categories.add(new Category("Lifestyle",R.drawable.home_category_lifestyle));
@@ -78,6 +74,8 @@ public class HomeHomeFragment extends Fragment {
 
         clvHomeMaterial = view.findViewById(R.id.clv_home_material);
         final ArrayList<EventDay> events = new ArrayList<>();
+
+        showProgressBarCalendar();
         db.collection("ActivityInfos").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -92,6 +90,7 @@ public class HomeHomeFragment extends Fragment {
 
                     }
                 }
+                hideProgressBarCalendar();
                 clvHomeMaterial.setEvents(events);
             }
         });
@@ -100,11 +99,13 @@ public class HomeHomeFragment extends Fragment {
         clvHomeMaterial.setOnDayClickListener(new OnDayClickListener() {
             @Override
             public void onDayClick(EventDay eventDay) {
+
                 Calendar calendar = eventDay.getCalendar();
                 long timeBegin = calendar.getTimeInMillis();
                 long timeEnd = calendar.getTimeInMillis()+24*60*60*1000-1000;
                 Timestamp tsBegin = new Timestamp(timeBegin);
                 Timestamp tsEnd = new Timestamp(timeEnd);
+
 
                 Fragment toEvents = new HomeCalendarEventsFragment(tsBegin,tsEnd);
                 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.rl_put_events,toEvents)
@@ -114,4 +115,17 @@ public class HomeHomeFragment extends Fragment {
 
         return view;
     }
+
+    private void hideProgressBarCalendar()
+    {
+        progressBar_cld.setVisibility(View.INVISIBLE);
+        rlCalendar.setVisibility(View.VISIBLE);
+
+    }
+    private void showProgressBarCalendar()
+    {
+        progressBar_cld.setVisibility(View.VISIBLE);
+        rlCalendar.setVisibility(View.INVISIBLE);
+    }
+
 }

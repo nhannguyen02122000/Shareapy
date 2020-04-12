@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Switch;
 import android.widget.TextView;
 
@@ -15,6 +16,7 @@ import com.example.shareapy.R;
 import com.example.shareapy.models.Post;
 import com.example.shareapy.utils.UserSignUp;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -38,6 +40,7 @@ public class CommunityNewPostActivity extends AppCompatActivity {
     Switch swIsOnlyMe;
     String uid,postID;
     Button btnPost;
+    ProgressBar progressBar;
     boolean isPublic;
 
     @Override
@@ -68,6 +71,8 @@ public class CommunityNewPostActivity extends AppCompatActivity {
         btnPost.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                progressBar.setVisibility(View.VISIBLE);
+                btnPost.setVisibility(View.INVISIBLE);
                 //Instantiate new Post obj
                 Post newPost = new Post();
                 newPost.setContent(etPostContent.getText().toString().trim());
@@ -88,6 +93,7 @@ public class CommunityNewPostActivity extends AppCompatActivity {
         etPostContent = findViewById(R.id.edtPostContent);
         btnPost = findViewById(R.id.btnPostSubmit);
         swIsOnlyMe = findViewById(R.id.swtPostOnlyMe);
+        progressBar = findViewById(R.id.pgb_newPost);
 
         tvUserName.setText(userName);
     }
@@ -105,7 +111,15 @@ public class CommunityNewPostActivity extends AppCompatActivity {
                 forUpdate.addAll(posts);
                 FragmentCommunityYourPosts.yourpostAdapter.setItem(forUpdate);
                 FragmentCommunityYourPosts.yourpostAdapter.notifyDataSetChanged();
+                progressBar.setVisibility(View.INVISIBLE);
+                btnPost.setVisibility(View.VISIBLE);
                 CommunityNewPostActivity.super.onBackPressed();
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                progressBar.setVisibility(View.INVISIBLE);
+                btnPost.setVisibility(View.VISIBLE);
             }
         });
 

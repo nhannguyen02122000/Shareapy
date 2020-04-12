@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -31,6 +32,7 @@ import java.util.ArrayList;
 
 public class HomeBookmarkFragment extends Fragment {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
+    ProgressBar progressBar;
     FirebaseAuth mFirebaseAuth=  UserSignUp.getInstance().getmFireBaseAuth();
     ArrayList<CategoryActivity> categoryActivities = new ArrayList<>();
     ArrayList<String> bookmark = new ArrayList<>();
@@ -39,7 +41,9 @@ public class HomeBookmarkFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.home_bookmark_fragment, container, false);
+        progressBar=view.findViewById(R.id.pgb_Bookmark);
 
+        progressBar.setVisibility(View.VISIBLE);
         db.collection("Users").document(mFirebaseAuth.getCurrentUser().getUid()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -74,6 +78,7 @@ public class HomeBookmarkFragment extends Fragment {
 
                             categoryActivities.add (new CategoryActivity(name,date,registerList,actiID));
 
+                            progressBar.setVisibility(View.INVISIBLE);
                             rvItems = (RecyclerView) view.findViewById(R.id.rv_bookmark);
                             LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
                             rvItems.setLayoutManager(layoutManager);

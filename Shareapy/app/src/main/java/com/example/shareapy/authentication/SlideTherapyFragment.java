@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
@@ -36,6 +37,7 @@ public class SlideTherapyFragment extends Fragment {
     RadioGroup radioThe;
     RadioButton radioButThe;
     FirebaseAuth mFirebaseAuth;
+    ProgressBar progressBar;
     //DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     private String TAG = this.getClass().getName();
@@ -67,6 +69,10 @@ public class SlideTherapyFragment extends Fragment {
                     userSignUp.setTherapy(radioButThe.getText().toString().trim());
 
                 //SignUp
+                    progressBar.setVisibility(View.VISIBLE);
+                    btnSignUp.setVisibility(View.INVISIBLE);
+                    btnPre.setVisibility(View.INVISIBLE);
+
                     String email = userSignUp.getUserMail();
                     String pass = userSignUp.getPassword();
                     mFirebaseAuth = userSignUp.getmFireBaseAuth();
@@ -75,6 +81,9 @@ public class SlideTherapyFragment extends Fragment {
                         public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (!task.isSuccessful())
                                 {
+                                    progressBar.setVisibility(View.INVISIBLE);
+                                    btnSignUp.setVisibility(View.VISIBLE);
+                                    btnPre.setVisibility(View.VISIBLE);
                                     Toast.makeText(getContext(),"Sign up unsuccessful!",Toast.LENGTH_SHORT).show();
                                     Log.e(TAG,"Error");
                                 }
@@ -139,6 +148,7 @@ public class SlideTherapyFragment extends Fragment {
         btnPre = view.findViewById(R.id.btnPre_therapy);
         btnSignUp = view.findViewById(R.id.btnSignUp_therapy);
         radioThe= view.findViewById(R.id.rdgTherapy);
+        progressBar = view.findViewById(R.id.pgb_signUp);
     }
 
 }

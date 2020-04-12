@@ -8,8 +8,18 @@
         android:id="@+id/tlActivity"
         android:layout_width="match_parent"
         android:layout_height="48dp"/>
-    <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/vpActivity"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent">
+        <ProgressBar
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_centerInParent="true"
+            android:visibility="invisible"
+            android:id="@+id/pgb_activity"/>
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/vpActivity"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </RelativeLayout>
 </LinearLayout>

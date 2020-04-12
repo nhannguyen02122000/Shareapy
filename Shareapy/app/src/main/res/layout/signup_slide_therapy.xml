@@ -68,17 +68,27 @@
         </RadioGroup>
     </LinearLayout>
 
-    <Button
-        android:id="@+id/btnSignUp_therapy"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/lyAnswer"
-        android:layout_marginTop="22dp"
-        android:background="@drawable/custom_button_login"
-        android:text="@string/login_buttonSignUp"
-        android:textColor="#ffffff"
         android:layout_marginStart="30dp"
         android:layout_marginEnd="30dp"
-        android:textSize="20sp" />
+        android:layout_marginTop="22dp">
+        <ProgressBar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:translationZ="10dp"
+            android:id="@+id/pgb_signUp"
+            android:visibility="invisible"/>
+        <Button
+            android:id="@+id/btnSignUp_therapy"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/custom_button_login"
+            android:text="@string/login_buttonSignUp"
+            android:textColor="#ffffff"
+            android:textSize="20sp" />
+    </RelativeLayout>
 
 </RelativeLayout>

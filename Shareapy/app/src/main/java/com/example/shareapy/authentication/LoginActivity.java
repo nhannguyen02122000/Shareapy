@@ -6,6 +6,9 @@ import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -26,8 +29,10 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener{
     TextInputLayout tilEmail, tilPassword;
+    LinearLayout llLogIn;
     TextInputEditText tiedtEmail, tiedtPassword; //IMPORTANT: PASSWORD must have at least 6 chars
     Button btnSignUp,btnLogIn;
+    ProgressBar progressBar;
     FirebaseAuth mFireBaseAuth;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -48,6 +53,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     {
         super.onStart();
         //Check whether there exist user logged in
+        showProgessbar();
         mAuthStateListener = new FirebaseAuth.AuthStateListener(){
             @Override
         public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
@@ -70,11 +76,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             else
                             {
                                 Toast.makeText(LoginActivity.this,"Error!",Toast.LENGTH_SHORT).show();
+                                hideProgressbar();
                             }
                         }
                         else
                         {
                             Toast.makeText(LoginActivity.this,"Error!",Toast.LENGTH_SHORT).show();
+                            hideProgressbar();
                         }
                     }
                 });
@@ -82,6 +90,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             }
             else
             {
+                hideProgressbar();
                 //Toast.makeText(LogInScreen.this,"Please login",Toast.LENGTH_SHORT).show();
             }
         }};
@@ -94,8 +103,19 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         tiedtPassword = findViewById(R.id.tiedtPassword_logIn);
         btnSignUp = findViewById(R.id.btnSignUp_logIn);
         btnLogIn=findViewById(R.id.btnLogIn_logIn);
+        progressBar = findViewById(R.id.prg_login);
+        llLogIn = findViewById(R.id.ly_logIn);
     }
-
+    private void showProgessbar()
+    {
+        progressBar.setVisibility(View.VISIBLE);
+        llLogIn.setVisibility(View.INVISIBLE);
+    }
+    private void hideProgressbar()
+    {
+        progressBar.setVisibility(View.INVISIBLE);
+        llLogIn.setVisibility(View.VISIBLE);
+    }
     private void requestFocus(View view){
         if (view.requestFocus()){
             getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
@@ -120,8 +140,15 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         String pass = tiedtPassword.getText().toString().trim();
 //                Log.e("email",email);
 //                Log.e("pass",pass);
-        if (!validateInput(tilEmail,tiedtEmail)) return;
-        else if (!validateInput(tilPassword,tiedtPassword)) return;
+        if (!validateInput(tilEmail,tiedtEmail))
+        {
+            hideProgressbar();
+            return;
+        }
+        else if (!validateInput(tilPassword,tiedtPassword)) {
+            hideProgressbar();
+            return;
+        }
         else if (validateInput(tilEmail,tiedtEmail) && validateInput(tilPassword,tiedtPassword))
         {
             mFireBaseAuth.signInWithEmailAndPassword(email,pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -129,6 +156,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if (!task.isSuccessful())
                     {
+                        hideProgressbar();
                         Toast.makeText(LoginActivity.this,"Login failed!",Toast.LENGTH_SHORT).show();
                     }
                     else
@@ -149,11 +177,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                     }
                                     else
                                     {
+                                        hideProgressbar();
                                         Toast.makeText(LoginActivity.this,"Error!",Toast.LENGTH_SHORT).show();
                                     }
                                 }
                                 else
                                 {
+                                    hideProgressbar();
                                     Toast.makeText(LoginActivity.this,"Error!",Toast.LENGTH_SHORT).show();
                                 }
                             }
@@ -163,7 +193,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 }
             });
         }
-        else  {Toast.makeText(LoginActivity.this,"Error occured!",Toast.LENGTH_SHORT).show();}
+        else  {
+            hideProgressbar();
+            Toast.makeText(LoginActivity.this,"Error occured!",Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
@@ -175,6 +208,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 finish();
                 break;
             case R.id.btnLogIn_logIn:
+                showProgessbar();
                 logIn(v);
                 break;
         }

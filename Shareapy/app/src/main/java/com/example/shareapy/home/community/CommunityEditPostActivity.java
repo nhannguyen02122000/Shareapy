@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Switch;
 import android.widget.TextView;
 
@@ -31,6 +32,7 @@ public class CommunityEditPostActivity extends AppCompatActivity {
     public static String username = "";
     public static int position = -1;
     public static Post editPost = new Post();
+    ProgressBar progressBar;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     FirebaseAuth mFirebaseAuth;
     TextView tvUserName;
@@ -68,6 +70,9 @@ public class CommunityEditPostActivity extends AppCompatActivity {
         btnRePost.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                progressBar.setVisibility(View.VISIBLE);
+                btnRePost.setVisibility(View.INVISIBLE);
+
                 editPost.setContent(etPostContent.getText().toString().trim());
                 editPost.setTime(new Date());
                 isPublic = !swIsOnlyMe.isChecked();
@@ -86,6 +91,7 @@ public class CommunityEditPostActivity extends AppCompatActivity {
         etPostContent = findViewById(R.id.edtPostContent_editPost);
         btnRePost = findViewById(R.id.btnPostSubmit_editPost);
         swIsOnlyMe = findViewById(R.id.swtPostOnlyMe_editPost);
+        progressBar = findViewById(R.id.pgb_editPost);
 
         tvUserName.setText(username);
         etPostContent.setText(editPost.getContent());
@@ -101,14 +107,22 @@ public class CommunityEditPostActivity extends AppCompatActivity {
         db.collection("Posts").document(editPost.getId()).update(updateData).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
-                ArrayList<Post> posts = FragmentCommunityYourPosts.yourpostAdapter.getPosts();
-                posts.remove(position);
-                ArrayList<Post> forUpdate = new ArrayList<>();
-                forUpdate.add(editPost);
-                forUpdate.addAll(posts);
-                FragmentCommunityYourPosts.yourpostAdapter.setItem(forUpdate);
-                FragmentCommunityYourPosts.yourpostAdapter.notifyDataSetChanged();
-                CommunityEditPostActivity.super.onBackPressed();
+                if (task.isSuccessful())
+                {
+                    ArrayList<Post> posts = FragmentCommunityYourPosts.yourpostAdapter.getPosts();
+                    posts.remove(position);
+                    ArrayList<Post> forUpdate = new ArrayList<>();
+                    forUpdate.add(editPost);
+                    forUpdate.addAll(posts);
+                    FragmentCommunityYourPosts.yourpostAdapter.setItem(forUpdate);
+                    FragmentCommunityYourPosts.yourpostAdapter.notifyDataSetChanged();
+                    CommunityEditPostActivity.super.onBackPressed();
+                }
+                else
+                {
+                    progressBar.setVisibility(View.INVISIBLE);
+                    btnRePost.setVisibility(View.VISIBLE);
+                }
             }
         });
 //        db.collection("Posts").add(newPost).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {

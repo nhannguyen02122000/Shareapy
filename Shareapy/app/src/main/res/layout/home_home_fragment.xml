@@ -103,10 +103,20 @@
                 android:orientation="horizontal"
                 android:id="@+id/rv_categories"/>
 
-            <FrameLayout
-                android:id="@+id/fl_category_container"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content">
+                <FrameLayout
+                    android:id="@+id/fl_category_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+                <ProgressBar
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:id="@+id/pgb_category"
+                    android:visibility="gone"/>
+
+            </RelativeLayout>
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -131,20 +141,34 @@
                     android:text="Here are the dates that you can find your support group"
                     android:textColor="#B23D3333"/>
             </RelativeLayout>
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/rl_put_events"
                 android:padding="5dp">
-                <com.applandeo.materialcalendarview.CalendarView
-                    app:type="one_day_picker"
-                    app:eventsEnabled="true"
-                    app:headerColor="#427A5B"
-                    app:todayLabelColor="#427A5B"
-                    app:selectionColor="#427A5B"
+                <ProgressBar
+                    android:background="#00000000"
+                    android:visibility="visible"
+                    android:translationZ="10dp"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_centerInParent="true"
+                    android:id="@+id/pgb_Calendar"/>
+                <RelativeLayout
+                    android:id="@+id/rl_Calendar"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/clv_home_material"/>
+                    android:layout_height="wrap_content">
+                    <com.applandeo.materialcalendarview.CalendarView
+                        app:type="one_day_picker"
+                        app:eventsEnabled="true"
+                        app:headerColor="#427A5B"
+                        app:todayLabelColor="#427A5B"
+                        app:selectionColor="#427A5B"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/clv_home_material"/>
+                </RelativeLayout>
             </RelativeLayout>
 
         </LinearLayout>
