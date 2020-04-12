@@ -28,7 +28,6 @@ public class HomeProfileFragment extends Fragment {
     Button btn_signOut;
     TextView tv_logOut,tvUserName;
     FirebaseAuth mFirebaseAuth;
-    private FirebaseAuth.AuthStateListener mAuthStateListener;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

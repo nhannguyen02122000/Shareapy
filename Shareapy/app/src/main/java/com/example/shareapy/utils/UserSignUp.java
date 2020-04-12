@@ -10,6 +10,7 @@ import java.util.ArrayList;
 
 public class UserSignUp {
     private static UserSignUp instance = null;
+    private boolean hasCheckFeeling;
     private String userID,password,gender,userName,userMail;
     private int age;
     private String isReligious,isSpiritual, wasTherapy;
@@ -18,6 +19,7 @@ public class UserSignUp {
     private UserSignUp()
     {
         //Constructor goes here
+        hasCheckFeeling = false;
         mFireBaseAuth = FirebaseAuth.getInstance();
         userID=password=gender=userMail="";
         age=-1;
@@ -34,6 +36,10 @@ public class UserSignUp {
     }
 
     //get set method
+
+    public boolean isHasCheckFeeling() {return hasCheckFeeling;}
+
+    public void setHasCheckFeeling(boolean hasCheckFeeling) {this.hasCheckFeeling = hasCheckFeeling;}
 
     public ArrayList<String> getBookmark() {
         return bookmark;

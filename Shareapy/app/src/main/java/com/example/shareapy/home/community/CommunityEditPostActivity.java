@@ -22,28 +22,28 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.SetOptions;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Set;
 
-public class CommunityNewPostActivity extends AppCompatActivity {
-    public static String userName;
+public class CommunityEditPostActivity extends AppCompatActivity {
+    public static String username = "";
+    public static int position = -1;
+    public static Post editPost = new Post();
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     FirebaseAuth mFirebaseAuth;
     TextView tvUserName;
     EditText etPostContent;
     Switch swIsOnlyMe;
     String uid,postID;
-    Button btnPost;
+    Button btnRePost;
     boolean isPublic;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_community_new_post);
+        setContentView(R.layout.activity_community_edit_post);
         setView();
 
         mFirebaseAuth = UserSignUp.getInstance().getmFireBaseAuth();
@@ -65,49 +65,68 @@ public class CommunityNewPostActivity extends AppCompatActivity {
 //            }
 //        });
 
-        btnPost.setOnClickListener(new View.OnClickListener() {
+        btnRePost.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Instantiate new Post obj
-                Post newPost = new Post();
-                newPost.setContent(etPostContent.getText().toString().trim());
-                newPost.setTime(new Date());
+                editPost.setContent(etPostContent.getText().toString().trim());
+                editPost.setTime(new Date());
                 isPublic = !swIsOnlyMe.isChecked();
-                newPost.setPublic(isPublic);
-                newPost.setUserID(uid);
+                editPost.setPublic(isPublic);
+
 
                 //Upload to DB
-                updateDB(mFirebaseAuth.getCurrentUser(),newPost);
+                updateDB(mFirebaseAuth.getCurrentUser());
             }
         });
     }
 
     protected void setView()
     {
-        tvUserName = findViewById(R.id.tv_newpost_username);
-        etPostContent = findViewById(R.id.edtPostContent);
-        btnPost = findViewById(R.id.btnPostSubmit);
-        swIsOnlyMe = findViewById(R.id.swtPostOnlyMe);
+        tvUserName = findViewById(R.id.tv_editpost_username);
+        etPostContent = findViewById(R.id.edtPostContent_editPost);
+        btnRePost = findViewById(R.id.btnPostSubmit_editPost);
+        swIsOnlyMe = findViewById(R.id.swtPostOnlyMe_editPost);
 
-        tvUserName.setText(userName);
+        tvUserName.setText(username);
+        etPostContent.setText(editPost.getContent());
+        swIsOnlyMe.setChecked(!editPost.isPublic());
     }
-    protected void updateDB(FirebaseUser user,Post newPost)
+    protected void updateDB(FirebaseUser user)
     {
-        db.collection("Posts").add(newPost).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+        HashMap<String,Object> updateData = new HashMap<>();
+        updateData.put("content",editPost.getContent());
+        updateData.put("public",editPost.isPublic());
+        updateData.put("time",editPost.getTime());
+
+        db.collection("Posts").document(editPost.getId()).update(updateData).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
-            public void onSuccess(DocumentReference documentReference) {
-                newPost.setId(documentReference.getId());
-                postID = documentReference.getId();
-                documentReference.set(newPost);
+            public void onComplete(@NonNull Task<Void> task) {
                 ArrayList<Post> posts = FragmentCommunityYourPosts.yourpostAdapter.getPosts();
+                posts.remove(position);
                 ArrayList<Post> forUpdate = new ArrayList<>();
-                forUpdate.add(newPost);
+                forUpdate.add(editPost);
                 forUpdate.addAll(posts);
                 FragmentCommunityYourPosts.yourpostAdapter.setItem(forUpdate);
                 FragmentCommunityYourPosts.yourpostAdapter.notifyDataSetChanged();
-                CommunityNewPostActivity.super.onBackPressed();
+                CommunityEditPostActivity.super.onBackPressed();
             }
         });
+//        db.collection("Posts").add(newPost).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+//            @Override
+//            public void onSuccess(DocumentReference documentReference) {
+//                //Nho xoa post cu khoi list
+//                newPost.setId(documentReference.getId());
+//                postID = documentReference.getId();
+//                documentReference.set(newPost);
+//                ArrayList<Post> posts = FragmentCommunityYourPosts.yourpostAdapter.getPosts();
+//                ArrayList<Post> forUpdate = new ArrayList<>();
+//                forUpdate.add(newPost);
+//                forUpdate.addAll(posts);
+//                FragmentCommunityYourPosts.yourpostAdapter.setItem(forUpdate);
+//                FragmentCommunityYourPosts.yourpostAdapter.notifyDataSetChanged();
+//                CommunityEditPostActivity.super.onBackPressed();
+//            }
+//        });
 
 
 

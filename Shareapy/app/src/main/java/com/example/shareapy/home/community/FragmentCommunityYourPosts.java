@@ -2,23 +2,39 @@ package com.example.shareapy.home.community;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.shareapy.R;
+import com.example.shareapy.models.Post;
+import com.example.shareapy.utils.UserSignUp;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class FragmentCommunityYourPosts extends Fragment {
-//    public static AdapterRecyclerviewCurrent currentAdapter = new AdapterRecyclerviewCurrent();
-//    RecyclerView rcvCurrent;
+    RecyclerView rcvYourPost;
     FloatingActionButton fabNewPost;
+    public static YourPostRecyclerAdapter yourpostAdapter = new YourPostRecyclerAdapter();
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
+    FirebaseAuth mFirebaseAuth;
     public FragmentCommunityYourPosts() {
     }
 
@@ -29,17 +45,34 @@ public class FragmentCommunityYourPosts extends Fragment {
         View view = inflater.inflate(R.layout.fragment_community_your_posts, null);
 
         setView(view);
-
+        yourpostAdapter.setActivity(getActivity());
         fabNewPost.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 getActivity().startActivity(new Intent(getActivity(), CommunityNewPostActivity.class));
+//                mFirebaseAuth = UserSignUp.getInstance().getmFireBaseAuth();
+//                FirebaseUser fbUser = mFirebaseAuth.getCurrentUser();
+//                String uid = fbUser.getUid();
+//                db.collection("Users").document(uid).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+//                        if (task.isSuccessful()) {
+//                            DocumentSnapshot document = task.getResult();
+//                            if (document.exists()) {
+//                                Log.d("TAG", "DocumentSnapshot data: " + document.getData());
+//                                String name = document.getData().get("name").toString().trim();
+//                                CommunityNewPostActivity.userName=name;
+//                                getActivity().startActivity(new Intent(getActivity(), CommunityNewPostActivity.class));
+//                            }
+//                        }
+//                    }
+//                });
             }
         });
-//        rcvCurrent = view.findViewById(R.id.rcvCurrent);
-//        LinearLayoutManager llm = new LinearLayoutManager(getContext());
-//        rcvCurrent.setLayoutManager(llm);
-//        rcvCurrent.setAdapter(currentAdapter);
+        rcvYourPost = view.findViewById(R.id.rcvCommunityYourPosts);
+        LinearLayoutManager llm = new LinearLayoutManager(getContext());
+        rcvYourPost.setLayoutManager(llm);
+        rcvYourPost.setAdapter(yourpostAdapter);
         return view;
     }
 

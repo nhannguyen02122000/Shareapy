@@ -6,7 +6,7 @@
     android:orientation="vertical">
 
     <TextView
-        android:id="@+id/tv_newpost_username"
+        android:id="@+id/tv_editpost_username"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -38,7 +38,7 @@
             android:textStyle="bold" />
 
         <EditText
-            android:id="@+id/edtPostContent"
+            android:id="@+id/edtPostContent_editPost"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@null"
@@ -52,7 +52,7 @@
     </LinearLayout>
 
     <Switch
-        android:id="@+id/swtPostOnlyMe"
+        android:id="@+id/swtPostOnlyMe_editPost"
         android:layout_width="180dp"
         android:layout_height="wrap_content"
         android:padding="20dp"
@@ -60,13 +60,13 @@
         android:textSize="20sp" />
 
     <Button
-        android:id="@+id/btnPostSubmit"
+        android:id="@+id/btnPostSubmit_editPost"
         android:textSize="20sp"
         android:textColor="#ffffff"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
         android:background="@drawable/custom_button_login"
-        android:text="@string/button_post"
+        android:text="@string/btn_repost"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 </LinearLayout>
