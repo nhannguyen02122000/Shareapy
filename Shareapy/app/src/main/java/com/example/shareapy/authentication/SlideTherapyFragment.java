@@ -16,6 +16,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.shareapy.R;
+import com.example.shareapy.models.CurrentUser;
 import com.example.shareapy.utils.UserSignUp;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -116,6 +117,9 @@ public class SlideTherapyFragment extends Fragment {
                 Log.e(TAG, e.getMessage());
             }
         });
+
+        CurrentUser.userName=userSignUp.getUserName();
+        CurrentUser.userID = uid;
         //user.put("name", fbUser.getDisplayName());
 
 //        userRef.setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {

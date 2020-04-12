@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.example.shareapy.R;
 import com.example.shareapy.home.Home;
+import com.example.shareapy.models.CurrentUser;
 import com.example.shareapy.utils.UserSignUp;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -45,19 +46,19 @@ public class LoginFeeling extends AppCompatActivity {
 
         FirebaseUser fbUser = mFirebaseAuth.getCurrentUser();
         String uid = fbUser.getUid();
-        db.collection("Users").document(uid).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()) {
-                    DocumentSnapshot document = task.getResult();
-                    if (document.exists()) {
-                        Log.d("TAG", "DocumentSnapshot data: " + document.getData());
-                        String name = document.getData().get("name").toString().trim();
-                        tvHello.setText("Hello, "+name);
-                    }
-                }
-            }
-        });
+//        db.collection("Users").document(uid).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+//            @Override
+//            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+//                if (task.isSuccessful()) {
+//                    DocumentSnapshot document = task.getResult();
+//                    if (document.exists()) {
+//                        Log.d("TAG", "DocumentSnapshot data: " + document.getData());
+//                        String name = document.getData().get("name").toString().trim();
+//                        tvHello.setText("Hello, "+name);
+//                    }
+//                }
+//            }
+//        });
 
         smileRating.setOnSmileySelectionListener(new SmileRating.OnSmileySelectionListener() {
             @Override
@@ -111,5 +112,7 @@ public class LoginFeeling extends AppCompatActivity {
         btnNext = findViewById(R.id.btnNext_logIn_ask);
         smileRating = findViewById(R.id.smile_rating);
         tvHello = findViewById(R.id.tv_login_hello);
+
+        tvHello.setText("Hello, "+ CurrentUser.userName);
     }
 }

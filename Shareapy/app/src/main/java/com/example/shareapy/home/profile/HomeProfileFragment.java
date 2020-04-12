@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.shareapy.R;
 import com.example.shareapy.authentication.LoginActivity;
+import com.example.shareapy.models.CurrentUser;
 import com.example.shareapy.utils.UserSignUp;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -44,25 +45,27 @@ public class HomeProfileFragment extends Fragment {
             }
         });
         tvUserName = view.findViewById(R.id.tvUserName);
-        FirebaseUser fbUser = mFirebaseAuth.getCurrentUser();
-        String uid = fbUser.getUid();
-        db.collection("Users").document(uid).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()) {
-                    DocumentSnapshot document = task.getResult();
-                    if (document.exists()) {
-                        Log.d("TAG", "DocumentSnapshot data: " + document.getData());
-                        String name = document.getData().get("name").toString().trim();
-                        tvUserName.setText(name);
-                    } else {
-                        Log.d("TAG", "No such document");
-                    }
-                } else {
-                    Log.d("TAG", "get failed with ", task.getException());
-                }
-            }
-        });
+
+        tvUserName.setText(CurrentUser.userName);
+//        FirebaseUser fbUser = mFirebaseAuth.getCurrentUser();
+//        String uid = fbUser.getUid();
+//        db.collection("Users").document(uid).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+//            @Override
+//            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+//                if (task.isSuccessful()) {
+//                    DocumentSnapshot document = task.getResult();
+//                    if (document.exists()) {
+//                        Log.d("TAG", "DocumentSnapshot data: " + document.getData());
+//                        String name = document.getData().get("name").toString().trim();
+//                        tvUserName.setText(name);
+//                    } else {
+//                        Log.d("TAG", "No such document");
+//                    }
+//                } else {
+//                    Log.d("TAG", "get failed with ", task.getException());
+//                }
+//            }
+//        });
         return view;
     }
 

@@ -2,6 +2,7 @@ package com.example.shareapy.authentication;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -11,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.shareapy.R;
+import com.example.shareapy.models.CurrentUser;
 import com.example.shareapy.utils.UserSignUp;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -19,6 +21,8 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener{
     TextInputLayout tilEmail, tilPassword;
@@ -26,6 +30,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     Button btnSignUp,btnLogIn;
     FirebaseAuth mFireBaseAuth;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,10 +54,31 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             FirebaseUser mFirebaseUser = mFireBaseAuth.getCurrentUser();
             if (mFirebaseUser != null )
             {
-                Toast.makeText(LoginActivity.this,"You have already logged in!",Toast.LENGTH_SHORT).show();
-                Intent i = new Intent(LoginActivity.this, LoginFeeling.class);
-                startActivity(i);
-                finish();
+                CurrentUser.userID=mFirebaseUser.getUid();
+                db.collection("Users").document(CurrentUser.userID).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if (task.isSuccessful()) {
+                            DocumentSnapshot document = task.getResult();
+                            if (document.exists()) {
+                                String name = document.getData().get("name").toString().trim();
+                                CurrentUser.userName=name;
+                                Toast.makeText(LoginActivity.this,"You have already logged in!",Toast.LENGTH_SHORT).show();
+                                startActivity(new Intent(LoginActivity.this, LoginFeeling.class));
+                                finish();
+                            }
+                            else
+                            {
+                                Toast.makeText(LoginActivity.this,"Error!",Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                        else
+                        {
+                            Toast.makeText(LoginActivity.this,"Error!",Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+
             }
             else
             {
@@ -106,10 +133,32 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     }
                     else
                     {
-                        Toast.makeText(LoginActivity.this,"Login successful!",Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(LoginActivity.this,LoginFeeling.class);
-                        startActivity(intent);
-                        finish();
+                        CurrentUser.userID=mFireBaseAuth.getCurrentUser().getUid();
+                        db.collection("Users").document(CurrentUser.userID).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                if (task.isSuccessful()) {
+                                    DocumentSnapshot document = task.getResult();
+                                    if (document.exists()) {
+                                        String name = document.getData().get("name").toString().trim();
+                                        CurrentUser.userName=name;
+                                        Toast.makeText(LoginActivity.this,"Login successful!",Toast.LENGTH_SHORT).show();
+                                        Intent intent = new Intent(LoginActivity.this,LoginFeeling.class);
+                                        startActivity(intent);
+                                        finish();
+                                    }
+                                    else
+                                    {
+                                        Toast.makeText(LoginActivity.this,"Error!",Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                                else
+                                {
+                                    Toast.makeText(LoginActivity.this,"Error!",Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        });
+
                     }
                 }
             });

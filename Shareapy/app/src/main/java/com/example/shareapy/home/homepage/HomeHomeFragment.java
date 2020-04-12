@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.applandeo.materialcalendarview.EventDay;
 import com.applandeo.materialcalendarview.listeners.OnDayClickListener;
 import com.example.shareapy.R;
+import com.example.shareapy.models.CurrentUser;
 import com.example.shareapy.utils.Category;
 import com.example.shareapy.utils.CategoryRecyclerAdapter;
 import com.example.shareapy.utils.UserSignUp;
@@ -46,20 +47,19 @@ public class HomeHomeFragment extends Fragment {
         View view = inflater.inflate(R.layout.home_home_fragment,container,false);
 
         tvWelcome = view.findViewById(R.id.tv_home_home_welcome);
-        FirebaseUser fbUser = mFirebaseAuth.getCurrentUser();
-        String uid = fbUser.getUid();
-        db.collection("Users").document(uid).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()) {
-                    DocumentSnapshot document = task.getResult();
-                    if (document.exists()) {
-                        String name = document.getData().get("name").toString().trim();
-                        tvWelcome.setText("Welcome,\n"+name+"!");
-                    }
-                }
-            }
-        });
+        tvWelcome.setText("Welcome,\n"+ CurrentUser.userName );
+//        db.collection("Users").document(uid).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+//            @Override
+//            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+//                if (task.isSuccessful()) {
+//                    DocumentSnapshot document = task.getResult();
+//                    if (document.exists()) {
+//                        String name = document.getData().get("name").toString().trim();
+//                        tvWelcome.setText("Welcome,\n"+name+"!");
+//                    }
+//                }
+//            }
+//        });
 
         ArrayList<Category> categories = new ArrayList<Category>() {};
         categories.add(new Category("Lifestyle",R.drawable.home_category_lifestyle));
