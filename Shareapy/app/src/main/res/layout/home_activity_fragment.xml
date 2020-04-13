@@ -8,18 +8,24 @@
         android:id="@+id/tlActivity"
         android:layout_width="match_parent"
         android:layout_height="48dp"/>
-    <RelativeLayout
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <ProgressBar
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_centerInParent="true"
-            android:visibility="invisible"
-            android:id="@+id/pgb_activity"/>
-        <androidx.viewpager2.widget.ViewPager2
-            android:id="@+id/vpActivity"
+        android:layout_height="match_parent"
+        android:id="@+id/pullRefreshActivity">
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
-    </RelativeLayout>
+            android:layout_height="match_parent">
+            <ProgressBar
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:translationZ="10dp"
+                android:layout_centerInParent="true"
+                android:visibility="invisible"
+                android:id="@+id/pgb_activity"/>
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/vpActivity"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+        </RelativeLayout>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </LinearLayout>

@@ -11,6 +11,7 @@ import android.widget.ProgressBar;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.shareapy.R;
@@ -37,6 +38,7 @@ public class CommunityFragment extends Fragment {
     private TabLayout tlCommunity;
     private ViewPager2 vpCommunity;
     ProgressBar progressBar;
+    SwipeRefreshLayout swplayout;
     final String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     ArrayList<Post> publicPost = new ArrayList<>();
@@ -50,9 +52,20 @@ public class CommunityFragment extends Fragment {
         tlCommunity = view.findViewById(R.id.tlCommunity);
         vpCommunity = view.findViewById(R.id.vpCommunity);
         progressBar = view.findViewById(R.id.pgb_Community);
+        swplayout = view.findViewById(R.id.pullRefreshCommunity);
 
         setupViewPager();
         getData();
+
+        swplayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                userPost.clear();
+                publicPost.clear();
+                getData();
+                swplayout.setRefreshing(false);
+            }
+        });
 
         return view;
     }

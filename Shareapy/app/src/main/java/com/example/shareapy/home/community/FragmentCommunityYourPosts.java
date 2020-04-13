@@ -50,6 +50,7 @@ public class FragmentCommunityYourPosts extends Fragment {
             @Override
             public void onClick(View v) {
                 getActivity().startActivity(new Intent(getActivity(), CommunityNewPostActivity.class));
+
             }
         });
         rcvYourPost = view.findViewById(R.id.rcvCommunityYourPosts);

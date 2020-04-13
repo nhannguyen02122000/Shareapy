@@ -11,166 +11,171 @@
     style="@style/parent.contentLayout"
     >
 
-    <androidx.core.widget.NestedScrollView
-        android:id="@+id/home_nestedScroll"
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/SwipeRefreshHome"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <LinearLayout
+        android:layout_height="match_parent">
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/home_nestedScroll"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" >
-            <RelativeLayout
+            android:layout_height="match_parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp">
-
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/home_header_cardview"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentTop="true"
-                    android:layout_marginTop="0dp"
-                    android:layout_marginBottom="20dp"
-                    android:minHeight="200dp"
-                    app:cardBackgroundColor="@color/colorPrimary"
-                    app:cardCornerRadius="16dp"
-                    app:cardElevation="10dp"
-                    app:cardPreventCornerOverlap="false">
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:orientation="vertical"
-                        android:padding="10dp">
-
-                        <TextView
-                            android:id="@+id/tv_home_home_welcome"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text=""
-                            android:textColor="#FCFCFC"
-                            android:textSize="22sp"
-                            android:textStyle="bold" />
-
-                    </LinearLayout>
-                </androidx.cardview.widget.CardView>
-
-                <ImageView
-                    android:layout_marginTop="17dp"
-                    android:layout_width="200dp"
-                    android:layout_height="match_parent"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginEnd="0dp"
-                    android:adjustViewBounds="true"
-                    android:cropToPadding="true"
-                    android:elevation="44dp"
-                    android:src="@drawable/home_header" />
-            </RelativeLayout>
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp">
-
-                <TextView
-                    android:id="@+id/home_category_tw"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignParentLeft="true"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="#111111"
-                    android:text="Categories"
-                    android:textSize="30dp"
-                    android:textStyle="bold"/>
-                <TextView
-                    android:layout_below="@+id/home_category_tw"
-                    android:layout_alignParentLeft="true"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Which topic are you looking for\?"
-                    android:textColor="#B23D3333"/>
-            </RelativeLayout>
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:id="@+id/rv_categories"/>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <FrameLayout
-                    android:id="@+id/fl_category_container"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
-                <ProgressBar
-                    android:layout_width="match_parent"
-                    android:layout_height="30dp"
-                    android:id="@+id/pgb_category"
-                    android:visibility="gone"/>
-
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp">
-
-                <TextView
-                    android:id="@+id/home_calendar_tw"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignParentLeft="true"
-                    android:text="Calendar"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="#111111"
-                    android:textSize="30dp"
-                    android:textStyle="bold"/>
-                <TextView
-                    android:layout_below="@+id/home_calendar_tw"
-                    android:layout_alignParentLeft="true"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Here are the dates that you can find your support group"
-                    android:textColor="#B23D3333"/>
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/rl_put_events"
-                android:padding="5dp">
-                <ProgressBar
-                    android:background="#00000000"
-                    android:visibility="visible"
-                    android:translationZ="10dp"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_centerInParent="true"
-                    android:id="@+id/pgb_Calendar"/>
+                android:orientation="vertical" >
                 <RelativeLayout
-                    android:id="@+id/rl_Calendar"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <com.applandeo.materialcalendarview.CalendarView
-                        app:type="one_day_picker"
-                        app:eventsEnabled="true"
-                        app:headerColor="#427A5B"
-                        app:todayLabelColor="#427A5B"
-                        app:selectionColor="#427A5B"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp">
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/home_header_cardview"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:id="@+id/clv_home_material"/>
-                </RelativeLayout>
-            </RelativeLayout>
+                        android:layout_alignParentTop="true"
+                        android:layout_marginTop="0dp"
+                        android:layout_marginBottom="20dp"
+                        android:minHeight="200dp"
+                        app:cardBackgroundColor="@color/colorPrimary"
+                        app:cardCornerRadius="16dp"
+                        app:cardElevation="10dp"
+                        app:cardPreventCornerOverlap="false">
 
-        </LinearLayout>
-    </androidx.core.widget.NestedScrollView>
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:orientation="vertical"
+                            android:padding="10dp">
+
+                            <TextView
+                                android:id="@+id/tv_home_home_welcome"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text=""
+                                android:textColor="#FCFCFC"
+                                android:textSize="22sp"
+                                android:textStyle="bold" />
+
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
+
+                    <ImageView
+                        android:layout_marginTop="17dp"
+                        android:layout_width="200dp"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginEnd="0dp"
+                        android:adjustViewBounds="true"
+                        android:cropToPadding="true"
+                        android:elevation="44dp"
+                        android:src="@drawable/home_header" />
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp">
+
+                    <TextView
+                        android:id="@+id/home_category_tw"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentLeft="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#111111"
+                        android:text="Categories"
+                        android:textSize="30dp"
+                        android:textStyle="bold"/>
+                    <TextView
+                        android:layout_below="@+id/home_category_tw"
+                        android:layout_alignParentLeft="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Which topic are you looking for\?"
+                        android:textColor="#B23D3333"/>
+                </RelativeLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:id="@+id/rv_categories"/>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <FrameLayout
+                        android:id="@+id/fl_category_container"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+                    <ProgressBar
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:id="@+id/pgb_category"
+                        android:visibility="gone"/>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp">
+
+                    <TextView
+                        android:id="@+id/home_calendar_tw"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentLeft="true"
+                        android:text="Calendar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#111111"
+                        android:textSize="30dp"
+                        android:textStyle="bold"/>
+                    <TextView
+                        android:layout_below="@+id/home_calendar_tw"
+                        android:layout_alignParentLeft="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Here are the dates that you can find your support group"
+                        android:textColor="#B23D3333"/>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/rl_put_events"
+                    android:padding="5dp">
+                    <ProgressBar
+                        android:background="#00000000"
+                        android:visibility="visible"
+                        android:translationZ="10dp"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:layout_centerHorizontal="true"
+                        android:id="@+id/pgb_Calendar"/>
+                    <RelativeLayout
+                        android:id="@+id/rl_Calendar"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <com.applandeo.materialcalendarview.CalendarView
+                            app:type="one_day_picker"
+                            app:eventsEnabled="true"
+                            app:headerColor="#427A5B"
+                            app:todayLabelColor="#427A5B"
+                            app:selectionColor="#427A5B"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/clv_home_material"/>
+                    </RelativeLayout>
+                </RelativeLayout>
+
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

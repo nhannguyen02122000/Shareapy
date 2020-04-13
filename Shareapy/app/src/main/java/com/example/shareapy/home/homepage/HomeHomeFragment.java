@@ -14,6 +14,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.applandeo.materialcalendarview.EventDay;
 import com.applandeo.materialcalendarview.listeners.OnDayClickListener;
@@ -36,10 +37,13 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 public class HomeHomeFragment extends Fragment {
+    SwipeRefreshLayout swpLayout;
     TextView tvWelcome;
     RelativeLayout rlCalendar;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     FirebaseAuth mFirebaseAuth=  UserSignUp.getInstance().getmFireBaseAuth();
+    ArrayList<Category> categories = new ArrayList<Category>() {};
+    ArrayList<EventDay> events = new ArrayList<>();
     CalendarView clvHome;
     RecyclerView rvCategory;
     ProgressBar progressBar_cld,progressBar_category;
@@ -50,51 +54,18 @@ public class HomeHomeFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.home_home_fragment,container,false);
 
-        rlCalendar = view.findViewById(R.id.rl_Calendar);
-        progressBar_cld = view.findViewById(R.id.pgb_Calendar);
-        progressBar_category = view.findViewById(R.id.pgb_category);
-        tvWelcome = view.findViewById(R.id.tv_home_home_welcome);
-        tvWelcome.setText("Welcome,\n"+ CurrentUser.userName );
+        setUpViews(view);
+        setUpCategoryList();
+        getCalendarEventsData();
 
-
-        ArrayList<Category> categories = new ArrayList<Category>() {};
-        categories.add(new Category("Lifestyle",R.drawable.home_category_lifestyle));
-        categories.add(new Category("Work",R.drawable.home_category_work));
-        categories.add(new Category("Relationship",R.drawable.home_category_relationship));
-        categories.add(new Category("School",R.drawable.home_category_school));
-        categories.add(new Category("Family",R.drawable.home_category_family));
-        categories.add(new Category("Other",R.drawable.home_category_other));
-
-        rvCategory = (RecyclerView) view.findViewById(R.id.rv_categories);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
-        rvCategory.setLayoutManager(layoutManager);
-        rvCategory.setHasFixedSize(true);
-        rvCategory.setAdapter(new CategoryRecyclerAdapter(getContext(),categories));
-
-
-        clvHomeMaterial = view.findViewById(R.id.clv_home_material);
-        final ArrayList<EventDay> events = new ArrayList<>();
-
-        showProgressBarCalendar();
-        db.collection("ActivityInfos").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        swpLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if (task.isSuccessful()) {
-                    for (QueryDocumentSnapshot document : task.getResult()) {
-
-                        com.google.firebase.Timestamp time = (com.google.firebase.Timestamp) document.getData().get("time");
-                        Calendar calendar = Calendar.getInstance();
-                        calendar.setTime(time.toDate());
-
-                        events.add(new EventDay(calendar,R.drawable.ic_circle_green_24dp));
-
-                    }
-                }
-                hideProgressBarCalendar();
-                clvHomeMaterial.setEvents(events);
+            public void onRefresh() {
+                events.clear();
+                getCalendarEventsData();
+                swpLayout.setRefreshing(false);
             }
         });
-
 
         clvHomeMaterial.setOnDayClickListener(new OnDayClickListener() {
             @Override
@@ -115,7 +86,54 @@ public class HomeHomeFragment extends Fragment {
 
         return view;
     }
+    private void getCalendarEventsData()
+    {
+        showProgressBarCalendar();
+        db.collection("ActivityInfos").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    for (QueryDocumentSnapshot document : task.getResult()) {
 
+                        com.google.firebase.Timestamp time = (com.google.firebase.Timestamp) document.getData().get("time");
+                        Calendar calendar = Calendar.getInstance();
+                        calendar.setTime(time.toDate());
+
+                        events.add(new EventDay(calendar,R.drawable.ic_circle_green_24dp));
+
+                    }
+                }
+                hideProgressBarCalendar();
+                clvHomeMaterial.setEvents(events);
+            }
+        });
+    }
+    private void setUpCategoryList()
+    {
+        categories.add(new Category("Lifestyle",R.drawable.home_category_lifestyle));
+        categories.add(new Category("Work",R.drawable.home_category_work));
+        categories.add(new Category("Relationship",R.drawable.home_category_relationship));
+        categories.add(new Category("School",R.drawable.home_category_school));
+        categories.add(new Category("Family",R.drawable.home_category_family));
+        categories.add(new Category("Other",R.drawable.home_category_other));
+
+
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+        rvCategory.setLayoutManager(layoutManager);
+        rvCategory.setHasFixedSize(true);
+        rvCategory.setAdapter(new CategoryRecyclerAdapter(getContext(),categories));
+    }
+    private void setUpViews(View view)
+    {
+        swpLayout = view.findViewById(R.id.SwipeRefreshHome);
+        rlCalendar = view.findViewById(R.id.rl_Calendar);
+        progressBar_cld = view.findViewById(R.id.pgb_Calendar);
+        progressBar_category = view.findViewById(R.id.pgb_category);
+        tvWelcome = view.findViewById(R.id.tv_home_home_welcome);
+        tvWelcome.setText("Welcome,\n"+ CurrentUser.userName );
+        clvHomeMaterial = view.findViewById(R.id.clv_home_material);
+        rvCategory = (RecyclerView) view.findViewById(R.id.rv_categories);
+    }
     private void hideProgressBarCalendar()
     {
         progressBar_cld.setVisibility(View.INVISIBLE);

@@ -10,6 +10,7 @@ import android.widget.ProgressBar;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.shareapy.R;
@@ -38,6 +39,7 @@ public class HomeActivityFragment extends Fragment {
     private TabLayout tlActivity;
     private ViewPager2 vpActivity;
     ProgressBar progressBar;
+    SwipeRefreshLayout swpLayout;
     final String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     private ArrayList<ActivityInfo> activitiesHistory = new ArrayList<>();
@@ -51,10 +53,22 @@ public class HomeActivityFragment extends Fragment {
         tlActivity = view.findViewById(R.id.tlActivity);
         vpActivity = view.findViewById(R.id.vpActivity);
         progressBar = view.findViewById(R.id.pgb_activity);
+        swpLayout = view.findViewById(R.id.pullRefreshActivity);
         SavedInstance.homeActivity = getActivity();
         setupViewPager();
 //        fakeData();
         getData();
+
+        swpLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                activitiesCurrent.clear();
+                activitiesHistory.clear();
+                activitiesUpcoming.clear();
+                getData();
+                swpLayout.setRefreshing(false);
+            }
+        });
         return view;
     }
 

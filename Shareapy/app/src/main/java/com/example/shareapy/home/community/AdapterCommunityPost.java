@@ -39,6 +39,7 @@ public class AdapterCommunityPost extends RecyclerView.Adapter<AdapterCommunityP
     }
 
     public void setItem(ArrayList<Post> posts){
+
         this.listPost=  posts;
     }
 
