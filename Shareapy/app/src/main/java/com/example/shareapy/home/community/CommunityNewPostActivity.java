@@ -13,6 +13,7 @@ import android.widget.Switch;
 import android.widget.TextView;
 
 import com.example.shareapy.R;
+import com.example.shareapy.models.CurrentUser;
 import com.example.shareapy.models.Post;
 import com.example.shareapy.utils.UserSignUp;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -80,7 +81,7 @@ public class CommunityNewPostActivity extends AppCompatActivity {
                 isPublic = !swIsOnlyMe.isChecked();
                 newPost.setPublic(isPublic);
                 newPost.setUserID(uid);
-
+                newPost.setUserName(CurrentUser.userName);
                 //Upload to DB
                 updateDB(mFirebaseAuth.getCurrentUser(),newPost);
             }

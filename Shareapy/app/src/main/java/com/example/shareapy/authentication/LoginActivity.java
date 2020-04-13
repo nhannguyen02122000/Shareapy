@@ -69,7 +69,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             if (document.exists()) {
                                 String name = document.getData().get("name").toString().trim();
                                 CurrentUser.userName=name;
-                                Toast.makeText(LoginActivity.this,"You have already logged in!",Toast.LENGTH_SHORT).show();
+//                                Toast.makeText(LoginActivity.this,"You have already logged in!",Toast.LENGTH_SHORT).show();
                                 startActivity(new Intent(LoginActivity.this, LoginFeeling.class));
                                 finish();
                             }

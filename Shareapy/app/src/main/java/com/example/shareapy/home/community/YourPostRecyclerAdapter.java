@@ -112,21 +112,6 @@ public class YourPostRecyclerAdapter extends RecyclerView.Adapter<YourPostRecycl
                 CommunityEditPostActivity.editPost=posts.get(position);
                 CommunityEditPostActivity.position=position;
                 activity.startActivity(new Intent(activity,CommunityEditPostActivity.class));
-//                db.collection("Users").document(uid).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-//                        if (task.isSuccessful()) {
-//                            DocumentSnapshot document = task.getResult();
-//                            if (document.exists()) {
-//                                Log.d("TAG", "DocumentSnapshot data: " + document.getData());
-//                                String name = document.getData().get("name").toString().trim();
-//                                CommunityEditPostActivity.username = name;
-//                                CommunityEditPostActivity.position=position;
-//                                activity.startActivity(new Intent(activity,CommunityEditPostActivity.class));
-//                            }
-//                        }
-//                    }
-//                });
 
             }
         });

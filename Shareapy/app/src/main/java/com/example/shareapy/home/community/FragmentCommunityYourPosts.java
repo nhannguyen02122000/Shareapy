@@ -33,8 +33,8 @@ public class FragmentCommunityYourPosts extends Fragment {
     RecyclerView rcvYourPost;
     FloatingActionButton fabNewPost;
     public static YourPostRecyclerAdapter yourpostAdapter = new YourPostRecyclerAdapter();
-    FirebaseFirestore db = FirebaseFirestore.getInstance();
-    FirebaseAuth mFirebaseAuth;
+
+
     public FragmentCommunityYourPosts() {
     }
 
@@ -50,23 +50,6 @@ public class FragmentCommunityYourPosts extends Fragment {
             @Override
             public void onClick(View v) {
                 getActivity().startActivity(new Intent(getActivity(), CommunityNewPostActivity.class));
-//                mFirebaseAuth = UserSignUp.getInstance().getmFireBaseAuth();
-//                FirebaseUser fbUser = mFirebaseAuth.getCurrentUser();
-//                String uid = fbUser.getUid();
-//                db.collection("Users").document(uid).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-//                        if (task.isSuccessful()) {
-//                            DocumentSnapshot document = task.getResult();
-//                            if (document.exists()) {
-//                                Log.d("TAG", "DocumentSnapshot data: " + document.getData());
-//                                String name = document.getData().get("name").toString().trim();
-//                                CommunityNewPostActivity.userName=name;
-//                                getActivity().startActivity(new Intent(getActivity(), CommunityNewPostActivity.class));
-//                            }
-//                        }
-//                    }
-//                });
             }
         });
         rcvYourPost = view.findViewById(R.id.rcvCommunityYourPosts);

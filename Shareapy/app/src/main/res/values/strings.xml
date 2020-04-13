@@ -46,6 +46,8 @@
     <string name="button_edit">Edit</string>
     <string name="button_support">Support</string>
     <string name="button_appreciate">Appreciate</string>
+    <string name="button_supported">Supported</string>
+    <string name="button_appreciated">Appreciated</string>
     <string name="img_title_privacy">Privacy</string>
     <string name="img_title_support">Support</string>
     <string name="img_title_appreciate">Appreciate</string>

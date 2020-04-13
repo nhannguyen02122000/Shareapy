@@ -16,8 +16,8 @@ import com.example.shareapy.models.Post;
  * A simple {@link Fragment} subclass.
  */
 public class FragmentCommunityCommunity extends Fragment {
-    private RecyclerView rcvCommunityPost;
-    private AdapterCommunityPost adapterCommunityPost = new AdapterCommunityPost(Post.generateFakePost());
+    RecyclerView rcvCommunityPost;
+    public static AdapterCommunityPost adapterCommunityPost = new AdapterCommunityPost();
     public FragmentCommunityCommunity() {
     }
 

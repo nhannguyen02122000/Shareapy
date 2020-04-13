@@ -84,9 +84,42 @@ public class CommunityFragment extends Fragment {
                             return (int)(t1.getTime().getTime()-newPost.getTime().getTime());
                         }
                     });
-                    progressBar.setVisibility(View.INVISIBLE);
-                    FragmentCommunityYourPosts.yourpostAdapter.setItem(userPost);
-                    FragmentCommunityYourPosts.yourpostAdapter.notifyDataSetChanged();
+
+
+
+                    //Get Public only
+                    //Code goes here
+                    db.collection("Posts").whereEqualTo("public",true).get()
+                            .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                    if (task.isSuccessful())
+                                    {
+                                        for (DocumentSnapshot document : task.getResult())
+                                        {
+                                            Post newPost = document.toObject(Post.class);
+                                            publicPost.add(newPost);
+                                        }
+                                        Collections.sort(publicPost, new Comparator<Post>() {
+                                            @Override
+                                            public int compare(Post newPost, Post t1) {
+                                                return (int)(t1.getTime().getTime()-newPost.getTime().getTime());
+                                            }
+                                        });
+                                        progressBar.setVisibility(View.INVISIBLE);
+
+                                        FragmentCommunityYourPosts.yourpostAdapter.setItem(userPost);
+                                        FragmentCommunityYourPosts.yourpostAdapter.notifyDataSetChanged();
+                                        FragmentCommunityCommunity.adapterCommunityPost.setItem(publicPost);
+                                        FragmentCommunityCommunity.adapterCommunityPost.notifyDataSetChanged();
+                                    }
+                                    else
+                                    {
+                                        progressBar.setVisibility(View.INVISIBLE);
+                                        Log.e("hello", "Error getting documents: ", task.getException());
+                                    }
+                                }
+                            });
                 }
                 else
                 {
@@ -95,8 +128,7 @@ public class CommunityFragment extends Fragment {
                 }
             }
         });
-        //Get Public only
-        //Code goes here
+
     }
     private void setupViewPager() {
         final AdapterViewpagerCommunity adapter = new AdapterViewpagerCommunity(getActivity());
