@@ -52,7 +52,7 @@ public class SlideUsernameFragment extends Fragment {
 
                 Fragment toGender = new SlideGenderFragment();
                 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.slide_container,toGender)
-                        .addToBackStack(toGender.getClass().getSimpleName()).commit();
+                       .commit();
             }
         });
 

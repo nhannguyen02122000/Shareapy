@@ -93,7 +93,6 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
             user.setUserMail(email);
             user.setPassword(pass);
             startActivity(new Intent(SignUpActivity.this,SignUpSlides.class));
-            finish();
         }
         else {
             Toast.makeText(SignUpActivity.this,"Error occured!",Toast.LENGTH_SHORT).show();}

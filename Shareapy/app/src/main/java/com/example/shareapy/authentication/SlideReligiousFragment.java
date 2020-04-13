@@ -49,7 +49,7 @@ public class SlideReligiousFragment extends Fragment {
 
                 Fragment toSpirit = new SlideSpiritualFragment();
                 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.slide_container,toSpirit)
-                        .addToBackStack(toSpirit.getClass().getSimpleName()).commit();
+                        .commit();
             }
         });
         return view;

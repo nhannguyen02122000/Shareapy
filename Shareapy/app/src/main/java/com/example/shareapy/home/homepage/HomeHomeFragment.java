@@ -103,12 +103,18 @@ public class HomeHomeFragment extends Fragment {
     }
     private void setUpCategoryList()
     {
-        categories.add(new Category("Lifestyle",R.drawable.home_category_lifestyle));
-        categories.add(new Category("Work",R.drawable.home_category_work));
-        categories.add(new Category("Relationship",R.drawable.home_category_relationship));
-        categories.add(new Category("School",R.drawable.home_category_school));
-        categories.add(new Category("Family",R.drawable.home_category_family));
-        categories.add(new Category("Other",R.drawable.home_category_other));
+//        categories.add(new Category("Lifestyle",R.drawable.home_category_lifestyle));
+//        categories.add(new Category("Work",R.drawable.home_category_work));
+//        categories.add(new Category("Relationship",R.drawable.home_category_relationship));
+//        categories.add(new Category("School",R.drawable.home_category_school));
+//        categories.add(new Category("Family",R.drawable.home_category_family));
+//        categories.add(new Category("Other",R.drawable.home_category_other));
+        categories.add(new Category("Lifestyle",R.mipmap.home_category_lifestyle));
+        categories.add(new Category("Work",R.mipmap.home_category_work));
+        categories.add(new Category("Relationship",R.mipmap.home_category_relationship));
+        categories.add(new Category("School",R.mipmap.home_category_school));
+        categories.add(new Category("Family",R.mipmap.home_category_family));
+        categories.add(new Category("Other",R.mipmap.home_category_other));
 
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
