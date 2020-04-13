@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.shareapy.R;
@@ -21,6 +22,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
     TextInputEditText tiedtEmail;
     Button btnSend;
     FirebaseAuth mAuth;
+    ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +62,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         tiedtEmail = findViewById(R.id.tiedtEmail_Forgotpass);
         tilEmail = findViewById(R.id.tilEmail_Forgotpass);
         btnSend = findViewById(R.id.btnSend_ForgotPass);
+        progressBar = findViewById(R.id.pgb_ForfotPass);
     }
 
     private void sendEmail(View v)
@@ -67,6 +70,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         if (!validateInput(tilEmail,tiedtEmail)) return;
         else
         {
+            showProgressBar();
             String userEmail = tiedtEmail.getText().toString().trim();
             mAuth.sendPasswordResetEmail(userEmail).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
@@ -74,13 +78,25 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                     if (task.isSuccessful())
                     {
                         Toast.makeText(ForgotPasswordActivity.this,"Please check your Mail to reset password!",Toast.LENGTH_SHORT).show();
+                        ForgotPasswordActivity.super.onBackPressed();
                     }
                     else
                     {
+                        hideProgressBar();
                         Toast.makeText(ForgotPasswordActivity.this,"Error, please try again",Toast.LENGTH_SHORT).show();
                     }
                 }
             });
         }
+    }
+    private void showProgressBar()
+    {
+        progressBar.setVisibility(View.VISIBLE);
+        btnSend.setVisibility(View.INVISIBLE);
+    }
+    private void hideProgressBar()
+    {
+        progressBar.setVisibility(View.INVISIBLE);
+        btnSend.setVisibility(View.INVISIBLE);
     }
 }

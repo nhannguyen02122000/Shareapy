@@ -27,7 +27,7 @@
                 android:layout_height="80dp"
                 app:civ_border_width="2dp"
                 app:civ_border_color="@color/imageBorderColor"
-                android:src="@drawable/user_pict"
+                android:src="@drawable/logo_mini"
                 android:layout_marginTop="15dp"
                 android:layout_marginRight="10dp"/>
 
@@ -35,23 +35,24 @@
                 android:id="@+id/tvUserName"
                 style="@style/viewParent.headerText"
                 android:text=""
-                android:textSize="28dp"
+                android:textSize="30dp"
                 android:layout_toRightOf="@id/profileCircleImageView"
-                android:layout_marginTop="14dp"/>
+                android:layout_marginTop="17dp"/>
 
             <TextView
+                android:id="@+id/tvUserID"
                 style="@style/viewParent.headerText"
-                android:text="Personal details"
-                android:textSize="20sp"
+                android:text=""
+                android:textSize="10sp"
                 android:textColor="#5D5C5C"
                 android:layout_below="@id/tvUserName"
                 android:layout_toRightOf="@id/profileCircleImageView"/>
 
-            <ImageView
-                style="@style/viewParent"
-                android:src="@drawable/ic_more"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"/>
+<!--            <ImageView-->
+<!--                style="@style/viewParent"-->
+<!--                android:src="@drawable/ic_more"-->
+<!--                android:layout_alignParentRight="true"-->
+<!--                android:layout_centerVertical="true"/>-->
 
         </RelativeLayout>
 
@@ -65,6 +66,7 @@
             android:text="Edit Profile" />
 
         <TextView
+            android:id="@+id/tv_changePass_Profile"
             style="@style/viewParent.headerText.settingsTextIcon"
             android:drawableLeft="@drawable/ic_edit_password"
             android:layout_marginTop="10dp"
