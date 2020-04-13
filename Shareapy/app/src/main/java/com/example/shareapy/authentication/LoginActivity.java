@@ -2,13 +2,11 @@ package com.example.shareapy.authentication;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -33,7 +31,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     TextInputEditText tiedtEmail, tiedtPassword; //IMPORTANT: PASSWORD must have at least 6 chars
     Button btnSignUp,btnLogIn;
     ProgressBar progressBar;
-    FirebaseAuth mFireBaseAuth;
+    FirebaseAuth mFireBaseAuth = UserSignUp.getInstance().getmFireBaseAuth();
     private FirebaseAuth.AuthStateListener mAuthStateListener;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
@@ -41,9 +39,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        setupView();
 
-        mFireBaseAuth = UserSignUp.getInstance().getmFireBaseAuth();
+        setupView();
 
         btnSignUp.setOnClickListener(this);
         btnLogIn.setOnClickListener(this);

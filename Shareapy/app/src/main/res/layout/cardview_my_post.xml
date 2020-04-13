@@ -47,9 +47,9 @@
             android:layout_marginStart="30dp"
             android:contentDescription="@string/img_title_support"
             android:scaleType="fitXY"
-            android:src="@drawable/ic_appreciate_chosen" />
+            android:src="@drawable/ic_support_chosen" />
         <TextView
-            android:id="@+id/tvNoAppreciate"
+            android:id="@+id/tvNoSupport"
             android:textSize="20sp"
             android:text="0"
             android:layout_width="wrap_content"
@@ -58,13 +58,13 @@
         <ImageView
             android:layout_gravity="center_vertical"
             android:contentDescription="@string/img_title_appreciate"
-            android:src="@drawable/ic_support_chosen"
+            android:src="@drawable/ic_appreciate_chosen"
             android:layout_marginStart="30dp"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:scaleType="fitXY" />
         <TextView
-            android:id="@+id/tvNoSupport"
+            android:id="@+id/tvNoAppreciate"
             android:textSize="20sp"
             android:text="0"
             android:layout_width="wrap_content"
