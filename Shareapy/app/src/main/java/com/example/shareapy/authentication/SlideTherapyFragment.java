@@ -93,6 +93,7 @@ public class SlideTherapyFragment extends Fragment {
                                     FirebaseUser user = mFirebaseAuth.getCurrentUser();
                                     createDBUser(user);
                                     startActivity(new Intent(getActivity(), LoginFeeling.class));
+                                    getActivity().finish();
                                 }
                             }
                         });

@@ -7,6 +7,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -25,12 +26,14 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-public class LoginActivity extends AppCompatActivity implements View.OnClickListener{
+public class LoginActivity extends AppCompatActivity{
     TextInputLayout tilEmail, tilPassword;
     LinearLayout llLogIn;
     TextInputEditText tiedtEmail, tiedtPassword; //IMPORTANT: PASSWORD must have at least 6 chars
     Button btnSignUp,btnLogIn;
     ProgressBar progressBar;
+    TextView tvForgotPass;
+
     FirebaseAuth mFireBaseAuth = UserSignUp.getInstance().getmFireBaseAuth();
     private FirebaseAuth.AuthStateListener mAuthStateListener;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -42,33 +45,67 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         setupView();
 
-        btnSignUp.setOnClickListener(this);
-        btnLogIn.setOnClickListener(this);
+        btnSignUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent toSignUp = new Intent(LoginActivity.this,SignUpActivity.class);
+                startActivity(toSignUp);
+                finish();
+            }
+        });
+        btnLogIn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showProgessbar();
+                logIn(v);
+            }
+        });
+        tvForgotPass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(LoginActivity.this,ForgotPasswordActivity.class));
+            }
+        });
     }
     @Override
     protected void onStart()
     {
         super.onStart();
         //Check whether there exist user logged in
+        checkUserExistence();
+
+    }
+    private void checkUserExistence()
+    {
         showProgessbar();
         mAuthStateListener = new FirebaseAuth.AuthStateListener(){
             @Override
-        public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-            FirebaseUser mFirebaseUser = mFireBaseAuth.getCurrentUser();
-            if (mFirebaseUser != null )
-            {
-                CurrentUser.userID=mFirebaseUser.getUid();
-                db.collection("Users").document(CurrentUser.userID).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                        if (task.isSuccessful()) {
-                            DocumentSnapshot document = task.getResult();
-                            if (document.exists()) {
-                                String name = document.getData().get("name").toString().trim();
-                                CurrentUser.userName=name;
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser mFirebaseUser = mFireBaseAuth.getCurrentUser();
+                if (mFirebaseUser != null )
+                {
+                    CurrentUser.userID=mFirebaseUser.getUid();
+                    db.collection("Users").document(CurrentUser.userID).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                            if (task.isSuccessful()) {
+                                DocumentSnapshot document = task.getResult();
+                                if (document.exists()) {
+                                    String name = document.getData().get("name").toString().trim();
+                                    CurrentUser.userName=name;
 //                                Toast.makeText(LoginActivity.this,"You have already logged in!",Toast.LENGTH_SHORT).show();
-                                startActivity(new Intent(LoginActivity.this, LoginFeeling.class));
-                                finish();
+                                    if (CurrentUser.openFeeling)
+                                    {
+                                        startActivity(new Intent(LoginActivity.this, LoginFeeling.class));
+                                        CurrentUser.openFeeling=false;
+                                    }
+                                    finish();
+                                }
+                                else
+                                {
+                                    Toast.makeText(LoginActivity.this,"Error!",Toast.LENGTH_SHORT).show();
+                                    hideProgressbar();
+                                }
                             }
                             else
                             {
@@ -76,21 +113,15 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                 hideProgressbar();
                             }
                         }
-                        else
-                        {
-                            Toast.makeText(LoginActivity.this,"Error!",Toast.LENGTH_SHORT).show();
-                            hideProgressbar();
-                        }
-                    }
-                });
+                    });
 
-            }
-            else
-            {
-                hideProgressbar();
-                //Toast.makeText(LogInScreen.this,"Please login",Toast.LENGTH_SHORT).show();
-            }
-        }};
+                }
+                else
+                {
+                    hideProgressbar();
+                    //Toast.makeText(LogInScreen.this,"Please login",Toast.LENGTH_SHORT).show();
+                }
+            }};
         mFireBaseAuth.addAuthStateListener(mAuthStateListener);
     }
     private void setupView() {
@@ -102,6 +133,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         btnLogIn=findViewById(R.id.btnLogIn_logIn);
         progressBar = findViewById(R.id.prg_login);
         llLogIn = findViewById(R.id.ly_logIn);
+        tvForgotPass = findViewById(R.id.tv_forgotPassword);
     }
     private void showProgessbar()
     {
@@ -168,8 +200,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                         String name = document.getData().get("name").toString().trim();
                                         CurrentUser.userName=name;
                                         Toast.makeText(LoginActivity.this,"Login successful!",Toast.LENGTH_SHORT).show();
-                                        Intent intent = new Intent(LoginActivity.this,LoginFeeling.class);
-                                        startActivity(intent);
+                                        if (CurrentUser.openFeeling)
+                                        {
+                                            Intent intent = new Intent(LoginActivity.this,LoginFeeling.class);
+                                            CurrentUser.openFeeling=false;
+                                            startActivity(intent);
+                                        }
                                         finish();
                                     }
                                     else
@@ -196,20 +232,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }
     }
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.btnSignUp_logIn:
-                Intent toSignUp = new Intent(LoginActivity.this,SignUpActivity.class);
-                startActivity(toSignUp);
-                finish();
-                break;
-            case R.id.btnLogIn_logIn:
-                showProgessbar();
-                logIn(v);
-                break;
-        }
-    }
+
 
 
 }

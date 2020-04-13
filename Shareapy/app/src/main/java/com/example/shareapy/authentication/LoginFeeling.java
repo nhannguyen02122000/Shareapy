@@ -42,6 +42,7 @@ public class LoginFeeling extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (CurrentUser.openFeeling=false) finish();
         setContentView(R.layout.activity_login_feeling);
         setupView();
 
@@ -102,6 +103,7 @@ public class LoginFeeling extends AppCompatActivity {
                     userFeeling.put(currentDateandTime,rate);
 
                     db.collection("Users").document(uid).collection("Feelings").document("DateFeeling").set(userFeeling, SetOptions.merge());
+                    CurrentUser.openFeeling=true;
                     startActivity(new Intent(LoginFeeling.this, Home.class));
                     finish();
                 }

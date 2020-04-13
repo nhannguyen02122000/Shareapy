@@ -29,6 +29,9 @@
     <string name="btn_repost">REPOST</string>
     <string name="yes">YES</string>
     <string name="no">NO</string>
+    <string name="send">SEND</string>
+    <string name="forgotpass">Forgot Password</string>
+    <string name="askEmail">Please input your email for us to send you link for retrieving you password</string>
     <string name="card_view_img_content">mark</string>
     <string name="card_view_btn_register">Register</string>
     <string name="card_view_btn_join">Join</string>
