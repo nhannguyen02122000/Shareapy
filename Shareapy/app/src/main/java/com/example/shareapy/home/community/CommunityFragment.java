@@ -63,7 +63,7 @@ public class CommunityFragment extends Fragment {
                 userPost.clear();
                 publicPost.clear();
                 getData();
-                swplayout.setRefreshing(false);
+
             }
         });
 
@@ -125,11 +125,15 @@ public class CommunityFragment extends Fragment {
                                         FragmentCommunityYourPosts.yourpostAdapter.notifyDataSetChanged();
                                         FragmentCommunityCommunity.adapterCommunityPost.setItem(publicPost);
                                         FragmentCommunityCommunity.adapterCommunityPost.notifyDataSetChanged();
+
+                                        swplayout.setRefreshing(false);
                                     }
                                     else
                                     {
                                         progressBar.setVisibility(View.INVISIBLE);
                                         Log.e("hello", "Error getting documents: ", task.getException());
+
+                                        swplayout.setRefreshing(false);
                                     }
                                 }
                             });
@@ -138,6 +142,8 @@ public class CommunityFragment extends Fragment {
                 {
                     progressBar.setVisibility(View.INVISIBLE);
                     Log.e("hello", "Error getting documents: ", task.getException());
+
+                    swplayout.setRefreshing(false);
                 }
             }
         });

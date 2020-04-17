@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.shareapy">
-
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <application
         android:allowBackup="true"
         android:icon="@drawable/logo_mini"
@@ -9,22 +13,23 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".authentication.ForgotPasswordActivity"></activity>
-        <activity android:name=".home.community.CommunityEditPostActivity" />
-        <activity android:name=".home.community.CommunityNewPostActivity" />
-        <activity android:name=".authentication.SignUpActivity" />
-        <activity android:name=".authentication.SignUpSlides" />
-        <activity android:name=".authentication.LoginFeeling" />
-        <activity android:name=".authentication.LoginActivity" />
-        <activity android:name=".home.Home" />
-        <activity android:name=".authentication.SplashScreen">
+        <activity android:name=".authentication.ForgotPasswordActivity" android:screenOrientation="portrait"></activity>
+        <activity android:name=".home.community.CommunityEditPostActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".home.community.CommunityNewPostActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".authentication.SignUpActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".authentication.SignUpSlides" android:screenOrientation="portrait"/>
+        <activity android:name=".authentication.LoginFeeling" android:screenOrientation="portrait"/>
+        <activity android:name=".authentication.LoginActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".home.Home" android:screenOrientation="portrait"/>
+        <activity android:name=".home.MainActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".authentication.SplashScreen" android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".home.MainActivity" />
+
     </application>
 
 </manifest>
