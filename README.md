@@ -10,6 +10,9 @@ The app must be installed on an Android device with an Android version **no smal
 * After that, make sure your device allows app from outside the Playstore to be installed.
 * Install the app, and enjoy!
 
+## For admin to add activity
+[WEBBase Admin](https://github.com/huynguyengl99/GGsolution)
+
 ### First use
 If you are a new user to our app, you have to sign up for an account (it's free!). There are a few steps in our signup. When creating your account, it is a must that your password is **at least 6 characters**. Additionally, you have to provide a little bit of information about yourself to complete the signup.
 
