@@ -22,7 +22,7 @@ Whenever turning back to our app, you will see a screen to feedback how is your 
 Home screen is where you can find your favourite activities to take part in. There are two places that you can find them.
 * The category: The activities are sorted by category, you can click on the category to view which activity is included.
 * The calendar: The activities are sorted by date. The date on calendar that has green dot underneath is the one that has activities. Clicking on that date and swipe left or right to see all of the activities.
-![Home](https://github.com/nhannguyen02122000/image/blob/master/home.jpg= 250x400)
+![Home](https://github.com/nhannguyen02122000/image/blob/master/home.jpg= 80x200)
 ![Category](https://github.com/nhannguyen02122000/image/blob/master/category.jpg= 250x400)
 ![Calendar](https://github.com/nhannguyen02122000/image/blob/master/calendar_activity.jpg= 250x400)
 ##### Register for an activity
