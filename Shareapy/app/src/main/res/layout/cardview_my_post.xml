@@ -12,6 +12,7 @@
         android:textSize="20sp"
         android:textStyle="bold"
         android:layout_marginStart="15dp"
+        android:textColor="#000000"
         android:layout_marginTop="15dp"
         android:layout_marginEnd="20dp"
         android:layout_width="match_parent"
@@ -39,15 +40,17 @@
             android:layout_height="24dp"
             android:layout_marginStart="5dp"
             android:scaleType="fitXY" />
+
         <ImageView
-            android:layout_gravity="center_vertical"
-            android:contentDescription="@string/img_title_support"
-            android:src="@drawable/ic_appreciate_chosen"
             android:layout_width="24dp"
-            android:layout_marginStart="30dp"
             android:layout_height="24dp"
-            android:scaleType="fitXY" />
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="30dp"
+            android:contentDescription="@string/img_title_support"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_support_chosen" />
         <TextView
+            android:id="@+id/tvNoSupport"
             android:textSize="20sp"
             android:text="0"
             android:layout_width="wrap_content"
@@ -56,12 +59,13 @@
         <ImageView
             android:layout_gravity="center_vertical"
             android:contentDescription="@string/img_title_appreciate"
-            android:src="@drawable/ic_support_chosen"
+            android:src="@drawable/ic_appreciate_chosen"
             android:layout_marginStart="30dp"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:scaleType="fitXY" />
         <TextView
+            android:id="@+id/tvNoAppreciate"
             android:textSize="20sp"
             android:text="0"
             android:layout_width="wrap_content"
@@ -69,12 +73,13 @@
 
     </LinearLayout>
     <Button
-        android:id="@+id/btnCardRegister"
+        android:id="@+id/btnCardEdit"
         android:paddingStart="20dp"
         android:paddingEnd="20dp"
         android:textAllCaps="false"
         android:layout_marginTop="10dp"
-        android:background="@drawable/custom_button_cardview"
+        android:textColor="#FFFFFF"
+        android:background="@drawable/custom_button_cardview_for_community"
         android:text="@string/button_edit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

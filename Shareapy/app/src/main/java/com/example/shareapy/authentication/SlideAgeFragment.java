@@ -51,7 +51,7 @@ public class SlideAgeFragment extends Fragment {
 
                 Fragment toReli = new SlideReligiousFragment();
                 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.slide_container,toReli)
-                        .addToBackStack(toReli.getClass().getSimpleName()).commit();
+                        .commit();
             }
         });
 

@@ -6,7 +6,19 @@
     android:layout_height="match_parent"
     tools:context=".authentication.LoginActivity">
 
+    <ProgressBar
+        android:id="@+id/prg_login"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:backgroundTint="#427A5B"
+        android:visibility="invisible"/>
+
     <LinearLayout
+        android:id="@+id/ly_logIn"
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
         android:layout_width="match_parent"
@@ -16,7 +28,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
-
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -24,6 +35,7 @@
             android:textSize="40sp"
             android:textStyle="bold" />
         <TextView
+            android:id="@+id/tv_signIn_Signinto"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="15dp"
@@ -35,7 +47,6 @@
             android:paddingTop="5dp"
             android:paddingBottom="5dp"
             android:layout_width="match_parent"
-            android:hint="@string/email"
             android:importantForAutofill="no"
             android:background="@drawable/custom_edittext_shadow"
             android:layout_height="wrap_content">
@@ -47,7 +58,8 @@
                 android:importantForAutofill="no"
                 android:layout_margin="5dp"
                 android:inputType="textEmailAddress"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                android:hint="@string/email"/>
         </com.google.android.material.textfield.TextInputLayout>
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tilPassword_logIn"
@@ -68,6 +80,7 @@
                 android:hint="@string/password"/>
         </com.google.android.material.textfield.TextInputLayout>
         <TextView
+            android:id="@+id/tv_forgotPassword"
             android:text="@string/login_forgetPassword"
             android:textSize="20sp"
             android:layout_gravity="end"

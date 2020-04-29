@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
@@ -16,6 +17,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.shareapy.R;
+import com.example.shareapy.models.CurrentUser;
 import com.example.shareapy.utils.UserSignUp;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -35,6 +37,7 @@ public class SlideTherapyFragment extends Fragment {
     RadioGroup radioThe;
     RadioButton radioButThe;
     FirebaseAuth mFirebaseAuth;
+    ProgressBar progressBar;
     //DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     private String TAG = this.getClass().getName();
@@ -66,6 +69,10 @@ public class SlideTherapyFragment extends Fragment {
                     userSignUp.setTherapy(radioButThe.getText().toString().trim());
 
                 //SignUp
+                    progressBar.setVisibility(View.VISIBLE);
+                    btnSignUp.setVisibility(View.INVISIBLE);
+                    btnPre.setVisibility(View.INVISIBLE);
+
                     String email = userSignUp.getUserMail();
                     String pass = userSignUp.getPassword();
                     mFirebaseAuth = userSignUp.getmFireBaseAuth();
@@ -74,6 +81,9 @@ public class SlideTherapyFragment extends Fragment {
                         public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (!task.isSuccessful())
                                 {
+                                    progressBar.setVisibility(View.INVISIBLE);
+                                    btnSignUp.setVisibility(View.VISIBLE);
+                                    btnPre.setVisibility(View.VISIBLE);
                                     Toast.makeText(getContext(),"Sign up unsuccessful!",Toast.LENGTH_SHORT).show();
                                     Log.e(TAG,"Error");
                                 }
@@ -83,6 +93,7 @@ public class SlideTherapyFragment extends Fragment {
                                     FirebaseUser user = mFirebaseAuth.getCurrentUser();
                                     createDBUser(user);
                                     startActivity(new Intent(getActivity(), LoginFeeling.class));
+                                    getActivity().finish();
                                 }
                             }
                         });
@@ -116,6 +127,9 @@ public class SlideTherapyFragment extends Fragment {
                 Log.e(TAG, e.getMessage());
             }
         });
+
+        CurrentUser.userName=userSignUp.getUserName();
+        CurrentUser.userID = uid;
         //user.put("name", fbUser.getDisplayName());
 
 //        userRef.setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -135,6 +149,7 @@ public class SlideTherapyFragment extends Fragment {
         btnPre = view.findViewById(R.id.btnPre_therapy);
         btnSignUp = view.findViewById(R.id.btnSignUp_therapy);
         radioThe= view.findViewById(R.id.rdgTherapy);
+        progressBar = view.findViewById(R.id.pgb_signUp);
     }
 
 }

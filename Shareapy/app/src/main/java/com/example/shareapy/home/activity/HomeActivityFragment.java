@@ -5,10 +5,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.shareapy.R;
@@ -36,6 +38,8 @@ import java.util.concurrent.TimeUnit;
 public class HomeActivityFragment extends Fragment {
     private TabLayout tlActivity;
     private ViewPager2 vpActivity;
+    ProgressBar progressBar;
+    SwipeRefreshLayout swpLayout;
     final String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     private ArrayList<ActivityInfo> activitiesHistory = new ArrayList<>();
@@ -48,10 +52,23 @@ public class HomeActivityFragment extends Fragment {
         View view = inflater.inflate(R.layout.home_activity_fragment, container, false);
         tlActivity = view.findViewById(R.id.tlActivity);
         vpActivity = view.findViewById(R.id.vpActivity);
+        progressBar = view.findViewById(R.id.pgb_activity);
+        swpLayout = view.findViewById(R.id.pullRefreshActivity);
         SavedInstance.homeActivity = getActivity();
         setupViewPager();
 //        fakeData();
         getData();
+
+        swpLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                activitiesCurrent.clear();
+                activitiesHistory.clear();
+                activitiesUpcoming.clear();
+                getData();
+                swpLayout.setRefreshing(false);
+            }
+        });
         return view;
     }
 
@@ -77,6 +94,7 @@ public class HomeActivityFragment extends Fragment {
     }
 
     private void getData() {
+        progressBar.setVisibility(View.VISIBLE);
         CollectionReference activityRef = db.collection("ActivityInfos");
         activityRef.whereArrayContains("registerList", userId).get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -114,6 +132,8 @@ public class HomeActivityFragment extends Fragment {
 
                                 }
                             });
+
+                            progressBar.setVisibility(View.INVISIBLE);
                             FragmentActivityHistory.historyAdapter.setItem(activitiesHistory);
                             FragmentActivityHistory.historyAdapter.notifyDataSetChanged();
                             FragmentActivityUpcoming.upcomingAdapter.setItem(activitiesUpcoming);
@@ -122,6 +142,7 @@ public class HomeActivityFragment extends Fragment {
                             FragmentActivityCurrent.currentAdapter.notifyDataSetChanged();
                         } else {
                             Log.e("hello", "Error getting documents: ", task.getException());
+                            progressBar.setVisibility(View.INVISIBLE);
                         }
                     }
                 });

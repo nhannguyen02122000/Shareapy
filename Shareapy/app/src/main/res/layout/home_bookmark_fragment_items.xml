@@ -26,7 +26,7 @@
             android:layout_marginRight="5dp"
             android:background="@drawable/toggle_button_bookmark" />
         <TextView
-            android:layout_width="320dp"
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:text="Stress Management"
             android:id="@+id/tv_activeName_bookmark"

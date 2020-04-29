@@ -11,6 +11,7 @@
     <string name="login_buttonSignUp">Sign up</string>
     <string name="error_emptyFiled">This field can not be empty</string>
     <string name="error_differentString">Confirm password must be the same as Password</string>
+    <string name="min_pass_requirement">Password must be at least 6 characters</string>
     <string name="signup_guide">Sign up</string>
     <string name="signup_login">Log in now</string>
     <string name="signup_ask_gender">What is your gender?</string>
@@ -26,8 +27,12 @@
     <string name="signup_button_next">Next</string>
     <string name="login_ask_feeling">How are you feeling?</string>
     <string name="age">Age</string>
+    <string name="btn_repost">REPOST</string>
     <string name="yes">YES</string>
     <string name="no">NO</string>
+    <string name="send">SEND</string>
+    <string name="forgotpass">Forgot Password</string>
+    <string name="askEmail">Please input your email for us to send you the link for retrieving your password</string>
     <string name="card_view_img_content">mark</string>
     <string name="card_view_btn_register">Register</string>
     <string name="card_view_btn_join">Join</string>
@@ -45,6 +50,8 @@
     <string name="button_edit">Edit</string>
     <string name="button_support">Support</string>
     <string name="button_appreciate">Appreciate</string>
+    <string name="button_supported">Supported</string>
+    <string name="button_appreciated">Appreciated</string>
     <string name="img_title_privacy">Privacy</string>
     <string name="img_title_support">Support</string>
     <string name="img_title_appreciate">Appreciate</string>

@@ -8,11 +8,13 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.shareapy.R;
 import com.example.shareapy.home.Home;
+import com.example.shareapy.models.CurrentUser;
 import com.example.shareapy.utils.UserSignUp;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -30,34 +32,36 @@ import java.util.HashMap;
 
 public class LoginFeeling extends AppCompatActivity {
     Button btnNext;
-    TextView tvHello;
+    TextView tvHello,tvASK;
     SmileRating smileRating;
     UserSignUp userSignUp;
     String rate ;
+    ProgressBar progressBar;
     FirebaseAuth mFirebaseAuth;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (CurrentUser.openFeeling=false) finish();
         setContentView(R.layout.activity_login_feeling);
         setupView();
 
 
         FirebaseUser fbUser = mFirebaseAuth.getCurrentUser();
         String uid = fbUser.getUid();
-        db.collection("Users").document(uid).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()) {
-                    DocumentSnapshot document = task.getResult();
-                    if (document.exists()) {
-                        Log.d("TAG", "DocumentSnapshot data: " + document.getData());
-                        String name = document.getData().get("name").toString().trim();
-                        tvHello.setText("Hello, "+name);
-                    }
-                }
-            }
-        });
+//        db.collection("Users").document(uid).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+//            @Override
+//            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+//                if (task.isSuccessful()) {
+//                    DocumentSnapshot document = task.getResult();
+//                    if (document.exists()) {
+//                        Log.d("TAG", "DocumentSnapshot data: " + document.getData());
+//                        String name = document.getData().get("name").toString().trim();
+//                        tvHello.setText("Hello, "+name);
+//                    }
+//                }
+//            }
+//        });
 
         smileRating.setOnSmileySelectionListener(new SmileRating.OnSmileySelectionListener() {
             @Override
@@ -88,6 +92,7 @@ public class LoginFeeling extends AppCompatActivity {
                     Toast.makeText(LoginFeeling.this,"Please make your choice",Toast.LENGTH_SHORT).show();
                 else
                 {
+                    showProgressbar();
                     SimpleDateFormat sdf = new SimpleDateFormat("h:mm a dd-MM-yyyy");
                     String currentDateandTime = sdf.format(new Date());
 
@@ -98,7 +103,9 @@ public class LoginFeeling extends AppCompatActivity {
                     userFeeling.put(currentDateandTime,rate);
 
                     db.collection("Users").document(uid).collection("Feelings").document("DateFeeling").set(userFeeling, SetOptions.merge());
+                    CurrentUser.openFeeling=true;
                     startActivity(new Intent(LoginFeeling.this, Home.class));
+                    finish();
                 }
             }
         });
@@ -111,5 +118,23 @@ public class LoginFeeling extends AppCompatActivity {
         btnNext = findViewById(R.id.btnNext_logIn_ask);
         smileRating = findViewById(R.id.smile_rating);
         tvHello = findViewById(R.id.tv_login_hello);
+        tvASK = findViewById(R.id.tv_logIn_ask);
+        progressBar = findViewById(R.id.pgb_Feeling);
+
+        tvHello.setText("Hello, "+ CurrentUser.userName);
+    }
+    private void hideProgressBar()
+    {
+        progressBar.setVisibility(View.INVISIBLE);
+        tvASK.setVisibility(View.VISIBLE);
+        smileRating.setVisibility(View.VISIBLE);
+        btnNext.setVisibility(View.VISIBLE);
+    }
+    private void showProgressbar()
+    {
+        progressBar.setVisibility(View.VISIBLE);
+        tvASK.setVisibility(View.INVISIBLE);
+        smileRating.setVisibility(View.INVISIBLE);
+        btnNext.setVisibility(View.INVISIBLE);
     }
 }

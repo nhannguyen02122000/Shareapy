@@ -41,7 +41,7 @@ public class AdapterViewpagerActivity extends FragmentStateAdapter {
     public String getTitle(int position){
         switch (position){
             case 0: return "History";
-            case 1: return "Current";
+            case 1: return "Ongoing";
             case 2: return "Upcoming";
             default: return "Undefined";
         }

@@ -53,7 +53,7 @@ public class SlideGenderFragment extends Fragment {
 
                 Fragment toAge = new SlideAgeFragment();
                 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.slide_container,toAge)
-                        .addToBackStack(toAge.getClass().getSimpleName()).commit();
+                        .commit();
             }
         });
 

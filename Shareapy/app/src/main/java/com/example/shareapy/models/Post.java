@@ -5,6 +5,7 @@ import java.util.Date;
 
 public class Post {
     private String id;
+    private String userID,userName;
     private String content;
     private Date time;
     private boolean isPublic;
@@ -12,6 +13,16 @@ public class Post {
     private ArrayList<String> appreciateList;
 
     public Post() {
+        userName="";
+        id="";
+        content="";
+        userID = "";
+        time = new Date();
+        isPublic=true;
+        ArrayList<String> supportList = new ArrayList<>();
+        ArrayList<String> appreciateList = new ArrayList<>();
+        this.supportList = supportList;
+        this.appreciateList = appreciateList;
     }
 
     public Post(String content){
@@ -24,6 +35,18 @@ public class Post {
         this.supportList = supportList;
         this.appreciateList = appreciateList;
     }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getUserID() {return userID;}
+
+    public void setUserID(String userID) {this.userID = userID;}
 
     public String getId() {
         return id;

@@ -48,7 +48,7 @@ public class SlideSpiritualFragment extends Fragment {
 
                 Fragment toTherapy = new SlideTherapyFragment();
                 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.slide_container,toTherapy)
-                        .addToBackStack(toTherapy.getClass().getSimpleName()).commit();
+                        .commit();
             }
         });
         return view;

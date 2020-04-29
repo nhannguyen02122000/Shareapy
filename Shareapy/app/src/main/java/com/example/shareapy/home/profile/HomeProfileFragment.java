@@ -14,7 +14,9 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.shareapy.R;
+import com.example.shareapy.authentication.ForgotPasswordActivity;
 import com.example.shareapy.authentication.LoginActivity;
+import com.example.shareapy.models.CurrentUser;
 import com.example.shareapy.utils.UserSignUp;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -23,48 +25,61 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-public class HomeProfileFragment extends Fragment {
+import java.util.Random;
+
+public class HomeProfileFragment extends Fragment implements View.OnClickListener {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     Button btn_signOut;
-    TextView tv_logOut,tvUserName;
+    TextView tv_logOut,tvUserName,tvChangePass,tvUserID;
     FirebaseAuth mFirebaseAuth;
-    private FirebaseAuth.AuthStateListener mAuthStateListener;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.home_profile_fragment,container,false);
+        setUpViews(view);
+        tv_logOut.setOnClickListener(this);
+        tvChangePass.setOnClickListener(this);
+
+        return view;
+    }
+
+    private void setUpViews(View view)
+    {
         mFirebaseAuth = UserSignUp.getInstance().getmFireBaseAuth();
         tv_logOut = view.findViewById(R.id.tv_logOut_home_profile);
-        tv_logOut.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        tvUserName = view.findViewById(R.id.tvUserName);
+        tvChangePass = view.findViewById(R.id.tv_changePass_Profile);
+        tvUserID=view.findViewById(R.id.tvUserID);
+
+        tvUserName.setText(CurrentUser.userName);
+        tvUserID.setText(generateText());
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId())
+        {
+            case R.id.tv_logOut_home_profile:
                 FirebaseAuth.getInstance().signOut();
                 Intent toLogin = new Intent(getActivity(), LoginActivity.class);
                 startActivity(toLogin);
                 getActivity().finish();
-            }
-        });
-        tvUserName = view.findViewById(R.id.tvUserName);
-        FirebaseUser fbUser = mFirebaseAuth.getCurrentUser();
-        String uid = fbUser.getUid();
-        db.collection("Users").document(uid).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()) {
-                    DocumentSnapshot document = task.getResult();
-                    if (document.exists()) {
-                        Log.d("TAG", "DocumentSnapshot data: " + document.getData());
-                        String name = document.getData().get("name").toString().trim();
-                        tvUserName.setText(name);
-                    } else {
-                        Log.d("TAG", "No such document");
-                    }
-                } else {
-                    Log.d("TAG", "get failed with ", task.getException());
-                }
-            }
-        });
-        return view;
+                break;
+            case R.id.tv_changePass_Profile:
+                startActivity(new Intent(getActivity(), ForgotPasswordActivity.class));
+                break;
+        }
+
     }
 
+    private String generateText()
+    {
+        Random rand = new Random();
+        int rand_int = rand.nextInt(1000);
+        if (rand_int%3==0)
+            return ":) Have a nice day!";
+        if (rand_int%3==1)
+            return ";) Everything will be OK";
+        return "The only impossible thing is impossibility";
+    }
 }
