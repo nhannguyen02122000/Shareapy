@@ -1,5 +1,5 @@
 # SHAREAPY
-![Logo](https://github.com/nhannguyen02122000/image/blob/master/logo.png)
+![Logo](https://github.com/nhannguyen02122000/image/blob/master/logo.png = 250x250)
 ## About our app
 Shareapy - a digitized support group. Shareapy simply brings people who share the same problem together in a spirit of listening and sharing, regardless of age, gender, religion, occupation, region, geographic location, financial status, etc. Along with that is a one-way interactive community where people can release emotions, stress, privately or publicly without fear of shame or discrimination.
 ### Prerequisite
@@ -22,9 +22,9 @@ Whenever turning back to our app, you will see a screen to feedback how is your 
 Home screen is where you can find your favourite activities to take part in. There are two places that you can find them.
 * The category: The activities are sorted by category, you can click on the category to view which activity is included.
 * The calendar: The activities are sorted by date. The date on calendar that has green dot underneath is the one that has activities. Clicking on that date and swipe left or right to see all of the activities.
-![Home](https://github.com/nhannguyen02122000/image/blob/master/home.jpg)
-![Category](https://github.com/nhannguyen02122000/image/blob/master/category.jpg)
-![Calendar](https://github.com/nhannguyen02122000/image/blob/master/calendar_activity.jpg)
+![Home](https://github.com/nhannguyen02122000/image/blob/master/home.jpg= 250x400)
+![Category](https://github.com/nhannguyen02122000/image/blob/master/category.jpg= 250x400)
+![Calendar](https://github.com/nhannguyen02122000/image/blob/master/calendar_activity.jpg= 250x400)
 ##### Register for an activity
 You can choose your interested activity whether by the Category or the Calendar. If you want to be part of that activity, simply click on *Register button*. You can just register for the activity that not yet to occur.
 ##### Join an activity that you registered
