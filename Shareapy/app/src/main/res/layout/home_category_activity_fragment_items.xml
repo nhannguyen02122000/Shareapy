@@ -15,25 +15,28 @@
             android:layout_width="match_parent"
             android:layout_height="160dp"
             android:background="@drawable/custom_cardview_category_gradient">
+
         <ToggleButton
             android:id="@+id/tgbtn_bookmark"
-            android:textOn=""
-            android:textOff=""
             android:layout_width="30dp"
             android:layout_height="30dp"
+            android:layout_alignRight="@+id/tv_activeName"
             android:layout_alignParentTop="true"
             android:layout_alignParentRight="true"
             android:layout_marginRight="5dp"
-            android:background="@drawable/toggle_button_bookmark" />
-            <TextView
-                android:layout_width="320dp"
-                android:layout_height="wrap_content"
-                android:text="Stress Management"
-                android:id="@+id/tv_activeName"
-                android:textSize="20dp"
-                android:textStyle="bold"
-                android:textColor="#FFFFFF"
-                />
+            android:background="@drawable/toggle_button_bookmark"
+            android:textOff=""
+            android:textOn="" />
+
+        <TextView
+            android:id="@+id/tv_activeName"
+            android:layout_width="315dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:text="Stress Management"
+            android:textColor="#FFFFFF"
+            android:textSize="20dp"
+            android:textStyle="bold" />
             <TextView
                 android:layout_marginTop="5dp"
                 android:id="@+id/tv_date_cate"

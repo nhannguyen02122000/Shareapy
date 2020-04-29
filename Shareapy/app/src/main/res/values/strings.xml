@@ -11,6 +11,7 @@
     <string name="login_buttonSignUp">Sign up</string>
     <string name="error_emptyFiled">This field can not be empty</string>
     <string name="error_differentString">Confirm password must be the same as Password</string>
+    <string name="min_pass_requirement">Password must be at least 6 characters</string>
     <string name="signup_guide">Sign up</string>
     <string name="signup_login">Log in now</string>
     <string name="signup_ask_gender">What is your gender?</string>

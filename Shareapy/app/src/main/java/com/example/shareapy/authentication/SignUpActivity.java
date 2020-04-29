@@ -83,10 +83,17 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         if (!validateInput(tilEmail,tiedtEmail)) return;
         else if (!validateInput(tilPassword,tiedtPassword)) return;
         else if (!validateInput(tilRePass,tiedtRePass)) return;
+        else if (pass.length()<6)
+        {
+            tilPassword.setError(getString(R.string.min_pass_requirement));
+            requestFocus(tiedtPassword);
+            return;
+        }
         else if (!equalStr)
         {
             tilRePass.setError(getString(R.string.error_differentString));
             requestFocus(tiedtRePass);
+            return;
         }
         else if (equalStr)
         {
