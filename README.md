@@ -1,5 +1,5 @@
 # SHAREAPY
-![Logo](https://github.com/nhannguyen02122000/image/blob/master/logo.png = 250x250)
+
 ## About our app
 Shareapy - a digitized support group. Shareapy simply brings people who share the same problem together in a spirit of listening and sharing, regardless of age, gender, religion, occupation, region, geographic location, financial status, etc. Along with that is a one-way interactive community where people can release emotions, stress, privately or publicly without fear of shame or discrimination.
 ### Prerequisite
