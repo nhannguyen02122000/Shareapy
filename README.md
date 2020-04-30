@@ -6,7 +6,7 @@ Shareapy - a digitized support group. Shareapy simply brings people who share th
 The app must be installed on an Android device with an Android version **no smaller than 5.0 (Lollipop)**
 
 ### Installing
-* First of all, you have to download our *Shareapy.apk* to your device.
+* First of all, you have to download our *Shareapy.apk* (Or app-release.apk) to your device. [APP](https://github.com/nhannguyen02122000/Shareapy/blob/master/Shareapy/app/release/app-release.apk) - You can find it in our Shareapy -> app -> release folder.
 * After that, make sure your device allows app from outside the Playstore to be installed.
 * Install the app, and enjoy!
 
